@@ -1,0 +1,10 @@
+https://huggingface.co/datasets/gsdf/EasyNegative/resolve/main/EasyNegative.safetensors
+https://huggingface.co/gsdf/Counterfeit-V3.0/resolve/main/embedding/EasyNegativeV2.safetensors
+https://civitai.com/api/download/models/230261?type=Model&format=SafeTensor&token=
+https://huggingface.co/Kajise/bad-hands/resolve/main/bad-hands-5.safetensors
+https://huggingface.co/datasets/Nerfgun3/bad_prompt/resolve/main/bad_prompt_version2.pt
+https://huggingface.co/nick-x-hacker/bad-artist/resolve/main/bad-artist-anime.pt
+https://huggingface.co/nick-x-hacker/bad-artist/resolve/main/bad-artist.pt
+https://civitai.com/api/download/models/5637?token=
+https://civitai.com/api/download/models/25820?token=
+https://civitai.com/api/download/models/95611?token=

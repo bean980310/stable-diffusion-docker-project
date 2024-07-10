@@ -1,0 +1,3 @@
+https://civitai.com/api/download/models/290640?type=Model&format=SafeTensor&size=pruned&fp=fp16&token=
+https://civitai.com/api/download/models/324619?token=
+https://civitai.com/api/download/models/441236?token=

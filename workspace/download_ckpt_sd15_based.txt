@@ -1,0 +1,9 @@
+https://civitai.com/api/download/models/34373?token=
+https://civitai.com/api/download/models/30163?token=
+https://civitai.com/api/download/models/90854?token=
+https://huggingface.co/WarriorMama777/OrangeMixs/resolve/main/Models/AbyssOrangeMix3/AOM3A1B_orangemixs.safetensors
+https://huggingface.co/gsdf/Counterfeit-V3.0/resolve/main/Counterfeit-V3.0_fp32.safetensors
+https://huggingface.co/gsdf/Counterfeit-V3.0/resolve/main/Counterfeit-V3.0_fp16.safetensors
+https://huggingface.co/gsdf/Counterfeit-V3.0/resolve/main/Counterfeit-V3.0_fix_fp16.safetensors
+https://civitai.com/api/download/models/11745?token=
+https://civitai.com/api/download/models/11732?token=

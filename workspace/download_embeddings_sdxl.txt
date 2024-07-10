@@ -1,0 +1,8 @@
+https://huggingface.co/gsdf/CounterfeitXL/resolve/main/embeddings/negativeXL_A.safetensors
+https://huggingface.co/gsdf/CounterfeitXL/resolve/main/embeddings/negativeXL_B.safetensors
+https://huggingface.co/gsdf/CounterfeitXL/resolve/main/embeddings/negativeXL_C.safetensors
+https://huggingface.co/gsdf/CounterfeitXL/resolve/main/embeddings/negativeXL_D.safetensors
+https://civitai.com/api/download/models/454217?token=
+https://civitai.com/api/download/models/261856?token=
+https://civitai.com/api/download/models/264111?token=
+https://civitai.com/api/download/models/431425?token=

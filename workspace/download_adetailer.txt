@@ -1,0 +1,12 @@
+https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8m.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8n_v2.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov8s.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/face_yolov9c.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8n.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8s.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov9c.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8n-seg.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt

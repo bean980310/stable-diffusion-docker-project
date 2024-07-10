@@ -1,0 +1,4 @@
+https://huggingface.co/Kim2091/AnimeSharp/resolve/main/4x-AnimeSharp.pth
+https://huggingface.co/Kim2091/UltraSharp/resolve/main/4x-UltraSharp.pth
+https://huggingface.co/FacehugmanIII/4x_foolhardy_Remacri/resolve/main/4x_foolhardy_Remacri.pth
+https://huggingface.co/uwg/upscaler/resolve/main/ESRGAN/4x_NMKD-Siax_200k.pth

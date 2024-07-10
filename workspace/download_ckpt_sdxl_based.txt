@@ -1,0 +1,5 @@
+https://civitai.com/api/download/models/384264?token=
+https://huggingface.co/cagliostrolab/animagine-xl-3.1/resolve/main/animagine-xl-3.1.safetensors
+https://civitai.com/api/download/models/412021?token=
+https://civitai.com/api/download/models/546178?token=
+https://huggingface.co/gsdf/CounterfeitXL-V2.0/resolve/main/CounterfeitXL-V2.5.safetensors
