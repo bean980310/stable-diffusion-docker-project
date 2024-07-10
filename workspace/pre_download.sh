@@ -33,10 +33,10 @@ mkdir sd-models/embeddings/SD15
 mkdir sd-models/embeddings/SDXL
 
 echo "Downloading SD 1.5 model"
-wget -P sd-models/Stable-diffusion/SD15 -i ./download_ckpt_sd15.txt
+wget -P sd-models/Stable-diffusion/SD15 -i ./download_link/download_ckpt_sd15.txt
 
 echo "Downloading SD XL model"
-wget -P sd-models/Stable-diffusion/SDXL -i ./download_ckpt_sdxl.txt
+wget -P sd-models/Stable-diffusion/SDXL -i ./download_link/download_ckpt_sdxl.txt
 
 echo "Downloading SD 1.5 VAE"
 wget -P sd-models/VAE/SD15 https://huggingface.co/stabilityai/sd-vae-ft-mse-original/resolve/main/vae-ft-mse-840000-ema-pruned.safetensors
@@ -51,22 +51,22 @@ echo "Downloading SD XL LoRA"
 wget -O sd-models/Lora/SDXL/lcm-lora-sdxl.safetensors https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors
 
 echo "Downloading SD 1.5 embedding"
-wget -P sd-models/embeddings/SD15 -i ./download_embeddings_sd15.txt
+wget -P sd-models/embeddings/SD15 -i ./download_link/download_embeddings_sd15.txt
 
 echo "Downloading SD XL embedding"
-wget -P sd-models/embeddings/SDXL -i ./download_embeddings_sdxl.txt
+wget -P sd-models/embeddings/SDXL -i ./download_link/download_embeddings_sdxl.txt
 
 echo "Downloading Upscaler models"
-wget -P sd-models/ESRGAN -i ./download_esrgan.txt
-wget -P sd-models/RealESRGAN -i ./download_realesrgan.txt
-wget -P sd-models/GFPGAN -i ./download_gfpgan.txt
+wget -P sd-models/ESRGAN -i ./download_link/download_esrgan.txt
+wget -P sd-models/RealESRGAN -i ./download_link/download_realesrgan.txt
+wget -P sd-models/GFPGAN -i ./download_link/download_gfpgan.txt
 
 echo "Downloading adetailer model"
-wget -P sd-models/adetailer -i ./download_adetailer.txt
+wget -P sd-models/adetailer -i ./download_link/download_adetailer.txt
 
 echo "Downloading Segment Anything model"
-wget -P sd-models/sam -i ./download_sam.txt
-wget -P sd-models/sam -i ./download_sam_hq.txt
+wget -P sd-models/sam -i ./download_link/download_sam.txt
+wget -P sd-models/sam -i ./download_link/download_sam_hq.txt
 
 echo "Downloading Clip Vision model"
 wget -O sd-models/clip-interrogator/ViT-L-14_openai.safetensors https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/model.safetensors
