@@ -10,6 +10,7 @@ mkdir sd-models/embeddings
 mkdir sd-models/ESRGAN
 mkdir sd-models/RealESRGAN
 mkdir sd-models/GFPGAN
+mkdir sd-models/LDSR
 mkdir sd-models/adetailer
 mkdir sd-models/sam
 mkdir sd-models/clip-interrogator
@@ -60,6 +61,7 @@ echo "Downloading Upscaler models"
 wget -P sd-models/ESRGAN -i ./download_link/download_esrgan.txt
 wget -P sd-models/RealESRGAN -i ./download_link/download_realesrgan.txt
 wget -P sd-models/GFPGAN -i ./download_link/download_gfpgan.txt
+wget -P sd-models/LDSR --content-disposition -i ./download_link/download_ldsr.txt
 
 echo "Downloading adetailer model"
 wget -P sd-models/adetailer -i ./download_link/download_adetailer.txt
