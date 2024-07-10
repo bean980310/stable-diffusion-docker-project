@@ -11,7 +11,7 @@ services:
               count: all
               capabilities: [gpu]
     volumes:
-      - ~/stable-diffusion-docker-project/workspace/a1111-sdwebui:/workspace/stable-diffusion-webui
+      - ~/stable-diffusion-docker-project/stable-diffusion-docker/a1111-sdwebui:/workspace/stable-diffusion-webui
     ports:
       - "3010:7860"
     environment:
