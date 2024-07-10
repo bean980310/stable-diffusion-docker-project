@@ -2,36 +2,42 @@
 
 mkdir sd-models
 
-mkdir sd-models/Stable-diffusion
-mkdir sd-models/VAE
-mkdir sd-models/ControlNet
-mkdir sd-models/Lora
-mkdir sd-models/embeddings
-mkdir sd-models/ESRGAN
-mkdir sd-models/RealESRGAN
-mkdir sd-models/GFPGAN
-mkdir sd-models/LDSR
+mkdir -vp sd-models/Stable-diffusion \
+    sd-models/Stable-diffusion/SD15 \
+    sd-models/Stable-diffusion/SDXL \
+    sd-models/Stable-diffusion/Pony \
+    sd-models/Stable-diffusion/SD3 \
+    sd-models/Stable-diffusion/upscale
+
+mkdir -vp sd-models/VAE \
+    sd-models/VAE/SD15 \
+    sd-models/VAE/SDXL \
+    sd-models/VAE/SD3
+
+mkdir -vp sd-models/ControlNet \
+    sd-models/ControlNet/SD15 \
+    sd-models/ControlNet/SDXL \
+    sd-models/ControlNet/SD3
+
+mkdir -vp sd-models/Lora \
+    sd-models/Lora/SD15 \
+    sd-models/Lora/SDXL \
+    sd-models/Lora/Pony \
+    sd-models/Lora/SD3
+
+mkdir -vp embeddings \
+    embeddings/SD15 \
+    embeddings/SDXL \
+    embeddings/SD3
+
+mkdir -vp sd-models/ESRGAN \
+    sd-models/RealESRGAN \
+    sd-models/GFPGAN \
+    sd-models/LDSR
+    
 mkdir sd-models/adetailer
 mkdir sd-models/sam
 mkdir sd-models/clip-interrogator
-
-mkdir sd-models/Stable-diffusion/SD15
-mkdir sd-models/Stable-diffusion/SDXL
-mkdir sd-models/Stable-diffusion/Pony
-mkdir sd-models/Stable-diffusion/upscale
-
-mkdir sd-models/VAE/SD15
-mkdir sd-models/VAE/SDXL
-
-mkdir sd-models/ControlNet/SD15
-mkdir sd-models/ControlNet/SDXL
-
-mkdir sd-models/Lora/SD15
-mkdir sd-models/Lora/SDXL
-mkdir sd-models/Lora/Pony
-
-mkdir sd-models/embeddings/SD15
-mkdir sd-models/embeddings/SDXL
 
 echo "Downloading SD 1.5 model"
 wget -P sd-models/Stable-diffusion/SD15 -i ./download_link/download_ckpt_sd15.txt
@@ -52,10 +58,10 @@ echo "Downloading SD XL LoRA"
 wget -O sd-models/Lora/SDXL/lcm-lora-sdxl.safetensors https://huggingface.co/latent-consistency/lcm-lora-sdxl/resolve/main/pytorch_lora_weights.safetensors
 
 echo "Downloading SD 1.5 embedding"
-wget -P sd-models/embeddings/SD15 -i ./download_link/download_embeddings_sd15.txt
+wget -P embeddings/SD15 -i ./download_link/download_embeddings_sd15.txt
 
 echo "Downloading SD XL embedding"
-wget -P sd-models/embeddings/SDXL -i ./download_link/download_embeddings_sdxl.txt
+wget -P embeddings/SDXL -i ./download_link/download_embeddings_sdxl.txt
 
 echo "Downloading Upscaler models"
 wget -P sd-models/ESRGAN -i ./download_link/download_esrgan.txt

@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  stable-diffusion-webui:
+    image: bean980310/stable-diffusion-webui:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ~/stable-diffusion-docker-project/workspace/a1111-sdwebui:/workspace/stable-diffusion-webui
+    ports:
+      - "3010:7860"
+    environment:
+      - CLI_ARGS=--port 7860 --listen --api --xformers --enable-insecure-extension-access --no-half-vae
+    restart: unless-stopped
