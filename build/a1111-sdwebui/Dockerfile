@@ -10,7 +10,7 @@ RUN /install.sh && rm /install.sh
 COPY ../../workspace/stable-diffusion/webui/config.json /stable-diffusion-webui
 COPY ../../workspace/stable-diffusion/webui/webui-user.json /stable-diffusion-webui
 
-RUN rm /start.sh
+# RUN rm /start.sh
 COPY --chmod=755 ./start.sh ./
 
 SHELL ["/bin/bash", "--login", "-c"]

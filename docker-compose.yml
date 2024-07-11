@@ -13,6 +13,8 @@ x-base_service: &base_service
 services:
   stable-diffusion-webui:
     <<: *base_service
+    profiles:
+      - a1111-sdwebui
     image: bean980310/stable-diffusion-webui:latest
     volumes:
       - &models ./stable-diffusion-docker-base/sd-models:/stable-diffusion-webui/models
@@ -25,11 +27,14 @@ services:
       - "3010:7860"
     build:
       context: ./build/a1111-sdwebui
+      dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: 1.9.4
-        BASE_IMAGE: bean980310/ubuntu-docker:1.0.0-cuda-12.1.1-torch2.3.1
+        WEBUI_VERSION: &WEBUI_VERSION v1.9.4
+        BASE_IMAGE: &base bean980310/ubuntu-docker:1.0.2-cuda-12.1.1-torch2.3.1
   kohya_ss:
     <<: *base_service
+    profiles:
+      - kohya_ss
     image: bean980310/kohya-ss:latest
     volumes:
       - *models
@@ -37,8 +42,13 @@ services:
       - ./workspace/comfyui/
     ports:
       - "3020:7860"
+    build:
+      context: ./build/kohya_ss
+      dockerfile: Dockerfile
   comfyui:
     <<: *base_service
+    profiles:
+      - comfyui
     image: bean980310/comfyui:latest
     volumes:
       - *models
@@ -47,3 +57,10 @@ services:
       - ./outputs/ComfyUI:/ComfyUI/output
     ports:
       - "3030:8188"
+    build:
+      context: ./build/comfyui
+      dockerfile: Dockerfile
+      args:
+        WEBUI_VERSION: *WEBUI_VERSION
+        BASE_IMAGE: *base
+        COMFYUI_COMMIT: 8e012043a9d0af3979bbe2cea8dc1ec7768f9d88
