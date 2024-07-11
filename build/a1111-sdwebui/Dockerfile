@@ -1,4 +1,5 @@
-FROM bean980310/ubuntu-docker:1.0.0-cuda-12.1.1-torch2.3.1 AS base
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE} AS base
 
 WORKDIR /
 ARG WEBUI_VERSION
