@@ -6,6 +6,10 @@ variable "WEBUI_VERSION" {
     default = "v1.9.4"
 }
 
+variable "RELEASE" {
+    default = "latest"
+}
+
 group "default" {
     targets=[
         "stable-diffusion-webui",
@@ -22,7 +26,7 @@ target "stable-diffusion-webui" {
         BASE_IMAGE="${BASE_IMAGE}"
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
-    tags=["bean980310/stable-diffusion-webui:latest"]
+    tags=["bean980310/stable-diffusion-webui:${RELEASE}"]
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
@@ -35,7 +39,7 @@ target "kohya_ss" {
         KOHYA_VERSION="v24.1.4"
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
-    tags=["bean980310/kohya-ss:latest"]
+    tags=["bean980310/kohya-ss:${RELEASE}"]
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
@@ -48,7 +52,7 @@ target "comfyui" {
         COMFYUI_COMMIT="8e012043a9d0af3979bbe2cea8dc1ec7768f9d88"
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
-    tags=["bean980310/comfyui:latest"]
+    tags=["bean980310/comfyui:${RELEASE}"]
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
@@ -60,7 +64,7 @@ target "invokeai" {
         INVOKEAI_VERSION="v4.2.4"
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
-    tags=["bean980310/invokeai:latest"]
+    tags=["bean980310/invokeai:${RELEASE}"]
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
