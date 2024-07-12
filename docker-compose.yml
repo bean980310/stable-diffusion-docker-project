@@ -68,3 +68,25 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *base
         COMFYUI_COMMIT: 8e012043a9d0af3979bbe2cea8dc1ec7768f9d88
+  invokeai:
+    <<: *base_service
+    profiles:
+      - invokeai
+    image: bean980310/invokeai:latest
+    volumes:
+      - type: bind
+        source: ./workspace/InvokeAI
+        target: /app/InvokeAI
+        bind:
+          create_host_path: true
+      - ./stable-diffusion-models/sd-models:/app/data/models
+      - ./stable-diffusion-models/embeddings:/app/data/embeddings
+    ports:
+      - "9090:9090"
+    build:
+      context: ./build/invokeai
+      dockerfile: Dockerfile
+      args:
+        WEBUI_VERSION: *WEBUI_VERSION
+        BASE_IMAGE: *BASE_IMAGE
+        INVOKEAI_VERSION: v4.2.4

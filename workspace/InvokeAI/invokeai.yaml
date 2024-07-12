@@ -1,0 +1,7 @@
+# Internal metadata - do not edit:
+schema_version: 4.0.1
+
+# Put user settings here - see https://invoke-ai.github.io/InvokeAI/features/CONFIGURATION/:
+host: 0.0.0.0
+port: 9090
+hashing_algorithm: sha256 # to match a1111

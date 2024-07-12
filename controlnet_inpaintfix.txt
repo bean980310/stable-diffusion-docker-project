@@ -1,0 +1,10 @@
+# Prioritize the Effective Region Mask if provided
+if unit.effective_region_mask is not None:
+    logger.info("Using effective region mask.")
+    mask_pixel = unit.effective_region_mask
+    if mask_pixel.ndim == 3:
+        mask_pixel = mask_pixel[:, :, None]
+    input_image = np.concatenate([input_image[:, :, 0:3], mask_pixel[:, :, :, 0]], axis=2)
+
+assert isinstance(input_image, (np.ndarray, list)), f"Expected np.ndarray or list, but got {type(input_image)}"
+return input_image, resize_mode
