@@ -107,3 +107,10 @@ services:
       - ./stable-diffusion-models/sd-models/ControlNet:/app/Fooocus/models/controlnet
       - ./stable-diffusion-models/sd-models/clip-interrogator:/app/Fooocus/models/clip_vision
       - ./outputs/Fooocus:/app/Fooocus/outputs
+    ports:
+      - "3040:7860"
+    build:
+      context: ./build/fooocus
+      dockerfile: Dockerfile
+      args:
+        FOOOCUS_VERSION: v2.4.3
