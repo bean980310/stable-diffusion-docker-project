@@ -15,7 +15,8 @@ group "default" {
         "stable-diffusion-webui",
         "kohya_ss",
         "comfyui",
-        "invokeai"
+        "invokeai",
+        "fooocus"
     ]
 }
 
@@ -65,6 +66,18 @@ target "invokeai" {
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
     tags=["bean980310/invokeai:${RELEASE}"]
+    platforms=["linux/amd64"]
+    annotations=["org.opencontainers.image.authors=bean980310"]
+}
+target "fooocus" {
+    context="build/fooocus"
+    dockerfile="Dockerfile"
+    args={
+        BASE_IMAGE="${BASE_IMAGE}"
+        FOOOCUS_VERSION="v2.4.3"
+        WEBUI_VERSION="${WEBUI_VERSION}"
+    }
+    tags=["bean980310/fooocus:${RELEASE}"]
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }

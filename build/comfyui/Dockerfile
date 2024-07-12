@@ -23,4 +23,4 @@ RUN export LD_PRELOAD="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)
 
 SHELL ["/bin/bash", "--login", "-c"]
 # CMD [ "/start.sh" ]
-CMD ["python3", "main.py"," --listen", "0.0.0.0", "--port", "8188" ,">" ,"/app/comfyui.log" ,"2>&1" ,"&"]
+CMD ["nohup", "python3", "main.py"," --listen", "0.0.0.0", "--port", "8188" ,">" ,"/app/comfyui.log" ,"2>&1" ,"&"]
