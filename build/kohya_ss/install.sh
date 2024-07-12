@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+# set -e
 
 apt install -y python3-launchpadlib
 RUN apt clean

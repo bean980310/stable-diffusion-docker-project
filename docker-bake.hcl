@@ -20,8 +20,8 @@ group "default" {
 }
 
 target "stable-diffusion-webui" {
-    context="build/a1111-sdwebui"
-    dockerfile="Dockerfile"
+    context="./"
+    dockerfile="Dockerfile.a1111"
     args={
         BASE_IMAGE="${BASE_IMAGE}"
         WEBUI_VERSION="${WEBUI_VERSION}"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+# set -e
 
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
 # and set version
@@ -14,5 +14,5 @@ pip3 install tensorflow[and-cuda]
 
 # Install A1111
 pip3 install -r requirements_versions.txt
-python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
+# python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
 pip3 cache purge
