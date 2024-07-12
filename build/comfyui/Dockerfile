@@ -11,6 +11,7 @@ RUN /install.sh && rm /install.sh
 # COPY ../../workspace/stable-diffusion-webui/webui-user.json /stable-diffusion-webui
 
 ARG COMFYUI_COMMIT
+WORKDIR /app
 
 COPY --chmod=755 ./install.sh ./
 RUN /install.sh && rm /install.sh
