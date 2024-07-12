@@ -20,10 +20,10 @@ RUN /install.sh && rm /install.sh
 ARG KOHYA_VERSION
 WORKDIR /app
 
-COPY --chmod=755 build/kohya_ss/install.sh ./
+COPY --chmod=755 ./install.sh ./
 RUN /install_kohya.sh && rm /install_kohya.sh
 
-COPY kohya_ss/accelerate.yaml ./
+COPY ../../workspace/kohya_ss/accelerate.yaml ./
 
 # RUN rm /start.sh
 COPY --chmod=755 ./start.sh ./
