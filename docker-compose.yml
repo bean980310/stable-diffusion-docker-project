@@ -92,3 +92,18 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         INVOKEAI_VERSION: v4.2.4
+  fooocus:
+    <<: *base_service
+    profiles:
+      - fooocus
+    image: bean980310/fooocus:latest
+    volumes:
+      - ./stable-diffusion-models/sd-models/Stable-diffusion:/app/Fooocus/models/checkpoints
+      - ./stable-diffusion-models/sd-models/Lora:/app/Fooocus/models/loras
+      - ./stable-diffusion-models/embeddings:/app/Fooocus/models/embeddings
+      - ./stable-diffusion-models/sd-models/vae_approx:/app/Fooocus/models/vae_approx
+      - ./stable-diffusion-models/sd-models/ESRGAN:/app/Fooocus/models/upscale_models
+      - ./stable-diffusion-models/sd-models/RealESRGAN:/app/Fooocus/models/upscale_models
+      - ./stable-diffusion-models/sd-models/ControlNet:/app/Fooocus/models/controlnet
+      - ./stable-diffusion-models/sd-models/clip-interrogator:/app/Fooocus/models/clip_vision
+      - ./outputs/Fooocus:/app/Fooocus/outputs
