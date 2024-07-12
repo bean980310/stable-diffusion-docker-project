@@ -14,7 +14,7 @@ services:
   stable-diffusion-webui:
     <<: *base_service
     profiles:
-      - a1111-sdwebui
+      - stable-diffusion-webui
     image: bean980310/stable-diffusion-webui:latest
     volumes:
       - &models ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui/models
