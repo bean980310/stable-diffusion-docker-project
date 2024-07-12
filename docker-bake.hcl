@@ -1,5 +1,5 @@
-{
-  "group": {
+
+"group": {
     "default": {
       "targets": [
         "comfyui",
@@ -57,5 +57,4 @@
         "bean980310/stable-diffusion-webui:latest"
       ]
     }
-  }
 }
