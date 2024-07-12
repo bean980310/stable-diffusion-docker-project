@@ -17,12 +17,12 @@ services:
       - a1111-sdwebui
     image: bean980310/stable-diffusion-webui:latest
     volumes:
-      - &models ./stable-diffusion-docker-base/sd-models:/stable-diffusion-webui/models
-      - &embeddings ./stable-diffusion-docker-base/embeddings:/stable-diffusion-webui/embeddings
-      - ./workspace/stable-diffusion-webui/extensions:/stable-diffusion-webui/extensions
-      - ./workspace/stable-diffusion-webui/webui-user.sh:/stable-diffusion-webui/webui-user.sh
-      - ./workspace/stable-diffusion-webui/config.json:/stable-diffusion-webui/config.json
-      - ./outputs/stable-diffusion-webui:/stable-diffusion-webui/outputs
+      - &models ./stable-diffusion-docker-base/sd-models:/app/stable-diffusion-webui/models
+      - &embeddings ./stable-diffusion-docker-base/embeddings:/app/stable-diffusion-webui/embeddings
+      - ./workspace/stable-diffusion-webui/extensions:/app/stable-diffusion-webui/extensions
+      - ./workspace/stable-diffusion-webui/webui-user.sh:/app/stable-diffusion-webui/webui-user.sh
+      - ./workspace/stable-diffusion-webui/config.json:/app/stable-diffusion-webui/config.json
+      - ./outputs/stable-diffusion-webui:/app/stable-diffusion-webui/outputs
     ports:
       - "3010:7860"
     build:
@@ -53,8 +53,8 @@ services:
     volumes:
       - *models
       - *embeddings
-      - ./workspace/ComfyUI/custom_nodes:/ComfyUI/custom_nodes
-      - ./outputs/ComfyUI:/ComfyUI/output
+      - ./workspace/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
+      - ./outputs/ComfyUI:/app/ComfyUI/output
     ports:
       - "3030:8188"
     build:

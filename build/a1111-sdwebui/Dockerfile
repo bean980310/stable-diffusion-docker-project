@@ -1,7 +1,7 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS base
 
-WORKDIR /
+WORKDIR /app
 ARG WEBUI_VERSION
 
 COPY --chmod=755 ./install.sh ./
