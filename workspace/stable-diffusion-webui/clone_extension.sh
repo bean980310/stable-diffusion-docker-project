@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+mkdir ./extensions
+
 git clone https://github.com/d8ahazard/sd_dreambooth_extension.git extensions/sd_dreambooth_extension
 git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet
 git clone --depth=1 https://github.com/deforum-art/sd-webui-deforum.git extensions/deforum
