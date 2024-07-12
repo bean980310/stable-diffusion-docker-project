@@ -58,6 +58,7 @@ services:
       - *models
       - *embeddings
       - ./workspace/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
+      - ./workspace/ComfyUI/extra_model_paths.yaml:/app/ComfyUI/extra_model_paths.yaml
       - ./outputs/ComfyUI:/app/ComfyUI/output
     ports:
       - "3030:8188"
