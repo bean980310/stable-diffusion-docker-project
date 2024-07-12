@@ -14,7 +14,7 @@ RUN pip3 install -r requirements_versions.txt --extra-index-url https://download
     sed '$d' launch.py > setup.py && \
     python3 -m setup
 
-RUN export HF_HOME="/workspace"
+RUN export HF_HOME="/app"
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD ["nohup", "python3", "entry_with_update.py", "--listen", "--port", "7860", ">", "/app/fooocus.log", "2>&1", "&"]
