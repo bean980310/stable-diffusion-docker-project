@@ -17,8 +17,8 @@ services:
       - a1111-sdwebui
     image: bean980310/stable-diffusion-webui:latest
     volumes:
-      - &models ./stable-diffusion-docker-base/sd-models:/app/stable-diffusion-webui/models
-      - &embeddings ./stable-diffusion-docker-base/embeddings:/app/stable-diffusion-webui/embeddings
+      - &models ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui/models
+      - &embeddings ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui/embeddings
       - ./workspace/stable-diffusion-webui/extensions:/app/stable-diffusion-webui/extensions
       - ./workspace/stable-diffusion-webui/webui-user.sh:/app/stable-diffusion-webui/webui-user.sh
       - ./workspace/stable-diffusion-webui/config.json:/app/stable-diffusion-webui/config.json
@@ -37,8 +37,8 @@ services:
       - kohya_ss
     image: bean980310/kohya-ss:latest
     volumes:
-      - ./stable-diffusion-docker-base/sd-models:/app/kohya_ss/models
-      - ./stable-diffusion-docker-base/embeddings:/app/kohya_ss/models/embeddings
+      - ./stable-diffusion-models/sd-models:/app/kohya_ss/models
+      - ./stable-diffusion-models/embeddings:/app/kohya_ss/models/embeddings
       - ./workspace/kohya_ss/accelerate.yaml:/app/accelerate.yaml
     ports:
       - "3020:7860"
