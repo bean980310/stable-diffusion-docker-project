@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-# set -e
+#!/bin/bash
 
 # Create and activate venv
 mkdir /InvokeAI

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 cd /app/kohya_ss
 export HF_HOME="/app"
