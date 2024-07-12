@@ -11,13 +11,25 @@ ARG WEBUI_VERSION
 # COPY ../../workspace/stable-diffusion/webui/webui-user.json /stable-diffusion-webui
 
 ARG INVOKEAI_VERSION
-COPY --chmod=755 ./install.sh ./
-RUN /install.sh && rm /install.sh
+WORKDIR /app/InvokeAI
+# COPY --chmod=755 ./install.sh ./
+# RUN /install.sh && rm /install.sh
+
+RUN pip3 install InvokeAI[xformers]==${INVOKEAI_VERSION} --use-pep517
+RUN pip3 cache purge
 
 # COPY ../../workspace/InvokeAI/invokeai.yaml /InvokeAI
 
 # RUN rm /start.sh
-COPY --chmod=755 ./start.sh ./
+# COPY --chmod=755 ./start.sh ./
+
+WORKDIR /app/data
+
+RUN mkdir -vp /app/data/models \
+    /app/data/embeddings
+
+WORKDIR /app/InvokeAI
 
 SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "/start.sh" ]
+# CMD [ "/start.sh" ]
+CMD ["nohup", "invokeai-web", "--root", "/workspace/InvokeAI", ">", "/workspace/logs/invokeai.log", "2>&1", "&"]
