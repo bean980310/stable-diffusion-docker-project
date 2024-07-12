@@ -82,6 +82,7 @@ services:
           create_host_path: true
       - ./stable-diffusion-models/sd-models:/app/data/models
       - ./stable-diffusion-models/embeddings:/app/data/embeddings
+      - ./workspace/InvokeAI/invokeai.yaml:/app/InvokeAI/invokeai.yaml
     ports:
       - "9090:9090"
     build:

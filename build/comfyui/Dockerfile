@@ -16,7 +16,7 @@ ARG COMFYUI_COMMIT
 COPY --chmod=755 ./install.sh ./
 RUN /install.sh && rm /install.sh
 
-COPY ../../workspace/ComfyUI/extra_model_paths.yaml /ComfyUI
+# COPY ../../workspace/ComfyUI/extra_model_paths.yaml /ComfyUI
 
 # RUN rm /start.sh
 COPY --chmod=755 ./start.sh ./

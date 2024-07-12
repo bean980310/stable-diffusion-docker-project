@@ -14,7 +14,7 @@ ARG INVOKEAI_VERSION
 COPY --chmod=755 ./install.sh ./
 RUN /install.sh && rm /install.sh
 
-COPY ../../workspace/InvokeAI/invokeai.yaml /InvokeAI
+# COPY ../../workspace/InvokeAI/invokeai.yaml /InvokeAI
 
 # RUN rm /start.sh
 COPY --chmod=755 ./start.sh ./
