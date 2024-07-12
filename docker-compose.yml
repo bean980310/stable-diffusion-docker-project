@@ -30,7 +30,7 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.9.4
-        BASE_IMAGE: &base bean980310/ubuntu-docker:1.0.2-cuda-12.1.1-torch2.3.1
+        BASE_IMAGE: &BASE_IMAGE bean980310/ubuntu-docker:1.0.2-cuda-12.1.1-torch2.3.1
   kohya_ss:
     <<: *base_service
     profiles:
@@ -66,7 +66,7 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *base
+        BASE_IMAGE: *BASE_IMAGE
         COMFYUI_COMMIT: 8e012043a9d0af3979bbe2cea8dc1ec7768f9d88
   invokeai:
     <<: *base_service
