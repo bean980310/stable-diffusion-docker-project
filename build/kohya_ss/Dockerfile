@@ -4,8 +4,8 @@ FROM ${BASE_IMAGE} AS base
 WORKDIR /app
 ARG WEBUI_VERSION
 
-COPY --chmod=755 ../a1111-sdwebui/install.sh ./
-RUN /install.sh && rm /install.sh
+# COPY --chmod=755 ../a1111-sdwebui/install.sh ./
+# RUN /install.sh && rm /install.sh
 
 # COPY ../../workspace/stable-diffusion-webui/config.json /stable-diffusion-webui
 # COPY ../../workspace/stable-diffusion-webui/webui-user.json /stable-diffusion-webui
@@ -18,7 +18,7 @@ RUN /install.sh && rm /install.sh
 # COPY ../../workspace/ComfyUI/extra_model_paths.yaml /ComfyUI
 
 ARG KOHYA_VERSION
-WORKDIR /app
+# WORKDIR /app
 
 COPY --chmod=755 ./install.sh ./
 RUN /install_kohya.sh && rm /install_kohya.sh
