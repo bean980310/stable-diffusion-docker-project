@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 git clone https://github.com/lllyasviel/Fooocus.git
 cd /app/Fooocus

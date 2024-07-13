@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
 # and set version
