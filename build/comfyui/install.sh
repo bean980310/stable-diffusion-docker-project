@@ -6,6 +6,8 @@ git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 cd /stable-diffusion-webui
 git checkout tags/${WEBUI_VERSION}
 
+cd ..
+
 # Clone the repo
 git clone https://github.com/comfyanonymous/ComfyUI.git /ComfyUI
 cd /ComfyUI
