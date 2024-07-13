@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git clone https://github.com/lllyasviel/Fooocus.git
-cd /Fooocus
+cd /app/Fooocus
 git checkout ${FOOOCUS_VERSION}
 
 pip3 install -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu121

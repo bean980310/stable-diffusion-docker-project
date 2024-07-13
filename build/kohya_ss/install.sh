@@ -4,7 +4,7 @@ apt install -y python3-launchpadlib
 RUN apt clean
 
 git clone https://github.com/bmaltais/kohya_ss.git /kohya_ss
-cd /kohya_ss
+cd /app/kohya_ss
 git checkout ${KOHYA_VERSION}
 
 pip3 install -U ninja pip setuptools wheel

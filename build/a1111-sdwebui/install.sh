@@ -3,7 +3,7 @@
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
 # and set version
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
-cd /stable-diffusion-webui
+cd /app/stable-diffusion-webui
 git checkout tags/${WEBUI_VERSION}
 
 # Install torch and xformers

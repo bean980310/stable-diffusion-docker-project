@@ -3,14 +3,14 @@
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
 # and set version
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
-cd /stable-diffusion-webui
+cd /app/stable-diffusion-webui
 git checkout tags/${WEBUI_VERSION}
 
-cd ..
+cd /app
 
 # Clone the repo
 git clone https://github.com/comfyanonymous/ComfyUI.git /ComfyUI
-cd /ComfyUI
+cd /app/ComfyUI
 git checkout ${COMFYUI_COMMIT}
 
 # Install requirements
