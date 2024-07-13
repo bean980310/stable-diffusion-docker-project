@@ -57,6 +57,7 @@ target "comfyui" {
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
+
 target "invokeai" {
     context="build/invokeai"
     dockerfile="Dockerfile"
@@ -69,6 +70,7 @@ target "invokeai" {
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
+
 target "fooocus" {
     context="build/fooocus"
     dockerfile="Dockerfile"
