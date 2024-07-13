@@ -17,6 +17,8 @@ ARG FOOOCUS_VERSION
 COPY --chmod=755 ./install.sh /
 RUN /install.sh
 
+WORKDIR /app
+
 # RUN export HF_HOME="/app"
 
 SHELL ["/bin/bash", "--login", "-c"]
