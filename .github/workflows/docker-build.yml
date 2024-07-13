@@ -1,0 +1,26 @@
+name: docker build
+
+on:
+  push:
+    branches: main
+  pull_request:
+    paths:
+      - docker-compose.yml
+      - docker-bake.hcl
+      - build
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        profile:
+          - stable-diffusion-webui
+          - kohya_ss
+          - comfyui
+          - invokeai
+          - fooocus
+    runs-on: ubuntu-latest
+    name: ${{ matrix.profile }}
+    steps:
+      - uses: actions/checkout@v3
+      - run: docker buildx bake -f docker-bake.hcl --push ${{ matrix.profile }}
