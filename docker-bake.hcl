@@ -36,7 +36,7 @@ target "kohya_ss" {
     context="build/kohya_ss"
     dockerfile="Dockerfile"
     args={
-        BASE_IMAGE="bean980310/ubuntu-docker:1.0.2-cuda11.8.0-torch2.1.2"
+        BASE_IMAGE="${BASE_IMAGE}"
         KOHYA_VERSION="v24.1.4"
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
