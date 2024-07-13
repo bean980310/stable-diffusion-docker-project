@@ -1,9 +1,5 @@
 #!/bin/bash
-
-mkdir /app/data
-
-mkdir -vp /app/data/models \
-    /app/data/embeddings
+set -e
 
 cd /app/InvokeAI
 

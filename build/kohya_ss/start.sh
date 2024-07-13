@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 cd /app/kohya_ss
 export HF_HOME="/app"
