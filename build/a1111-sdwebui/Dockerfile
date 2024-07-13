@@ -19,8 +19,8 @@ RUN /install.sh
 
 WORKDIR /app
 
-COPY ../../workspace/stable-diffusion-webui/config.json /stable-diffusion-webui
-COPY ../../workspace/stable-diffusion-webui/webui-user.sh /stable-diffusion-webui
+# COPY ../../workspace/stable-diffusion-webui/config.json /stable-diffusion-webui
+# COPY ../../workspace/stable-diffusion-webui/webui-user.sh /stable-diffusion-webui
 
 COPY --chmod=755 ./start.sh /
 

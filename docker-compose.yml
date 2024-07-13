@@ -116,3 +116,6 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         FOOOCUS_VERSION: v2.4.3
+    # environment:
+    #   - PRESET=anime
+    #   - PRESET=realistic

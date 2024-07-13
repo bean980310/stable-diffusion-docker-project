@@ -26,7 +26,7 @@ RUN /install.sh
 
 WORKDIR /app
 
-COPY ../../workspace/kohya_ss/accelerate.yaml /kohya_ss
+# COPY ../../workspace/kohya_ss/accelerate.yaml /kohya_ss
 
 # RUN rm /start.sh
 COPY --chmod=755 ./start.sh /

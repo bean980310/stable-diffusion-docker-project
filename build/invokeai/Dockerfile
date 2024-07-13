@@ -20,7 +20,7 @@ RUN /install.sh
 
 WORKDIR /app
 
-COPY ../../workspace/InvokeAI/invokeai.yaml /InvokeAI
+# COPY ../../workspace/InvokeAI/invokeai.yaml /InvokeAI
 
 # RUN rm /start.sh
 COPY --chmod=755 ./start.sh /
