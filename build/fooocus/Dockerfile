@@ -19,6 +19,8 @@ RUN /install.sh
 
 WORKDIR /app
 
+COPY --chmod=755 ./start.sh /
+
 # RUN export HF_HOME="/app"
 
 SHELL ["/bin/bash", "--login", "-c"]
