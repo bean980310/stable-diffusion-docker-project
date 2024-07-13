@@ -9,7 +9,7 @@ git checkout tags/${WEBUI_VERSION}
 cd /app
 
 # Clone the repo
-git clone https://github.com/comfyanonymous/ComfyUI.git /ComfyUI
+git clone https://github.com/comfyanonymous/ComfyUI.git
 cd /app/ComfyUI
 git checkout ${COMFYUI_COMMIT}
 

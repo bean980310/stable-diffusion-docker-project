@@ -50,7 +50,7 @@ target "comfyui" {
     dockerfile="Dockerfile"
     args={
         BASE_IMAGE="${BASE_IMAGE}"
-        COMFYUI_COMMIT="8e012043a9d0af3979bbe2cea8dc1ec7768f9d88"
+        COMFYUI_COMMIT="4ca9b9cc29fefaa899cba67d61a8252ae9f16c0d"
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
     tags=["bean980310/comfyui:${RELEASE}"]
