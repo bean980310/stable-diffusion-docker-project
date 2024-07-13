@@ -11,5 +11,5 @@ git checkout ${KOHYA_VERSION}
 pip3 install -U ninja pip setuptools wheel
 
 pip3 install -r requirements_linux_docker.txt
-pip3 install -r requirements_linux.txt
+pip3 install -r requirements.txt
 pip3 cache purge
