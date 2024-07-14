@@ -163,7 +163,6 @@ def main():
     installer.set_environment()
     installer.install('onnxruntime-gpu', 'onnxruntime-gpu')
     installer.install('onnx', 'onnx')
-    installer.install("uv", "uv")
     installer.check_torch()
     installer.check_onnx()
     installer.check_diffusers()
@@ -187,8 +186,5 @@ def main():
     else:
         installer.log.warning(f'Setup complete with errors: {installer.errors}')
         installer.log.warning(f'See log file for more details: {installer.log_file}')
-    installer.extensions_preload(parser) # adds additional args from extensions
-    args = installer.parse_args(parser)
         
-if __name__ == "__main__":
-    main()
+main()
