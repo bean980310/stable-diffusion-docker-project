@@ -11,9 +11,8 @@ RUN git checkout ${SDNEXT_COMMIT}
 RUN git submodule --quiet update --init --recursive
 RUN git submodule --quiet sync --recursive
 
-COPY --chmod=755 ./install_sdnext.py /
-# COPY --chmod=755 ./cuda_install.py /
-RUN python3 install_sdnext.py
+COPY --chmod=755 ./install.py /
+RUN python3 install.py
 
 WORKDIR /app
 
