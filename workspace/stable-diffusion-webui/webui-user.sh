@@ -3,10 +3,8 @@
 # Uncomment and change the variables below to your need:#
 #########################################################
 
-# export PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0
-
 # Install directory without trailing slash
-install_dir="/"
+install_dir="/app"
 
 # Name of the subdirectory
 #clone_dir="stable-diffusion-webui"
