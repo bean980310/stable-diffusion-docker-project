@@ -11,8 +11,12 @@ wget -O sd-models/ControlNet/SDXL/controlnet-depth-sdxl-1.0_fp16.safetensors htt
 
 # wget -P sd-models/ControlNet/SDXL -i ./download_link/download_controlnet_sdxl_kohya-ss.txt
 
-wget  -O sd-models/ControlNet/SDXL/controlnet-inpaint-dreamer-sdxl.safetensors https://huggingface.co/destitech/controlnet-inpaint-dreamer-sdxl/resolve/main/v2/diffusion_pytorch_model.fp16.safetensors
+wget -O sd-models/ControlNet/SDXL/controlnet-inpaint-dreamer-sdxl.safetensors https://huggingface.co/destitech/controlnet-inpaint-dreamer-sdxl/resolve/main/v2/diffusion_pytorch_model.fp16.safetensors
 
 wget -P sd-models/ControlNet/SDXL -i ./download_link/download_controlnet_sdxl_kataragi.txt
 
 # wget -P sd-models/ControlNet/SDXL -i ./download_link/download_controlnet_sdxl_bdsqlsz.txt
+
+wget -O sd-models/ControlNet/SDXL/controlnet-union-sdxl-1.0_promax.safetensors https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model_promax.safetensors
+
+wget -P sd-models/ControlNet/SDXL https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0/resolve/main/control-lora-openposeXL2-rank256.safetensors
