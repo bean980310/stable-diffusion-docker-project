@@ -139,3 +139,20 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         FORGE_COMMIT: bfee03d8d9415a925616f40ede030fe7a51cbcfd
+  sd.next:
+    <<: *base_service
+    profiles:
+      - sd.next
+    image: bean980310/sd-next:latest
+    volumes:
+      - ./stable-diffusion-models/sd-models:/app/automatic/models
+      - ./stable-diffusion-models/embeddings:/app/automatic/models/embeddings
+    ports:
+      - "3060:7860"
+    build:
+      context: ./build/vladmandic-sdnext
+      dockerfile: Dockerfile
+      args:
+        WEBUI_VERSION: *WEBUI_VERSION
+        BASE_IMAGE: *BASE_IMAGE
+        SDNEXT_COMMIT: 2ec6e9eec481223b8abe50cb5165d5fd9be2d086

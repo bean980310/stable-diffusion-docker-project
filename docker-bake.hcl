@@ -97,3 +97,16 @@ target "stable-diffusion-webui-forge" {
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
+
+target "sd.next" {
+    context="build/vladmandic-sdnext"
+    dockerfile="Dockerfile"
+    args={
+        BASE_IMAGE="${BASE_IMAGE}"
+        SDNEXT_COMMIT="2ec6e9eec481223b8abe50cb5165d5fd9be2d086"
+        WEBUI_VERSION="${WEBUI_VERSION}"
+    }
+    tags=["bean980310/sd-next:${RELEASE}"]
+    platforms=["linux/amd64"]
+    annotations=["org.opencontainers.image.authors=bean980310"]
+}
