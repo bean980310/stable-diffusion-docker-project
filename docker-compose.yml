@@ -119,3 +119,22 @@ services:
     # environment:
     #   - PRESET=anime
     #   - PRESET=realistic
+  stable-diffusion-webui-forge:
+    <<: *base_service
+    profiles:
+      - stable-diffusion-webui-forge
+    image: bean980310/stable-diffusion-webui-forge:latest
+    volumes:
+      - ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui-forge/models
+      - ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui-forge/embeddings
+      - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
+      - ./outputs/stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge/outputs
+    ports:
+      - "3050:7860"
+    build:
+      context: ./build/sdwebui-forge
+      dockerfile: Dockerfile
+      args:
+        WEBUI_VERSION: *WEBUI_VERSION
+        BASE_IMAGE: *BASE_IMAGE
+        FORGE_COMMIT: bfee03d8d9415a925616f40ede030fe7a51cbcfd

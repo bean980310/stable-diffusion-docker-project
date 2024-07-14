@@ -16,7 +16,8 @@ group "default" {
         "kohya_ss",
         "comfyui",
         "invokeai",
-        "fooocus"
+        "fooocus",
+        "stable-diffusion-webui-forge"
     ]
 }
 
@@ -80,6 +81,19 @@ target "fooocus" {
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
     tags=["bean980310/fooocus:${RELEASE}"]
+    platforms=["linux/amd64"]
+    annotations=["org.opencontainers.image.authors=bean980310"]
+}
+
+target "stable-diffusion-webui-forge" {
+    context="build/sdwebui-forge"
+    dockerfile="Dockerfile"
+    args={
+        BASE_IMAGE="${BASE_IMAGE}"
+        FORGE_COMMIT="bfee03d8d9415a925616f40ede030fe7a51cbcfd"
+        WEBUI_VERSION="${WEBUI_VERSION}"
+    }
+    tags=["bean980310/stable-diffusion-webui-forge:${RELEASE}"]
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
