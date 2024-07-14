@@ -7,7 +7,7 @@ ARG FORGE_COMMIT
 # RUN git clone https://github.com/lllyasviel/stable-diffusion-webui-forge.git
 # WORKDIR /app/stable-diffusion-webui-forge
 # RUN git checkout ${FORGE_COMMIT}
-# RUN pip3 install -r requirements.versions.txt
+# RUN pip3 install -r requirements_versions.txt
 
 # RUN pip3 install -r extensions-builtin/sd_forge_controlnet/requirements.txt && \
 #     pip3 install -r extensions-builtin/forge_legacy_preprocessors/requirements.txt && \

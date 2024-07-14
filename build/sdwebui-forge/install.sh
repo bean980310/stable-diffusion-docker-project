@@ -4,7 +4,7 @@ set -e
 git clone https://github.com/lllyasviel/stable-diffusion-webui-forge.git
 cd /app/stable-diffusion-webui-forge
 git checkout ${FORGE_COMMIT}
-pip3 install -r requirements.versions.txt
+pip3 install -r requirements_versions.txt
 
 pip3 install -r extensions-builtin/sd_forge_controlnet/requirements.txt
 pip3 install -r extensions-builtin/forge_legacy_preprocessors/requirements.txt
