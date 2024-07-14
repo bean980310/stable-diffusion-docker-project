@@ -13,6 +13,7 @@ RUN git submodule --quiet sync --recursive
 
 COPY --chmod=755 ./install.py /
 RUN python3 install.py
+RUN rm /install.py
 
 WORKDIR /app
 
