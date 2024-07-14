@@ -128,6 +128,7 @@ services:
       - ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui-forge/models
       - ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui-forge/embeddings
       - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
+      - ./workspace/stable-diffusion-webui-forge/config.json:/app/stable-diffusion-webui-forge/config.json
       - ./outputs/stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge/outputs
     ports:
       - "3050:7860"
