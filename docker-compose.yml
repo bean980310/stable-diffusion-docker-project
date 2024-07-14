@@ -16,6 +16,7 @@ services:
     profiles:
       - stable-diffusion-webui
     image: bean980310/stable-diffusion-webui:latest
+    container_name: stable-diffusion-webui
     volumes:
       - &models ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui/models
       - &embeddings ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui/embeddings
@@ -36,6 +37,7 @@ services:
     profiles:
       - kohya_ss
     image: bean980310/kohya-ss:latest
+    container_name: kohya_ss
     volumes:
       - ./stable-diffusion-models/sd-models:/app/kohya_ss/models
       - ./stable-diffusion-models/embeddings:/app/kohya_ss/models/embeddings
@@ -54,6 +56,7 @@ services:
     profiles:
       - comfyui
     image: bean980310/comfyui:latest
+    container_name: comfyui
     volumes:
       - *models
       - *embeddings
@@ -74,6 +77,7 @@ services:
     profiles:
       - invokeai
     image: bean980310/invokeai:latest
+    container_name: invokeai
     volumes:
       - type: bind
         source: ./workspace/InvokeAI
@@ -97,6 +101,7 @@ services:
     profiles:
       - fooocus
     image: bean980310/fooocus:latest
+    container_name: fooocus
     volumes:
       - ./stable-diffusion-models/sd-models/Stable-diffusion:/app/Fooocus/models/checkpoints
       - ./stable-diffusion-models/sd-models/Lora:/app/Fooocus/models/loras
@@ -124,6 +129,7 @@ services:
     profiles:
       - stable-diffusion-webui-forge
     image: bean980310/stable-diffusion-webui-forge:latest
+    container_name: stable-diffusion-webui-forge
     volumes:
       - ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui-forge/models
       - ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui-forge/embeddings
@@ -144,6 +150,7 @@ services:
     profiles:
       - sd.next
     image: bean980310/sd-next:latest
+    container_name: sd.next
     volumes:
       - ./stable-diffusion-models/sd-models:/app/automatic/models
       - ./stable-diffusion-models/embeddings:/app/automatic/models/embeddings
@@ -156,3 +163,19 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         SDNEXT_COMMIT: 2ec6e9eec481223b8abe50cb5165d5fd9be2d086
+  open-webui:
+    <<: *base_service
+    profiles:
+      - open-webui
+    image: ghcr.io/open-webui/open-webui:cuda
+    container_name: open-webui
+    volumes:
+      - open-webui:/app/backend/data
+    ports:
+      - "3000:8080"
+    pull_policy: always
+    environment:
+      - 'OLLAMA_BASE_URL=http://ollama:11434'
+      - 'WEBUI_SECRET_KEY='
+    extra_hosts:
+      - host.docker.internal:host-gateway
