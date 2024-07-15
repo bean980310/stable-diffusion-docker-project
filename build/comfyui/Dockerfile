@@ -30,4 +30,4 @@ COPY --chmod=755 ./start.sh ./
 
 SHELL ["/bin/bash", "--login", "-c"]
 # CMD ["nohup", "python3", "main.py"," --listen", "0.0.0.0", "--port", "8188" ,">" ,"/app/comfyui.log" ,"2>&1" ,"&"]
-CMD [ "/start.sh" ]
+CMD [ "./start.sh" ]
