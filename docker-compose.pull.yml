@@ -1,0 +1,134 @@
+version: '3.9'
+
+x-base_service: &base_service
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
+  restart: unless-stopped
+
+services:
+  ollama:
+    <<: *base_service
+    volumes:
+      - ollama:/root/.ollama
+    container_name: ollama
+    pull_policy: missing
+    tty: true
+    image: ollama/ollama:latest
+  open-webui:
+    <<: *base_service
+    image: bean980310/open-webui:ollama
+    container_name: open-webui
+    volumes:
+      - open-webui:/app/backend/data
+    depends_on:
+      - ollama
+    ports:
+      - "3000:8080"
+    pull_policy: missing
+    environment:
+      - 'OLLAMA_BASE_URL=http://ollama:11434'
+      - 'WEBUI_SECRET_KEY='
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  stable-diffusion-webui:
+    <<: *base_service
+    image: bean980310/stable-diffusion-webui:latest
+    container_name: stable-diffusion-webui
+    volumes:
+      - &models ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui/models
+      - &embeddings ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui/embeddings
+      - ./workspace/stable-diffusion-webui/extensions:/app/stable-diffusion-webui/extensions
+      - ./workspace/stable-diffusion-webui/webui-user.sh:/app/stable-diffusion-webui/webui-user.sh
+      - ./workspace/stable-diffusion-webui/config.json:/app/stable-diffusion-webui/config.json
+      - ./outputs/stable-diffusion-webui:/app/stable-diffusion-webui/outputs
+    ports:
+      - "3010:7860"
+    pull_policy: missing
+  kohya_ss:
+    <<: *base_service
+    image: bean980310/kohya-ss:latest
+    container_name: kohya_ss
+    volumes:
+      - ./stable-diffusion-models/sd-models:/app/kohya_ss/models
+      - ./stable-diffusion-models/embeddings:/app/kohya_ss/models/embeddings
+      - ./workspace/kohya_ss/accelerate.yaml:/app/accelerate.yaml
+    ports:
+      - "3020:7860"
+    pull_policy: missing
+  comfyui:
+    <<: *base_service
+    image: bean980310/comfyui:latest
+    container_name: comfyui
+    volumes:
+      - *models
+      - *embeddings
+      - ./workspace/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
+      - ./workspace/ComfyUI/extra_model_paths.yaml:/app/ComfyUI/extra_model_paths.yaml
+      - ./outputs/ComfyUI:/app/ComfyUI/output
+    ports:
+      - "3030:8188"
+    pull_policy: missing
+  invokeai:
+    <<: *base_service
+    image: bean980310/invokeai:latest
+    container_name: invokeai
+    volumes:
+      - type: bind
+        source: ./workspace/InvokeAI
+        target: /app/InvokeAI
+        bind:
+          create_host_path: true
+      - ./stable-diffusion-models/sd-models:/app/data/models
+      - ./stable-diffusion-models/embeddings:/app/data/embeddings
+      - ./workspace/InvokeAI/invokeai.yaml:/app/InvokeAI/invokeai.yaml
+    ports:
+      - "9090:9090"
+    pull_policy: missing
+  fooocus:
+    <<: *base_service
+    image: bean980310/fooocus:latest
+    container_name: fooocus
+    volumes:
+      - ./stable-diffusion-models/sd-models/Stable-diffusion:/app/Fooocus/models/checkpoints
+      - ./stable-diffusion-models/sd-models/Lora:/app/Fooocus/models/loras
+      - ./stable-diffusion-models/embeddings:/app/Fooocus/models/embeddings
+      - ./stable-diffusion-models/sd-models/vae_approx:/app/Fooocus/models/vae_approx
+      - ./stable-diffusion-models/sd-models/ESRGAN:/app/Fooocus/models/upscale_models
+      - ./stable-diffusion-models/sd-models/RealESRGAN:/app/Fooocus/models/upscale_models
+      - ./stable-diffusion-models/sd-models/ControlNet:/app/Fooocus/models/controlnet
+      - ./stable-diffusion-models/sd-models/clip-interrogator:/app/Fooocus/models/clip_vision
+      - ./outputs/Fooocus:/app/Fooocus/outputs
+    ports:
+      - "3040:7860"
+    pull_policy: missing
+    # environment:
+    #   - PRESET=anime
+    #   - PRESET=realistic
+  stable-diffusion-webui-forge:
+    <<: *base_service
+    image: bean980310/stable-diffusion-webui-forge:latest
+    container_name: stable-diffusion-webui-forge
+    volumes:
+      - ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui-forge/models
+      - ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui-forge/embeddings
+      - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
+      - ./workspace/stable-diffusion-webui-forge/config.json:/app/stable-diffusion-webui-forge/config.json
+      - ./outputs/stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge/outputs
+    ports:
+      - "3050:7860"
+    pull_policy: missing
+  sd.next:
+    <<: *base_service
+    image: bean980310/sd-next:latest
+    container_name: sd.next
+    volumes:
+      - ./stable-diffusion-models/sd-models:/app/automatic/models
+      - ./stable-diffusion-models/embeddings:/app/automatic/models/embeddings
+    ports:
+      - "3060:7860"
+    pull_policy: missing
