@@ -2,7 +2,7 @@
 set -e
 
 git clone https://github.com/vladmandic/automatic
-cp install.py /app/automatic/install.py
+cp /app/install.py /app/automatic/install.py
 cd /app/automatic
 git checkout ${SDNEXT_COMMIT}
 
