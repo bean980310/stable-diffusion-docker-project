@@ -13,8 +13,6 @@ x-base_service: &base_service
 services:
   stable-diffusion-webui:
     <<: *base_service
-    profiles:
-      - stable-diffusion-webui
     image: bean980310/stable-diffusion-webui:latest
     container_name: stable-diffusion-webui
     volumes:
@@ -34,8 +32,6 @@ services:
         BASE_IMAGE: &BASE_IMAGE bean980310/ubuntu-docker:1.0.2-cuda12.1.1-torch2.3.1
   kohya_ss:
     <<: *base_service
-    profiles:
-      - kohya_ss
     image: bean980310/kohya-ss:latest
     container_name: kohya_ss
     volumes:
@@ -53,8 +49,6 @@ services:
         KOHYA_VERSION: v24.1.4
   comfyui:
     <<: *base_service
-    profiles:
-      - comfyui
     image: bean980310/comfyui:latest
     container_name: comfyui
     volumes:
@@ -74,8 +68,6 @@ services:
         COMFYUI_COMMIT: 4ca9b9cc29fefaa899cba67d61a8252ae9f16c0d
   invokeai:
     <<: *base_service
-    profiles:
-      - invokeai
     image: bean980310/invokeai:latest
     container_name: invokeai
     volumes:
@@ -98,8 +90,6 @@ services:
         INVOKEAI_VERSION: v4.2.4
   fooocus:
     <<: *base_service
-    profiles:
-      - fooocus
     image: bean980310/fooocus:latest
     container_name: fooocus
     volumes:
@@ -126,8 +116,6 @@ services:
     #   - PRESET=realistic
   stable-diffusion-webui-forge:
     <<: *base_service
-    profiles:
-      - stable-diffusion-webui-forge
     image: bean980310/stable-diffusion-webui-forge:latest
     container_name: stable-diffusion-webui-forge
     volumes:
@@ -147,8 +135,6 @@ services:
         FORGE_COMMIT: bfee03d8d9415a925616f40ede030fe7a51cbcfd
   sd.next:
     <<: *base_service
-    profiles:
-      - sd.next
     image: bean980310/sd-next:latest
     container_name: sd.next
     volumes:
@@ -163,18 +149,8 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         SDNEXT_COMMIT: 2ec6e9eec481223b8abe50cb5165d5fd9be2d086
-  ollama:
-    <<: *base_service
-    volumes:
-      - ollama:/root/.ollama
-    container_name: ollama
-    pull_policy: always
-    tty: true
-    image: ollama/ollama:latest
   open-webui:
     <<: *base_service
-    profiles:
-      - open-webui
     image: bean980310/open-webui:ollama
     container_name: open-webui
     volumes:
