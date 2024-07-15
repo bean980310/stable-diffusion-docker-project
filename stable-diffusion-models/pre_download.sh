@@ -35,9 +35,9 @@
 #     sd-models/GFPGAN \
 #     sd-models/LDSR
     
-mkdir sd-models/adetailer
-mkdir sd-models/sam
-mkdir sd-models/clip-interrogator
+# mkdir sd-models/adetailer
+# mkdir sd-models/sam
+# mkdir sd-models/clip-interrogator
 
 echo "Downloading SD 1.5 model"
 wget -P sd-models/Stable-diffusion/SD15 -i ./download_link/download_ckpt_sd15.txt

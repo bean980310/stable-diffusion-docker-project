@@ -32,3 +32,7 @@ mkdir -vp sd-models/ESRGAN \
     sd-models/RealESRGAN \
     sd-models/GFPGAN \
     sd-models/LDSR
+
+mkdir sd-models/adetailer
+mkdir sd-models/sam
+mkdir sd-models/clip-interrogator
