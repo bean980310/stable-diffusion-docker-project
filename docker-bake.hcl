@@ -98,7 +98,7 @@ target "stable-diffusion-webui-forge" {
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
 
-target "sd.next" {
+target "sdnext" {
     context="build/vladmandic-sdnext"
     dockerfile="Dockerfile"
     args={

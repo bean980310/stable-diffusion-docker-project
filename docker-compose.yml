@@ -131,10 +131,10 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         FORGE_COMMIT: bfee03d8d9415a925616f40ede030fe7a51cbcfd
-  sd.next:
+  sdnext:
     <<: *base_service
-    image: bean980310/sd-next:latest
-    container_name: sd.next
+    image: bean980310/sdnext:latest
+    container_name: sdnext
     volumes:
       - ./stable-diffusion-models/sd-models:/app/automatic/models
       - ./stable-diffusion-models/embeddings:/app/automatic/models/embeddings
