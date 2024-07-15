@@ -79,11 +79,6 @@ services:
     image: bean980310/invokeai:latest
     container_name: invokeai
     volumes:
-      - type: bind
-        source: ./workspace/InvokeAI
-        target: /app/InvokeAI
-        bind:
-          create_host_path: true
       - ./stable-diffusion-models/sd-models:/app/InvokeAI/models
       - ./stable-diffusion-models/embeddings:/app/InvokeAI/models/embeddings
       - ./workspace/InvokeAI/custom_nodes:/app/InvokeAI/custom_nodes
