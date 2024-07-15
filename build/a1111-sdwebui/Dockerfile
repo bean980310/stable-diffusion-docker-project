@@ -14,16 +14,16 @@ ARG WEBUI_VERSION
 # RUN python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
 # RUN pip3 cache purge
 
-COPY --chmod=755 ./install.sh /
-RUN /install.sh
+COPY --chmod=755 ./install.sh ./
+RUN ./install.sh
 
 WORKDIR /app
 
 # COPY ../../workspace/stable-diffusion-webui/config.json /stable-diffusion-webui
 # COPY ../../workspace/stable-diffusion-webui/webui-user.sh /stable-diffusion-webui
 
-COPY --chmod=755 ./start.sh /
+COPY --chmod=755 ./start.sh ./
 
 SHELL ["/bin/bash", "--login", "-c"]
 # CMD ["nohup", "./webui.sh", "-f", ">", "/app/webui.log", "2>&1", "&"]
-CMD [ "/start.sh" ]
+CMD [ "./start.sh" ]

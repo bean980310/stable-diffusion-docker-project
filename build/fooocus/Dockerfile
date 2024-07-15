@@ -14,15 +14,15 @@ ARG FOOOCUS_VERSION
 #     sed '$d' launch.py > setup.py && \
 #     python3 -m setup
 
-COPY --chmod=755 ./install.sh /
-RUN /install.sh
+COPY --chmod=755 ./install.sh ./
+RUN ./install.sh
 
 WORKDIR /app
 
-COPY --chmod=755 ./start.sh /
+COPY --chmod=755 ./start.sh ./
 
 # RUN export HF_HOME="/app"
 
 SHELL ["/bin/bash", "--login", "-c"]
 # CMD ["nohup", "python3", "entry_with_update.py", "--listen", "--port", "7860", ">", "/app/fooocus.log", "2>&1", "&"]
-CMD [ "/start.sh" ]
+CMD [ "./start.sh" ]

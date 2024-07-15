@@ -18,12 +18,12 @@ ARG COMFYUI_COMMIT
 # RUN pip3 install -r requirements.txt
 # RUN pip3 cache purge
 
-COPY --chmod=755 ./install.sh /
-RUN /install.sh
+COPY --chmod=755 ./install.sh ./
+RUN ./install.sh
 
 WORKDIR /app
 
-COPY --chmod=755 ./start.sh /
+COPY --chmod=755 ./start.sh ./
 
 # ENV TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
 # RUN export LD_PRELOAD="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"

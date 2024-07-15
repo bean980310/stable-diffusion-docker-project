@@ -21,18 +21,18 @@ ARG KOHYA_VERSION
 # RUN pip3 cache purge
 # WORKDIR /app
 
-COPY --chmod=755 ./install.sh /
-RUN /install.sh
+COPY --chmod=755 ./install.sh ./
+RUN ./install.sh
 
 WORKDIR /app
 
 # COPY ../../workspace/kohya_ss/accelerate.yaml /kohya_ss
 
 # RUN rm /start.sh
-COPY --chmod=755 ./start.sh /
+COPY --chmod=755 ./start.sh ./
 
 # RUN export HF_HOME="/app"
 
 SHELL ["/bin/bash", "--login", "-c"]
 # CMD ["nohup", "./gui.sh", "--listen", "0.0.0.0", "--server_port", "7860", "--headless", ">", "/workspace/logs/kohya_ss.log", "2>&1", "&" ]
-CMD [ "/start.sh" ]
+CMD [ "./start.sh" ]

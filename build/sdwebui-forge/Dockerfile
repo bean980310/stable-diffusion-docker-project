@@ -18,11 +18,11 @@ ARG FORGE_COMMIT
 
 # RUN python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
 
-COPY --chmod=755 ./install.sh /
-RUN /install.sh
+COPY --chmod=755 ./install.sh ./
+RUN ./install.sh
 
 WORKDIR /app
-COPY --chmod=755 ./start.sh /
+COPY --chmod=755 ./start.sh ./
 
 SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "/start.sh" ]
+CMD [ "./start.sh" ]
