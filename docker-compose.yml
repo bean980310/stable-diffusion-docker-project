@@ -37,6 +37,7 @@ services:
     volumes:
       - ./stable-diffusion-models/sd-models:/app/kohya_ss/models
       - ./stable-diffusion-models/embeddings:/app/kohya_ss/models/embeddings
+      - ./workspace/kohya_ss/dataset:/app/kohya_ss/dataset
       - ./workspace/kohya_ss/accelerate.yaml:/app/accelerate.yaml
     ports:
       - "3020:7860"
@@ -76,9 +77,11 @@ services:
         target: /app/InvokeAI
         bind:
           create_host_path: true
-      - ./stable-diffusion-models/sd-models:/app/data/models
-      - ./stable-diffusion-models/embeddings:/app/data/embeddings
+      - ./stable-diffusion-models/sd-models:/app/InvokeAI/models
+      - ./stable-diffusion-models/embeddings:/app/InvokeAI/models/embeddings
+      - ./workspace/InvokeAI/custom_nodes:/app/InvokeAI/custom_nodes
       - ./workspace/InvokeAI/invokeai.yaml:/app/InvokeAI/invokeai.yaml
+      - ./outputs/InvokeAI:/app/InvokeAI/outputs
     ports:
       - "9090:9090"
     build:

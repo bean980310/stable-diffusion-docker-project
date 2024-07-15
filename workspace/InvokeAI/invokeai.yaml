@@ -4,4 +4,11 @@ schema_version: 4.0.1
 # Put user settings here - see https://invoke-ai.github.io/InvokeAI/features/CONFIGURATION/:
 host: 0.0.0.0
 port: 9090
+models_dir: /app/InvokeAI/models
+outputs_dir: /app/InvokeAI/outputs
+custom_nodes_dir: /app/InvokeAI/custom_nodes
+use_memory_db: True
+device: cuda
+attention_type: xformers
 hashing_algorithm: sha256 # to match a1111
+scan_models_on_startup: True
