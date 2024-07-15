@@ -25,10 +25,10 @@ WORKDIR /app
 # RUN rm /start.sh
 COPY --chmod=755 ./start.sh /
 
-WORKDIR /app/data
+WORKDIR /app/InvokeAI
 
-RUN mkdir -vp /app/data/models \
-    /app/data/embeddings
+RUN mkdir -vp /app/InvokeAI/models \
+    /app/InvokeAI/outputs
 
 WORKDIR /app
 
