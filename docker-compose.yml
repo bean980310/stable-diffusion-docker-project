@@ -120,6 +120,7 @@ services:
     volumes:
       - ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui-forge/models
       - ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui-forge/embeddings
+      - ./workspace/stable-diffusion-webui-forge/extensions:/app/stable-diffusion-webui-forge/extensions
       - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
       - ./workspace/stable-diffusion-webui-forge/config.json:/app/stable-diffusion-webui-forge/config.json
       - ./workspace/stable-diffusion-webui-forge/ui-config.json:/app/stable-diffusion-webui-forge/ui-config.json
@@ -140,8 +141,9 @@ services:
     volumes:
       - ./stable-diffusion-models/sd-models:/app/automatic/models
       - ./stable-diffusion-models/embeddings:/app/automatic/models/embeddings
-      - ./workspace/SD.next/config.json:/app/automatic/config.json
-      - ./workspace/SD.next/ui-config.json:/app/automatic/ui-config.json
+      - ./workspace/SD.Next/extensions:/app/automatic/extensions
+      - ./workspace/SD.Next/config.json:/app/automatic/config.json
+      - ./workspace/SD.Next/ui-config.json:/app/automatic/ui-config.json
     ports:
       - "3060:7860"
     build:
