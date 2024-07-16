@@ -161,6 +161,7 @@ services:
     volumes:
       - ./stable-diffusion-models/sd-models:/app/easy-diffusion/models
       - ./stable-diffusion-models/embeddings:/app/easy-diffusion/models/embeddings
+      - ./workspace/easy-diffusion/config.json:/app/easy-diffusion/scripts/config.json
     ports:
       - "9000:9000"
     build:

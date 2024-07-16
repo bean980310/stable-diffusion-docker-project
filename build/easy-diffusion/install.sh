@@ -16,4 +16,4 @@ sed -i '11,43d' /app/easy-diffusion/scripts/on_env_start.sh
 ./start.sh -f
 mv /app/easy-diffusion/scripts/on_sd_start.sh.ori /app/easy-diffusion/scripts/on_sd_start.sh
 mv /app/easy-diffusion/scripts/on_env_start.sh.ori /app/easy-diffusion/scripts/on_env_start.sh
-echo '{"render_devices": "auto", "update_branch": "main", "ui": {"open_browser_on_start": false}, "net": {"listen_port": 9000,"listen_to_network": true}}' > /app/easy-diffusion/scripts/config.json 
+echo '{"render_devices": "auto", "update_branch": "main", "ui": {"open_browser_on_start": false}, "net": {"listen_port": 9000,"listen_to_network": true}}' > /app/easy-diffusion/scripts/config.json
