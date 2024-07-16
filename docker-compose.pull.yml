@@ -45,6 +45,7 @@ services:
       - ./workspace/stable-diffusion-webui/extensions:/app/stable-diffusion-webui/extensions
       - ./workspace/stable-diffusion-webui/webui-user.sh:/app/stable-diffusion-webui/webui-user.sh
       - ./workspace/stable-diffusion-webui/config.json:/app/stable-diffusion-webui/config.json
+      - ./workspace/stable-diffusion-webui/ui-config.json:/app/stable-diffusion-webui/ui-config.json
       - ./outputs/stable-diffusion-webui:/app/stable-diffusion-webui/outputs
     ports:
       - "3010:7860"
@@ -116,6 +117,7 @@ services:
       - ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui-forge/embeddings
       - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
       - ./workspace/stable-diffusion-webui-forge/config.json:/app/stable-diffusion-webui-forge/config.json
+      - ./workspace/stable-diffusion-webui-forge/ui-config.json:/app/stable-diffusion-webui-forge/ui-config.json
       - ./outputs/stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge/outputs
     ports:
       - "3050:7860"
@@ -127,6 +129,8 @@ services:
     volumes:
       - ./stable-diffusion-models/sd-models:/app/automatic/models
       - ./stable-diffusion-models/embeddings:/app/automatic/models/embeddings
+      - ./workspace/SD.next/config.json:/app/automatic/config.json
+      - ./workspace/SD.next/ui-config.json:/app/automatic/ui-config.json
     ports:
       - "3060:7860"
     pull_policy: missing
