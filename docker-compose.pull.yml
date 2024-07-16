@@ -136,3 +136,13 @@ services:
     ports:
       - "3060:7860"
     pull_policy: missing
+  easy-diffusion:
+    <<: *base_service
+    image: bean980310/easy-diffusion:latest
+    container_name: easy-diffusion
+    volumes:
+      - ./stable-diffusion-models/sd-models:/app/easy-diffusion/models
+      - ./stable-diffusion-models/embeddings:/app/easy-diffusion/models/embeddings
+    ports:
+      - "9000:9000"
+    pull_policy: missing

@@ -144,6 +144,7 @@ services:
       - ./workspace/SD.Next/extensions:/app/automatic/extensions
       - ./workspace/SD.Next/config.json:/app/automatic/config.json
       - ./workspace/SD.Next/ui-config.json:/app/automatic/ui-config.json
+      - ./outputs/SD.Next:/app/automatic/outputs
     ports:
       - "3060:7860"
     build:
@@ -153,5 +154,19 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         SDNEXT_COMMIT: 2ec6e9eec481223b8abe50cb5165d5fd9be2d086
-  easydiffusion:
+  easy-diffusion:
     <<: *base_service
+    image: bean980310/easy-diffusion:latest
+    container_name: easy-diffusion
+    volumes:
+      - ./stable-diffusion-models/sd-models:/app/easy-diffusion/models
+      - ./stable-diffusion-models/embeddings:/app/easy-diffusion/models/embeddings
+    ports:
+      - "9000:9000"
+    build:
+      context: ./build/easy-diffusion
+      dockerfile: Dockerfile
+      args:
+        WEBUI_VERSION: *WEBUI_VERSION
+        BASE_IMAGE: *BASE_IMAGE
+        EASYDIFF_VERSION: v3.0.2
