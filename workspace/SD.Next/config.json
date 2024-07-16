@@ -1,0 +1,39 @@
+{
+  "cuda_compile": [],
+  "nncf_compress_weights": [],
+  "ipex_optimize": [],
+  "openvino_devices": [],
+  "nncf_quantize": [],
+  "hypertile_unet_enabled": true,
+  "inference_mode": "inference-mode",
+  "diffusers_model_load_variant": "fp16",
+  "diffusers_vae_load_variant": "fp16",
+  "styles_dir": "models/styles",
+  "save_to_dirs": true,
+  "samples_filename_pattern": "[seq]-[model_name]-[seed]",
+  "directories_max_prompt_words": 30,
+  "theme_type": "Modern",
+  "gradio_theme": "Eoan-Alpha",
+  "quicksettings_list": [
+    "sd_model_checkpoint"
+  ],
+  "show_samplers": [],
+  "postprocessing_enable_in_main_ui": [],
+  "postprocessing_operation_order": [],
+  "interrogate_clip_skip_categories": [
+    "artists",
+    "movements",
+    "flavors"
+  ],
+  "extra_networks": [
+    "All"
+  ],
+  "disabled_extensions": [],
+  "clip_skip": 1,
+  "uni_pc_lower_order_final": true,
+  "uni_pc_order": 2,
+  "uiux_hide_legacy": false,
+  "diffusers_vae_upcast": "false",
+  "samples_format": "png",
+  "jpeg_quality": 100
+}
