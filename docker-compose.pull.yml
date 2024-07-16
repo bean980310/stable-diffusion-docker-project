@@ -16,7 +16,7 @@ services:
     volumes:
       - ollama:/root/.ollama
     container_name: ollama
-    pull_policy: missing
+    pull_policy: if_not_present
     tty: true
     image: ollama/ollama:latest
   open-webui:
@@ -29,7 +29,7 @@ services:
       - ollama
     ports:
       - "3000:8080"
-    pull_policy: missing
+    pull_policy: if_not_present
     environment:
       - 'OLLAMA_BASE_URL=http://ollama:11434'
       - 'WEBUI_SECRET_KEY='
@@ -49,7 +49,7 @@ services:
       - ./outputs/stable-diffusion-webui:/app/stable-diffusion-webui/outputs
     ports:
       - "3010:7860"
-    pull_policy: missing
+    pull_policy: if_not_present
   kohya_ss:
     <<: *base_service
     image: bean980310/kohya-ss:latest
@@ -61,7 +61,7 @@ services:
       - ./workspace/kohya_ss/accelerate.yaml:/app/accelerate.yaml
     ports:
       - "3020:7860"
-    pull_policy: missing
+    pull_policy: if_not_present
   comfyui:
     <<: *base_service
     image: bean980310/comfyui:latest
@@ -74,7 +74,7 @@ services:
       - ./outputs/ComfyUI:/app/ComfyUI/output
     ports:
       - "3030:8188"
-    pull_policy: missing
+    pull_policy: if_not_present
   invokeai:
     <<: *base_service
     image: bean980310/invokeai:latest
@@ -87,7 +87,7 @@ services:
       - ./outputs/InvokeAI:/app/InvokeAI/outputs
     ports:
       - "9090:9090"
-    pull_policy: missing
+    pull_policy: if_not_present
   fooocus:
     <<: *base_service
     image: bean980310/fooocus:latest
@@ -104,7 +104,7 @@ services:
       - ./outputs/Fooocus:/app/Fooocus/outputs
     ports:
       - "3040:7860"
-    pull_policy: missing
+    pull_policy: if_not_present
     # environment:
     #   - PRESET=anime
     #   - PRESET=realistic
@@ -122,7 +122,7 @@ services:
       - ./outputs/stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge/outputs
     ports:
       - "3050:7860"
-    pull_policy: missing
+    pull_policy: if_not_present
   sdnext:
     <<: *base_service
     image: bean980310/sdnext:latest
@@ -135,7 +135,7 @@ services:
       - ./workspace/SD.next/ui-config.json:/app/automatic/ui-config.json
     ports:
       - "3060:7860"
-    pull_policy: missing
+    pull_policy: if_not_present
   easy-diffusion:
     <<: *base_service
     image: bean980310/easy-diffusion:latest
@@ -147,4 +147,4 @@ services:
       - ./outputs/easy-diffusion:/app/easy-diffusion/outputs
     ports:
       - "9000:9000"
-    pull_policy: missing
+    pull_policy: if_not_present
