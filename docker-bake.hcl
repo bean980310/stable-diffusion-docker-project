@@ -110,3 +110,16 @@ target "sdnext" {
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
+
+target "easy-diffusion" {
+    context="build/easy-diffusion"
+    dockerfile="Dockerfile"
+    args={
+        BASE_IMAGE="${BASE_IMAGE}"
+        EASYDIFF_VERSION="v3.0.2"
+        WEBUI_VERSION="${WEBUI_VERSION}"
+    }
+    tags=["bean980310/easy-diffusion:${RELEASE}"]
+    platforms=["linux/amd64"]
+    annotations=["org.opencontainers.image.authors=bean980310"]
+}
