@@ -16,7 +16,7 @@ services:
     image: bean980310/stable-diffusion-webui:latest
     container_name: stable-diffusion-webui
     volumes:
-      - &models ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui/models
+      - &models ./stable-diffusion-models/models:/app/stable-diffusion-webui/models
       - &embeddings ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui/embeddings
       - ./workspace/stable-diffusion-webui/extensions:/app/stable-diffusion-webui/extensions
       - ./workspace/stable-diffusion-webui/webui-user.sh:/app/stable-diffusion-webui/webui-user.sh
@@ -36,7 +36,7 @@ services:
     image: bean980310/kohya-ss:latest
     container_name: kohya_ss
     volumes:
-      - ./stable-diffusion-models/sd-models:/app/kohya_ss/models
+      - ./stable-diffusion-models/models:/app/kohya_ss/models
       - ./stable-diffusion-models/embeddings:/app/kohya_ss/models/embeddings
       - ./workspace/kohya_ss/dataset:/app/kohya_ss/dataset
       - ./workspace/kohya_ss/accelerate.yaml:/app/accelerate.yaml
@@ -74,7 +74,7 @@ services:
     image: bean980310/invokeai:latest
     container_name: invokeai
     volumes:
-      - ./stable-diffusion-models/sd-models:/app/InvokeAI/models
+      - ./stable-diffusion-models/models:/app/InvokeAI/models
       - ./stable-diffusion-models/embeddings:/app/InvokeAI/models/embeddings
       - ./workspace/InvokeAI/custom_nodes:/app/InvokeAI/custom_nodes
       - ./workspace/InvokeAI/invokeai.yaml:/app/InvokeAI/invokeai.yaml
@@ -93,14 +93,14 @@ services:
     image: bean980310/fooocus:latest
     container_name: fooocus
     volumes:
-      - ./stable-diffusion-models/sd-models/Stable-diffusion:/app/Fooocus/models/checkpoints
-      - ./stable-diffusion-models/sd-models/Lora:/app/Fooocus/models/loras
+      - ./stable-diffusion-models/models/Stable-diffusion:/app/Fooocus/models/checkpoints
+      - ./stable-diffusion-models/models/Lora:/app/Fooocus/models/loras
       - ./stable-diffusion-models/embeddings:/app/Fooocus/models/embeddings
-      - ./stable-diffusion-models/sd-models/vae_approx:/app/Fooocus/models/vae_approx
-      - ./stable-diffusion-models/sd-models/ESRGAN:/app/Fooocus/models/upscale_models
-      - ./stable-diffusion-models/sd-models/RealESRGAN:/app/Fooocus/models/upscale_models
-      - ./stable-diffusion-models/sd-models/ControlNet:/app/Fooocus/models/controlnet
-      - ./stable-diffusion-models/sd-models/clip-interrogator:/app/Fooocus/models/clip_vision
+      - ./stable-diffusion-models/models/vae_approx:/app/Fooocus/models/vae_approx
+      - ./stable-diffusion-models/models/ESRGAN:/app/Fooocus/models/upscale_models
+      - ./stable-diffusion-models/models/RealESRGAN:/app/Fooocus/models/upscale_models
+      - ./stable-diffusion-models/models/ControlNet:/app/Fooocus/models/controlnet
+      - ./stable-diffusion-models/models/clip-interrogator:/app/Fooocus/models/clip_vision
       - ./outputs/Fooocus:/app/Fooocus/outputs
     ports:
       - "3040:7860"
@@ -119,7 +119,7 @@ services:
     image: bean980310/stable-diffusion-webui-forge:latest
     container_name: stable-diffusion-webui-forge
     volumes:
-      - ./stable-diffusion-models/sd-models:/app/stable-diffusion-webui-forge/models
+      - ./stable-diffusion-models/models:/app/stable-diffusion-webui-forge/models
       - ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui-forge/embeddings
       - ./workspace/stable-diffusion-webui-forge/extensions:/app/stable-diffusion-webui-forge/extensions
       - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
@@ -140,7 +140,7 @@ services:
     image: bean980310/sdnext:latest
     container_name: sdnext
     volumes:
-      - ./stable-diffusion-models/sd-models:/app/automatic/models
+      - ./stable-diffusion-models/models:/app/automatic/models
       - ./stable-diffusion-models/embeddings:/app/automatic/models/embeddings
       - ./workspace/SD.Next/extensions:/app/automatic/extensions
       - ./workspace/SD.Next/config.json:/app/automatic/config.json
@@ -160,7 +160,7 @@ services:
     image: bean980310/easy-diffusion:latest
     container_name: easy-diffusion
     volumes:
-      - ./stable-diffusion-models/sd-models:/app/easy-diffusion/models
+      - ./stable-diffusion-models/models:/app/easy-diffusion/models
       - ./stable-diffusion-models/embeddings:/app/easy-diffusion/models/embeddings
       - ./workspace/easy-diffusion/config.yaml:/app/easy-diffusion/config.yaml
       - ./outputs/easy-diffusion:/app/easy-diffusion/outputs
@@ -180,7 +180,7 @@ services:
     volumes:
       - swarmdata:/app/SwarmUI/Data
       - swarmbackend:/app/SwarmUI/dlbackend
-      - ./stable-diffusion-models/sd-models:/app/SwarmUI/Models
+      - ./stable-diffusion-models/models:/app/SwarmUI/Models
       - ./stable-diffusion-models/embeddings:/app/SwarmUI/Models/embeddings
       - ./outputs/SwarmUI:/app/SwarmUI/Output
     ports:
