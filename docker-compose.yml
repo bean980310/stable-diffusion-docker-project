@@ -68,6 +68,7 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         COMFYUI_COMMIT: 4ca9b9cc29fefaa899cba67d61a8252ae9f16c0d
+        COMFYUI_VERSION: v0.0.1
   invokeai:
     <<: *base_service
     image: bean980310/invokeai:latest
