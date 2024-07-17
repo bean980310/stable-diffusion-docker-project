@@ -161,3 +161,7 @@ services:
     ports:
       - "7801:7801"
     pull_policy: if_not_present
+
+volumes:
+  swarmdata:
+  swarmbackend:
