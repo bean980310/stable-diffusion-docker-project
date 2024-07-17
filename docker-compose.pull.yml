@@ -21,7 +21,7 @@ services:
     image: ollama/ollama:latest
   open-webui:
     <<: *base_service
-    image: bean980310/open-webui:ollama
+    image: bean980310/open-webui:latest
     container_name: open-webui
     volumes:
       - open-webui:/app/backend/data
