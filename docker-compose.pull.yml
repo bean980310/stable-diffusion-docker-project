@@ -163,5 +163,7 @@ services:
     pull_policy: if_not_present
 
 volumes:
+  ollama:
+  open-webui:
   swarmdata:
   swarmbackend:
