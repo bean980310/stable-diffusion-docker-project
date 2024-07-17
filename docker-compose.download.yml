@@ -1,0 +1,12 @@
+services:
+  download_model:
+    image: sd-model-download:latest
+    container_name: download_model
+    volumes:
+      - ./stable-diffusion-models/models:/data/models
+      - ./stable-diffusion-models/embeddings:/data/embeddings
+    build:
+      context: ./stable-diffusion-models
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: *BASE_IMAGE
