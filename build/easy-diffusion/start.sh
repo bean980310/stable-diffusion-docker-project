@@ -2,4 +2,4 @@
 set -e
 
 cd /app/easy-diffusion
-./start.sh -f
+./start.sh
