@@ -153,7 +153,7 @@ services:
     image: bean980310/swarmui:latest
     container_name: swarmui
     volumes:
-      - swarmdata:/app/SwarmUI/data
+      - swarmdata:/app/SwarmUI/Data
       - swarmbackend:/app/SwarmUI/dlbackend
       - ./stable-diffusion-models/sd-models:/app/SwarmUI/Models
       - ./stable-diffusion-models/embeddings:/app/SwarmUI/Models/embeddings
