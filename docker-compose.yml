@@ -68,7 +68,7 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         COMFYUI_COMMIT: 4ca9b9cc29fefaa899cba67d61a8252ae9f16c0d
-        COMFYUI_VERSION: v0.0.1
+        COMFYUI_VERSION: &COMFYUI_VERSION v0.0.1
   invokeai:
     <<: *base_service
     image: bean980310/invokeai:latest
@@ -173,3 +173,23 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         EASYDIFF_VERSION: v3.0.2
+  swarmui:
+    <<: *base_service
+    image: bean980310/swarmui:latest
+    container_name: swarmui
+    volumes:
+      - swarmdata:/app/SwarmUI/data
+      - swarmbackend:/app/SwarmUI/dlbackend
+      - ./stable-diffusion-models/sd-models:/app/SwarmUI/Models
+      - ./stable-diffusion-models/embeddings:/app/SwarmUI/Models/embeddings
+      - ./outputs/SwarmUI:/app/SwarmUI/Output
+    ports:
+      - "7801:7801"
+    build:
+      context: ./build/swarmui
+      dockerfile: Dockerfile
+      args:
+        WEBUI_VERSION: *WEBUI_VERSION
+        BASE_IMAGE: *BASE_IMAGE
+        SWARMUI_VERSION: 0.9.1-Beta
+        COMFYUI_VERSION: *COMFYUI_VERSION

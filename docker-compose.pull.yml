@@ -148,3 +148,16 @@ services:
     ports:
       - "9000:9000"
     pull_policy: if_not_present
+  swarmui:
+    <<: *base_service
+    image: bean980310/swarmui:latest
+    container_name: swarmui
+    volumes:
+      - swarmdata:/app/SwarmUI/data
+      - swarmbackend:/app/SwarmUI/dlbackend
+      - ./stable-diffusion-models/sd-models:/app/SwarmUI/Models
+      - ./stable-diffusion-models/embeddings:/app/SwarmUI/Models/embeddings
+      - ./outputs/SwarmUI:/app/SwarmUI/Output
+    ports:
+      - "7801:7801"
+    pull_policy: if_not_present
