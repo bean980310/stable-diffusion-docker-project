@@ -105,8 +105,8 @@ services:
     ports:
       - "3040:7860"
     pull_policy: if_not_present
-    environment:
-      - PRESET=anime
+    # environment:
+    #   - PRESET=anime
     #   - PRESET=realistic
   stable-diffusion-webui-forge:
     <<: *base_service
