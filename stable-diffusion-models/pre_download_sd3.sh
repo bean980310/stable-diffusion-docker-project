@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pip3 install huggingface huggingface-hub
+# pip3 install huggingface huggingface-hub
 
 echo "Login to huggingface"
 
