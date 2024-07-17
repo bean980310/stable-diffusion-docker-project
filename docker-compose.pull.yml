@@ -163,7 +163,7 @@ services:
     pull_policy: if_not_present
   facefusion:
     <<: *base_service
-    image: bean980310/facefusion
+    image: bean980310/facefusion:latest
     container_name: facefusion
     volumes:
       - ./workspace/facefusion/.assets:/app/facefusion/.assets
