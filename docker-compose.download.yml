@@ -1,6 +1,6 @@
 services:
   download_model:
-    image: sd-model-download:latest
+    image: bean980310/sd-model-download:latest
     container_name: download_model
     volumes:
       - ./stable-diffusion-models/models:/data/models
