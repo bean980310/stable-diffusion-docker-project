@@ -162,7 +162,7 @@ services:
     volumes:
       - ./stable-diffusion-models/models:/app/easy-diffusion/models
       - ./stable-diffusion-models/embeddings:/app/easy-diffusion/models/embeddings
-      - ./workspace/easy-diffusion/config.yaml:/app/easy-diffusion/config.yaml
+      - ./workspace/easy-diffusion/config.yaml:/app/easy-diffusion/scripts/config.yaml
       - ./outputs/easy-diffusion:/app/easy-diffusion/outputs
     ports:
       - "9000:9000"
