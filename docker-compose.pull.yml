@@ -161,6 +161,15 @@ services:
     ports:
       - "7801:7801"
     pull_policy: if_not_present
+  facefusion:
+    <<: *base_service
+    image: bean980310/facefusion
+    container_name: facefusion
+    volumes:
+      - ./workspace/facefusion/.assets:/app/facefusion/.assets
+    ports:
+      - "3070:7860"
+    pull_policy: if_not_present
 
 volumes:
   ollama:

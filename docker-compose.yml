@@ -193,6 +193,21 @@ services:
         BASE_IMAGE: *BASE_IMAGE
         SWARMUI_VERSION: 0.9.1-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
+  facefusion:
+    <<: *base_service
+    image: bean980310/facefusion
+    container_name: facefusion
+    volumes:
+      - ./workspace/facefusion/.assets:/app/facefusion/.assets
+    ports:
+      - "3070:7860"
+    build:
+      context: ./build/facefusion
+      dockerfile: Dockerfile
+      args:
+        WEBUI_VERSION: *WEBUI_VERSION
+        BASE_IMAGE: *BASE_IMAGE
+        FACEFUSION_VERSION: 2.6.1
 
 volumes:
   swarmdata:

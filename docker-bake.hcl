@@ -6,6 +6,10 @@ variable "WEBUI_VERSION" {
     default = "v1.9.4"
 }
 
+variable "COMFYUI_VERSION"{
+    default = "v0.0.1"
+}
+
 variable "RELEASE" {
     default = "latest"
 }
@@ -52,6 +56,7 @@ target "comfyui" {
     args={
         BASE_IMAGE="${BASE_IMAGE}"
         COMFYUI_COMMIT="4ca9b9cc29fefaa899cba67d61a8252ae9f16c0d"
+        COMFYUI_VERSION="${COMFYUI_VERSION}"
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
     tags=["bean980310/comfyui:${RELEASE}"]
@@ -120,6 +125,33 @@ target "easy-diffusion" {
         WEBUI_VERSION="${WEBUI_VERSION}"
     }
     tags=["bean980310/easy-diffusion:${RELEASE}"]
+    platforms=["linux/amd64"]
+    annotations=["org.opencontainers.image.authors=bean980310"]
+}
+
+target "swarmui" {
+    context="build/swarmui"
+    dockerfile="Dockerfile"
+    args={
+        BASE_IMAGE="${BASE_IMAGE}"
+        SWARMUI_VERSION="0.9.1-Beta"
+        WEBUI_VERSION="${WEBUI_VERSION}"
+        COMFYUI_VERSION="${COMFYUI_VERSION}"
+    }
+    tags=["bean980310/swarmui:${RELEASE}"]
+    platforms=["linux/amd64"]
+    annotations=["org.opencontainers.image.authors=bean980310"]
+}
+
+target "facefusion" {
+    context="build/facefusion"
+    dockerfile="Dockerfile"
+    args={
+        BASE_IMAGE="${BASE_IMAGE}"
+        FACEFUSION_VERSION="2.6.1"
+        WEBUI_VERSION="${WEBUI_VERSION}"
+    }
+    tags=["bean980310/facefusion:${RELEASE}"]
     platforms=["linux/amd64"]
     annotations=["org.opencontainers.image.authors=bean980310"]
 }
