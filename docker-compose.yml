@@ -193,3 +193,7 @@ services:
         BASE_IMAGE: *BASE_IMAGE
         SWARMUI_VERSION: 0.9.1-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
+
+volumes:
+  swarmdata:
+  swarmbackend:
