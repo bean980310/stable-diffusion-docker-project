@@ -208,6 +208,8 @@ services:
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
         FACEFUSION_VERSION: 2.6.1
+    environment:
+      - GRADIO_SERVER_NAME=0.0.0.0
 
 volumes:
   swarmdata:

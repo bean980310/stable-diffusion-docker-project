@@ -170,6 +170,8 @@ services:
     ports:
       - "3070:7860"
     pull_policy: if_not_present
+    environment:
+      - GRADIO_SERVER_NAME=0.0.0.0
 
 volumes:
   ollama:
