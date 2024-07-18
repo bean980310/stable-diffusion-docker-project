@@ -39,7 +39,11 @@ services:
       - ./stable-diffusion-models/models:/app/kohya_ss/models
       - ./stable-diffusion-models/embeddings:/app/kohya_ss/models/embeddings
       - ./workspace/kohya_ss/dataset:/app/kohya_ss/dataset
-      - ./workspace/kohya_ss/accelerate.yaml:/app/accelerate.yaml
+      - ./workspace/kohya_ss/dataset/images:/app/kohya_ss/dataset/images
+      - ./workspace/kohya_ss/dataset/logs:/app/kohya_ss/dataset/logs
+      - ./workspace/kohya_ss/dataset/outputs:/app/kohya_ss/dataset/outputs
+      - ./workspace/kohya_ss/dataset/regularization:/app/kohya_ss/dataset/regularization
+      - ./workspace/kohya_ss/accelerate.yaml:/ap/kohya_ss/accelerate.yaml
     ports:
       - "3020:7860"
     build:
@@ -56,6 +60,13 @@ services:
     volumes:
       - *models
       - *embeddings
+      - ./stable-diffusion-models/models/adetailer/face_yolov*.pt:/app/ComfyUI/models/ultralytics/bbox
+      - ./stable-diffusion-models/models/adetailer/hand_yolov*.pt:/app/ComfyUI/models/ultralytics/bbox
+      - ./stable-diffusion-models/models/adetailer/*-seg.pt:/app/ComfyUI/models/ultralytics/segm
+      - ./stable-diffusion-models/models/clip:/app/ComfyUI/models/clip
+      - ./stable-diffusion-models/models/clip-interrogator:/app/ComfyUI/models/clip_vision
+      - ./stable-diffusion-models/models/sam:/app/ComfyUI/models/sams
+      - ./stable-diffusion-models/models/VAE-approx://app/ComfyUI/models/vae_approx
       - ./workspace/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
       - ./workspace/ComfyUI/extra_model_paths.yaml:/app/ComfyUI/extra_model_paths.yaml
       - ./outputs/ComfyUI:/app/ComfyUI/output
@@ -74,6 +85,12 @@ services:
     image: bean980310/invokeai:latest
     container_name: invokeai
     volumes:
+      - type: bind
+        source: ./workspace/InvokeAI
+        target: /app/InvokeAI
+        bind:
+          create_host_path: true
+      - ~/.cache/huggingface:/app/invokeai/.cache/huggingface
       - ./stable-diffusion-models/models:/app/InvokeAI/models
       - ./stable-diffusion-models/embeddings:/app/InvokeAI/models/embeddings
       - ./workspace/InvokeAI/custom_nodes:/app/InvokeAI/custom_nodes
@@ -93,14 +110,19 @@ services:
     image: bean980310/fooocus:latest
     container_name: fooocus
     volumes:
+      - fooocus-data:/app/Fooocus
       - ./stable-diffusion-models/models/Stable-diffusion:/app/Fooocus/models/checkpoints
-      - ./stable-diffusion-models/models/Lora:/app/Fooocus/models/loras
+      - ./stable-diffusion-models/models/clip:/app/Fooocus/models/clip
+      - ./stable-diffusion-models/models/clip-interrogator:/app/Fooocus/models/clip_vision
+      - ./stable-diffusion-models/models/ControlNet:/app/Fooocus/models/controlnet
       - ./stable-diffusion-models/embeddings:/app/Fooocus/models/embeddings
-      - ./stable-diffusion-models/models/vae_approx:/app/Fooocus/models/vae_approx
+      - ./stable-diffusion-models/models/hypernetworks:/app/Fooocus/models/hypernetworks
+      - ./stable-diffusion-models/models/Lora:/app/Fooocus/models/loras
       - ./stable-diffusion-models/models/ESRGAN:/app/Fooocus/models/upscale_models
       - ./stable-diffusion-models/models/RealESRGAN:/app/Fooocus/models/upscale_models
-      - ./stable-diffusion-models/models/ControlNet:/app/Fooocus/models/controlnet
-      - ./stable-diffusion-models/models/clip-interrogator:/app/Fooocus/models/clip_vision
+      - ./stable-diffusion-models/models/VAE:/app/Fooocus/models/vae
+      - ./stable-diffusion-models/models/VAE-approx:/app/Fooocus/models/vae_approx
+      - ./workspace/Fooocus/config.txt:/app/Fooocus/config.txt
       - ./outputs/Fooocus:/app/Fooocus/outputs
     ports:
       - "3040:7860"
@@ -212,5 +234,6 @@ services:
       - GRADIO_SERVER_NAME=0.0.0.0
 
 volumes:
+  fooocus-data:
   swarmdata:
   swarmbackend:
