@@ -16,8 +16,7 @@ And you must put models in directory stable-diffusion-models/models.
 
 ```bash
 cd <your_path_of_dir>/stable-diffusion-docker-project
-docker compose --profile <service_name> pull
-docker compose --profile <service_name> up -d
+docker compose -f docker-compose.pull.yml up -d <service_name>
 ```
 
 | Service list                  |
@@ -27,12 +26,17 @@ docker compose --profile <service_name> up -d
 | comfyui                       |
 | invokeai                      |
 | fooocus                       |
+| stable-diffusion-webui-forge  |
+| sdnext                        |
+| open-webui                    |
+| easy-diffusion                |
+| swarmui                       |
+| facefusion                    |
 
 example:
 ```bash
 cd ~/stable-diffusion-docker-project
-docker compose --profile stable-diffusion-webui pull
-docker compose --profile stable-diffusion-webui up -d
+docker compose -f docker-compose.pull.yml up -d stable-diffusion-webui 
 ```
 
 How to install extension of stable-diffusion-webui:
