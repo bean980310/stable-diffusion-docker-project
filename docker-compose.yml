@@ -16,8 +16,25 @@ services:
     image: bean980310/stable-diffusion-webui:latest
     container_name: stable-diffusion-webui
     volumes:
-      - &models ./stable-diffusion-models/models:/app/stable-diffusion-webui/models
-      - &embeddings ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui/embeddings
+      - &checkpoints ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui/models/Stable-diffusion
+      - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui/models/clip-interrogator
+      - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui/configs
+      - &controlnet ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui/models/ControlNet
+      - ./stable-diffusion-models/models/deepbooru:/app/stable-diffusion-webui/models/deepbooru
+      - &embeddings ./stable-diffusion-models/models/embeddings:/app/stable-diffusion-webui/embeddings
+      - ./stable-diffusion-models/models/facerestore_models/Codeformer:/app/stable-diffusion-webui/models/Codeformer
+      - ./stable-diffusion-models/models/facerestore_models/GFPGAN:/app/stable-diffusion-webui/models/GFPGAN
+      - &hypernetworks ./stable-diffusion-models/models/hypernetworks:/app/stable-diffusion-webui/models/hypernetworks
+      - ./stable-diffusion-models/models/karlo:/app/stable-diffusion-webui/models/karlo
+      - &loras ./stable-diffusion-models/models/loras:/app/stable-diffusion-webui/models/Lora
+      - ./stable-diffusion-models/models/sams:/app/stable-diffusion-webui/models/sam
+      - ./stable-diffusion-models/models/ultralytics:/app/stable-diffusion-webui/models/adetailer
+      - &esrgan ./stable-diffusion-models/models/upscale_models/ESRGAN:/app/stable-diffusion-webui/models/ESRGAN
+      - &resrgan ./stable-diffusion-models/models/upscale_models/RealESRGAN:/app/stable-diffusion-webui/models/RealESRGAN
+      - &swinir ./stable-diffusion-models/models/upscale_models/SwinIR:/app/stable-diffusion-webui/models/SwinIR
+      - ./stable-diffusion-models/models/upscale_models/LDSR:/app/stable-diffusion-webui/models/LDSR
+      - &vae ./stable-diffusion-models/models/vae:/app/stable-diffusion-webui/models/VAE
+      - ./stable-diffusion-models/models/vae_approx:/app/stable-diffusion-webui/models/VAE-approx
       - ./workspace/stable-diffusion-webui/extensions:/app/stable-diffusion-webui/extensions
       - ./workspace/stable-diffusion-webui/webui-user.sh:/app/stable-diffusion-webui/webui-user.sh
       - ./workspace/stable-diffusion-webui/config.json:/app/stable-diffusion-webui/config.json
@@ -37,7 +54,6 @@ services:
     container_name: kohya_ss
     volumes:
       - ./stable-diffusion-models/models:/app/kohya_ss/models
-      - ./stable-diffusion-models/embeddings:/app/kohya_ss/models/embeddings
       - ./workspace/kohya_ss/dataset:/app/kohya_ss/dataset
       - ./workspace/kohya_ss/dataset/images:/app/kohya_ss/dataset/images
       - ./workspace/kohya_ss/dataset/logs:/app/kohya_ss/dataset/logs
@@ -50,23 +66,35 @@ services:
       context: ./build/kohya_ss
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         KOHYA_VERSION: v24.1.4
+        BASE_IMAGE: *BASE_IMAGE
   comfyui:
     <<: *base_service
     image: bean980310/comfyui:latest
     container_name: comfyui
     volumes:
-      - *models
+      - *checkpoints
+      - *controlnet
       - *embeddings
-      - ./stable-diffusion-models/models/adetailer/face_yolov*.pt:/app/ComfyUI/models/ultralytics/bbox
-      - ./stable-diffusion-models/models/adetailer/hand_yolov*.pt:/app/ComfyUI/models/ultralytics/bbox
-      - ./stable-diffusion-models/models/adetailer/*-seg.pt:/app/ComfyUI/models/ultralytics/segm
+      - *hypernetworks
+      - *loras
+      - *esrgan
+      - *resrgan
+      - *swinir
+      - *vae
       - ./stable-diffusion-models/models/clip:/app/ComfyUI/models/clip
-      - ./stable-diffusion-models/models/clip-interrogator:/app/ComfyUI/models/clip_vision
-      - ./stable-diffusion-models/models/sam:/app/ComfyUI/models/sams
-      - ./stable-diffusion-models/models/VAE-approx://app/ComfyUI/models/vae_approx
+      - ./stable-diffusion-models/models/clip_vision:/app/ComfyUI/models/clip_vision
+      - ./stable-diffusion-models/models/configs:/app/ComfyUI/models/configs
+      - ./stable-diffusion-models/models/diffusers:/app/ComfyUI/models/diffusers
+      - ./stable-diffusion-models/models/gligen:/app/ComfyUI/models/gligen
+      - ./stable-diffusion-models/models/mmdets:/app/ComfyUI/models/mmdets
+      - ./stable-diffusion-models/models/onnx:/app/ComfyUI/models/onnx
+      - ./stable-diffusion-models/models/photomaker:/app/ComfyUI/models/photomaker
+      - ./stable-diffusion-models/models/sams:/app/ComfyUI/models/sams
+      - ./stable-diffusion-models/models/style_models:/app/ComfyUI/models/style_models
+      - ./stable-diffusion-models/models/ultralytics:/app/ComfyUI/models/ultralytics
+      - ./stable-diffusion-models/models/unet:/app/ComfyUI/models/unet
+      - ./stable-diffusion-models/models/vae_approx:/app/ComfyUI/models/vae_approx
       - ./workspace/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
       - ./workspace/ComfyUI/extra_model_paths.yaml:/app/ComfyUI/extra_model_paths.yaml
       - ./outputs/ComfyUI:/app/ComfyUI/output
@@ -76,10 +104,9 @@ services:
       context: ./build/comfyui
       dockerfile: Dockerfile
       args:
+        COMFYUI_VERSION: &COMFYUI_VERSION v0.0.1
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
-        COMFYUI_COMMIT: 4ca9b9cc29fefaa899cba67d61a8252ae9f16c0d
-        COMFYUI_VERSION: &COMFYUI_VERSION v0.0.1
   invokeai:
     <<: *base_service
     image: bean980310/invokeai:latest
@@ -92,7 +119,6 @@ services:
           create_host_path: true
       - ~/.cache/huggingface:/app/invokeai/.cache/huggingface
       - ./stable-diffusion-models/models:/app/InvokeAI/models
-      - ./stable-diffusion-models/embeddings:/app/InvokeAI/models/embeddings
       - ./workspace/InvokeAI/custom_nodes:/app/InvokeAI/custom_nodes
       - ./workspace/InvokeAI/invokeai.yaml:/app/InvokeAI/invokeai.yaml
       - ./outputs/InvokeAI:/app/InvokeAI/outputs
@@ -102,26 +128,32 @@ services:
       context: ./build/invokeai
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         INVOKEAI_VERSION: v4.2.4
+        BASE_IMAGE: *BASE_IMAGE
   fooocus:
     <<: *base_service
     image: bean980310/fooocus:latest
     container_name: fooocus
     volumes:
       - fooocus-data:/app/Fooocus
-      - ./stable-diffusion-models/models/Stable-diffusion:/app/Fooocus/models/checkpoints
+      - ./stable-diffusion-models/models/checkpoints:/app/Fooocus/models/checkpoints
       - ./stable-diffusion-models/models/clip:/app/Fooocus/models/clip
-      - ./stable-diffusion-models/models/clip-interrogator:/app/Fooocus/models/clip_vision
-      - ./stable-diffusion-models/models/ControlNet:/app/Fooocus/models/controlnet
-      - ./stable-diffusion-models/embeddings:/app/Fooocus/models/embeddings
+      - ./stable-diffusion-models/models/clip_vision:/app/Fooocus/models/clip_vision
+      - ./stable-diffusion-models/models/configs:/app/Fooocus/models/configs
+      - ./stable-diffusion-models/models/controlnet:/app/Fooocus/models/controlnet
+      - ./stable-diffusion-models/models/diffusers:/app/Fooocus/models/diffusers
+      - ./stable-diffusion-models/models/embeddings:/app/Fooocus/models/embeddings
+      - ./stable-diffusion-models/models/gligen:/app/Fooocus/models/gligen
       - ./stable-diffusion-models/models/hypernetworks:/app/Fooocus/models/hypernetworks
-      - ./stable-diffusion-models/models/Lora:/app/Fooocus/models/loras
-      - ./stable-diffusion-models/models/ESRGAN:/app/Fooocus/models/upscale_models
-      - ./stable-diffusion-models/models/RealESRGAN:/app/Fooocus/models/upscale_models
-      - ./stable-diffusion-models/models/VAE:/app/Fooocus/models/vae
-      - ./stable-diffusion-models/models/VAE-approx:/app/Fooocus/models/vae_approx
+      - ./stable-diffusion-models/models/inpaint:/app/Fooocus/models/inpaint
+      - ./stable-diffusion-models/models/loras:/app/Fooocus/models/loras
+      - ./stable-diffusion-models/models/prompt_expansion:/app/Fooocus/models/prompt_expansion
+      - ./stable-diffusion-models/models/safety_checker:/app/Fooocus/models/safety_checker
+      - ./stable-diffusion-models/models/style_models:/app/Fooocus/models/style_models
+      - ./stable-diffusion-models/models/unet:/app/Fooocus/models/unet
+      - ./stable-diffusion-models/models/upscale_models:/app/Fooocus/models/upscale_models
+      - ./stable-diffusion-models/models/vae:/app/Fooocus/models/vae
+      - ./stable-diffusion-models/models/vae_approx:/app/Fooocus/models/vae_approx
       - ./workspace/Fooocus/config.txt:/app/Fooocus/config.txt
       - ./outputs/Fooocus:/app/Fooocus/outputs
     ports:
@@ -130,9 +162,8 @@ services:
       context: ./build/fooocus
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         FOOOCUS_VERSION: v2.4.3
+        BASE_IMAGE: *BASE_IMAGE
     # environment:
     #   - PRESET=anime
     #   - PRESET=realistic
@@ -141,8 +172,27 @@ services:
     image: bean980310/stable-diffusion-webui-forge:latest
     container_name: stable-diffusion-webui-forge
     volumes:
-      - ./stable-diffusion-models/models:/app/stable-diffusion-webui-forge/models
-      - ./stable-diffusion-models/embeddings:/app/stable-diffusion-webui-forge/embeddings
+      - ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui-forge/models/Stable-diffusion
+      - ./stable-diffusion-models/models/checkpoints/svd:/app/stable-diffusion-webui-forge/models/svd
+      - ./stable-diffusion-models/models/checkpoints/z123:/app/stable-diffusion-webui-forge/models/z123
+      - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui-forge/models/clip-interrogator
+      - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui-forge/configs
+      - ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui-forge/models/ControlNet
+      - ./stable-diffusion-models/models/deepbooru:/app/stable-diffusion-webui-forge/models/deepbooru
+      - ./stable-diffusion-models/models/embeddings:/app/stable-diffusion-webui-forge/embeddings
+      - ./stable-diffusion-models/models/facerestore_models/Codeformer:/app/stable-diffusion-webui-forge/models/Codeformer
+      - ./stable-diffusion-models/models/facerestore_models/GFPGAN:/app/stable-diffusion-webui-forge/models/GFPGAN
+      - ./stable-diffusion-models/models/hypernetworks:/app/stable-diffusion-webui-forge/models/hypernetworks
+      - ./stable-diffusion-models/models/karlo:/app/stable-diffusion-webui-forge/models/karlo
+      - ./stable-diffusion-models/models/loras:/app/stable-diffusion-webui-forge/models/Lora
+      - ./stable-diffusion-models/models/sams:/app/stable-diffusion-webui-forge/models/sam
+      - ./stable-diffusion-models/models/ultralytics:/app/stable-diffusion-webui-forge/models/adetailer
+      - ./stable-diffusion-models/models/upscale_models/ESRGAN:/app/stable-diffusion-webui-forge/models/ESRGAN
+      - ./stable-diffusion-models/models/upscale_models/RealESRGAN:/app/stable-diffusion-webui-forge/models/RealESRGAN
+      - ./stable-diffusion-models/models/upscale_models/SwinIR:/app/stable-diffusion-webui-forge/models/SwinIR
+      - ./stable-diffusion-models/models/upscale_models/LDSR:/app/stable-diffusion-webui-forge/models/LDSR
+      - ./stable-diffusion-models/models/vae:/app/stable-diffusion-webui-forge/models/VAE
+      - ./stable-diffusion-models/models/vae_approx:/app/stable-diffusion-webui-forge/models/VAE-approx
       - ./workspace/stable-diffusion-webui-forge/extensions:/app/stable-diffusion-webui-forge/extensions
       - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
       - ./workspace/stable-diffusion-webui-forge/config.json:/app/stable-diffusion-webui-forge/config.json
@@ -154,16 +204,16 @@ services:
       context: ./build/sdwebui-forge
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         FORGE_COMMIT: bfee03d8d9415a925616f40ede030fe7a51cbcfd
+        BASE_IMAGE: *BASE_IMAGE
   sdnext:
     <<: *base_service
     image: bean980310/sdnext:latest
     container_name: sdnext
     volumes:
       - ./stable-diffusion-models/models:/app/automatic/models
-      - ./stable-diffusion-models/embeddings:/app/automatic/models/embeddings
+      - ./stable-diffusion-models/models/configs:/app/automatic/configs
+      - ./stable-diffusion-models/models/vae_approx:/app/automatic/models/VAE-approx
       - ./workspace/SD.Next/extensions:/app/automatic/extensions
       - ./workspace/SD.Next/config.json:/app/automatic/config.json
       - ./workspace/SD.Next/ui-config.json:/app/automatic/ui-config.json
@@ -174,16 +224,16 @@ services:
       context: ./build/vladmandic-sdnext
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         SDNEXT_COMMIT: 2ec6e9eec481223b8abe50cb5165d5fd9be2d086
+        BASE_IMAGE: *BASE_IMAGE
   easy-diffusion:
     <<: *base_service
     image: bean980310/easy-diffusion:latest
     container_name: easy-diffusion
     volumes:
       - ./stable-diffusion-models/models:/app/easy-diffusion/models
-      - ./stable-diffusion-models/embeddings:/app/easy-diffusion/models/embeddings
+      - ./stable-diffusion-models/models/ckeckpoints:/app/easy-diffusion/models/stable-diffusion
+      - ./stable-diffusion-models/models/loras:/app/easy-diffusion/models/lora
       - ./workspace/easy-diffusion/config.yaml:/app/easy-diffusion/scripts/config.yaml
       - ./outputs/easy-diffusion:/app/easy-diffusion/outputs
     ports:
@@ -192,9 +242,8 @@ services:
       context: ./build/easy-diffusion
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         EASYDIFF_VERSION: v3.0.2
+        BASE_IMAGE: *BASE_IMAGE
   swarmui:
     <<: *base_service
     image: bean980310/swarmui:latest
@@ -203,7 +252,6 @@ services:
       - swarmdata:/app/SwarmUI/Data
       - swarmbackend:/app/SwarmUI/dlbackend
       - ./stable-diffusion-models/models:/app/SwarmUI/Models
-      - ./stable-diffusion-models/embeddings:/app/SwarmUI/Models/embeddings
       - ./outputs/SwarmUI:/app/SwarmUI/Output
     ports:
       - "7801:7801"
@@ -211,10 +259,9 @@ services:
       context: ./build/swarmui
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         SWARMUI_VERSION: 0.9.1-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
+        BASE_IMAGE: *BASE_IMAGE
   facefusion:
     <<: *base_service
     image: bean980310/facefusion:latest
@@ -227,9 +274,8 @@ services:
       context: ./build/facefusion
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         FACEFUSION_VERSION: 2.6.1
+        BASE_IMAGE: *BASE_IMAGE
     environment:
       - GRADIO_SERVER_NAME=0.0.0.0
 

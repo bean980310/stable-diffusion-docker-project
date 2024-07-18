@@ -2,7 +2,6 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS base
 
 WORKDIR /app
-ARG WEBUI_VERSION
 
 # RUN apt update \
 #     && apt install -y python3-launchpadlib \

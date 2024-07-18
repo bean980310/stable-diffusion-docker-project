@@ -6,7 +6,7 @@ apt clean
 
 git clone https://github.com/bmaltais/kohya_ss.git
 cd /app/kohya_ss
-git checkout ${KOHYA_VERSION}
+git checkout tags/${KOHYA_VERSION}
 git submodule update --init --recursive
 
 pip3 install -U ninja pip setuptools wheel

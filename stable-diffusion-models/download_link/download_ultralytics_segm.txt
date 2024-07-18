@@ -1,0 +1,4 @@
+https://huggingface.co/Bingsu/adetailer/resolve/main/deepfashion2_yolov8s-seg.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8n-seg.pt
+https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8s-seg.pt

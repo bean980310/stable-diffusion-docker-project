@@ -12,7 +12,7 @@ cd /app
 # Clone the repo
 git clone https://github.com/comfyanonymous/ComfyUI.git
 cd /app/ComfyUI
-git checkout ${COMFYUI_COMMIT}
+git checkout tags/${COMFYUI_VERSION}
 
 # Install requirements
 pip3 install -r requirements.txt

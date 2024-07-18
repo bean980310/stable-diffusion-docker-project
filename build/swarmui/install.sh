@@ -8,13 +8,13 @@ chmod +x dotnet-install.sh
 
 git clone https://github.com/mcmonkeyprojects/SwarmUI.git
 cd /app/SwarmUI
-git checkout ${SWARMUI_VERSION}
+git checkout tags/${SWARMUI_VERSION}
 
 mkdir dlbackend
 
 cd /app/SwarmUI/dlbackend
 git clone https://github.com/comfyanonymous/ComfyUI.git
 cd /app/SwarmUI/dlbackend/ComfyUI
-git checkout ${COMFYUI_VERSION}
+git checkout tags/${COMFYUI_VERSION}
 
 pip3 install -r requirements.txt

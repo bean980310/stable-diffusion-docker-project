@@ -1,33 +1,29 @@
 #!/usr/bin/env bash
 
-mkdir -vp models/Stable-diffusion/SD15 \
-    models/Stable-diffusion/SDXL \
-    models/Stable-diffusion/Pony \
-    models/Stable-diffusion/SD3 \
-    models/Stable-diffusion/upscale
+mkdir -vp models/checkpoints/sd15 \
+    models/checkpoints/sd2 \
+    models/checkpoints/sdxl \
+    models/checkpoints/pony \
+    models/checkpoints/sd3 \
+    models/checkpoints/upscale
 
-mkdir -vp models/VAE/SD15 \
-    models/VAE/SDXL \
-    models/VAE/SD3
+mkdir -vp models/vae/sd15 \
+    models/vae/sd2 \
+    models/vae/sdxl \
+    models/vae/sd3
 
-mkdir -vp models/ControlNet/SD15 \
-    models/ControlNet/SDXL \
-    models/ControlNet/SD3
+mkdir -vp models/controlnet/sd15 \
+    models/controlnet/sd2 \
+    models/controlnet/sdxl \
+    models/controlnet/sd3
 
-mkdir -vp models/Lora/SD15 \
-    models/Lora/SDXL \
-    models/Lora/Pony \
-    models/Lora/SD3
+mkdir -vp models/loras/sd15 \
+    models/loras/sd2 \
+    models/loras/sdxl \
+    models/loras/pony \
+    models/loras/sd3
 
-mkdir -vp embeddings/SD15 \
-    embeddings/SDXL \
-    embeddings/SD3
-
-# mkdir -vp models/ESRGAN \
-#     models/RealESRGAN \
-#     models/GFPGAN \
-#     models/LDSR
-
-# mkdir models/adetailer
-# mkdir models/sam
-# mkdir models/clip-interrogator
+mkdir -vp models/embeddings/sd15 \
+    models/embeddings/sd2 \
+    models/embeddings/sdxl \
+    models/embeddings/sd3

@@ -2,14 +2,8 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS base
 
 WORKDIR /app
+ARG COMFYUI_VERSION
 ARG WEBUI_VERSION
-ARG COMFYUI_COMMIT
-
-# RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
-# WORKDIR /app/stable-diffusion-webui
-# RUN git checkout tags/${WEBUI_VERSION}
-
-# WORKDIR /app
 
 # RUN git clone https://github.com/comfyanonymous/ComfyUI.git /ComfyUI
 # WORKDIR /app/ComfyUI
