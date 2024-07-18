@@ -1,2 +1,3 @@
 .DS_Store
 .docker_temp_*
+stable-diffusion-docker-v*.zip
