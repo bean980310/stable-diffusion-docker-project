@@ -278,6 +278,20 @@ services:
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - GRADIO_SERVER_NAME=0.0.0.0
+  omost:
+    <<: *base_service
+    image: bean980310/omost:latest
+    container_name: omost
+    volumes:
+      - ~/.cache/huggingface/hub:/data
+    ports:
+      - "3080:8080"
+    build:
+      context: ./build/omost
+      dockerfile: Dockerfile
+      args:
+        OMOST_COMMIT: 731e74922fc6be91171688574d07624f93d3b658
+        BASE_IMAGE: *BASE_IMAGE
 
 volumes:
   fooocus-data:

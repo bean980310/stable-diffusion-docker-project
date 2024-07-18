@@ -250,6 +250,15 @@ services:
     pull_policy: if_not_present
     environment:
       - GRADIO_SERVER_NAME=0.0.0.0
+  omost:
+    <<: *base_service
+    image: bean980310/omost:latest
+    container_name: omost
+    volumes:
+      - ~/.cache/huggingface/hub:/data
+    ports:
+      - "3080:8080"
+    pull_policy: if_not_present
 
 volumes:
   ollama:
