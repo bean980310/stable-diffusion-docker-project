@@ -7,10 +7,10 @@ You need NVIDIA GPU and CUDA 12.1, Docker and NVIDIA Container toolkit, if you a
 git clone https://github.com/bean980310/stable-diffusion-docker-project.git
 ```
 
-First, run the run_first.sh script on stable-diffusion-docker-project/stable-diffusion-models
+First, run the docker-compose.download.yml
 ```bash
-cd <your_path_of_dir>/stable-diffusion-docker-project/stable-diffusion-models
-source run_first.sh
+cd <your_path_of_dir>/stable-diffusion-docker-project
+docker compose -f docker-compose.download.yml up
 ```
 And you must put models in directory stable-diffusion-models/models.
 
@@ -41,26 +41,22 @@ docker compose -f docker-compose.pull.yml up -d stable-diffusion-webui
 
 How to install extension of stable-diffusion-webui:
 ```bash
-cd <your_path_of_dir>/stable-diffusion-docker-project/workspace/stable-diffusion-webui
-mkdir extensions
-cd extensions
+cd <your_path_of_dir>/stable-diffusion-docker-project/workspace/stable-diffusion-webui/extensions
 git clone <stable-diffusion-webui_extension>
 ```
 How to install ComfyUI Manager:
 ```bash
-cd <your_path_of_dir>/stable-diffusion-docker-project/workspace/ComfyUI
-mkdir custom_nodes
-cd custom_nodes
+cd <your_path_of_dir>/stable-diffusion-docker-project/workspace/ComfyUI/custom_nodes
 git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 ```
 
 ## Usage
 ```bash
-docker compose --profile <service_name> up -d
+docker compose -f docker-compose.pull.yml up -d
 ```
 or
 ```bash
-docker start <container_id>
+docker compose -f docker-compose.pull.yml up -d <service_name>
 ```
 ## Features
 ### [AUTOMATIC1111](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
