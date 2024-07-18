@@ -19,19 +19,19 @@ cd <your_path_of_dir>/stable-diffusion-docker-project
 docker compose -f docker-compose.pull.yml up -d <service_name>
 ```
 
-| Service list                  |
-|-------------------------------|
-| stable-diffusion-webui        |
-| kohya_ss                      |
-| comfyui                       |
-| invokeai                      |
-| fooocus                       |
-| stable-diffusion-webui-forge  |
-| sdnext                        |
-| open-webui                    |
-| easy-diffusion                |
-| swarmui                       |
-| facefusion                    |
+| Service list                  | Port |
+|-------------------------------|------|
+| stable-diffusion-webui        | 3010 |
+| kohya_ss                      | 3020 |
+| comfyui                       | 3030 |
+| invokeai                      | 9090 |
+| fooocus                       | 3040 |
+| stable-diffusion-webui-forge  | 3050 |
+| sdnext                        | 3060 |
+| open-webui                    | 3000 |
+| easy-diffusion                | 9000 |
+| swarmui                       | 7801 |
+| facefusion                    | 3070 |
 
 example:
 ```bash
@@ -64,4 +64,10 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 ### [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 ### [InvokeAI](https://github.com/invoke-ai/InvokeAI)
 ### [Fooocus](https://github.com/lllyasviel/Fooocus)
+### [Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge)
+### [SD.Next](https://github.com/vladmandic/automatic)
+### [Open-WebUI](https://github.com/open-webui/open-webui)
+### [EasyDiffusion](https://github.com/easydiffusion/easydiffusion)
+### [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI)
+### [FaceFusion](https://github.com/facefusion/facefusion)
 ## Contributing
