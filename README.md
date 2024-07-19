@@ -1,7 +1,9 @@
 # Generative AI on Docker Project
 Stable Diffusion WebUI and KohyaSS, ComfyUI, InvokeAI, Fooocus, and more Generative AI Applications on Docker
+
 ## Setup
 You need NVIDIA GPU and CUDA 12.1(or Upper), Docker and NVIDIA Container toolkit, if you are using Windows 10/11, you also need enable WSL2. it is recommanded on Amazon Web Services, Microsoft Azure, Google Cloud Platform.
+
 ### How to install
 ```bash
 git clone https://github.com/bean980310/stable-diffusion-docker-project.git
@@ -58,6 +60,7 @@ or
 ```bash
 docker compose -f docker-compose.pull.yml up -d <service_name>
 ```
+
 ## Features
 ### [AUTOMATIC1111](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
 ### [KohyaSS](https://github.com/bmaltais/kohya_ss)
@@ -70,4 +73,5 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 ### [EasyDiffusion](https://github.com/easydiffusion/easydiffusion)
 ### [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI)
 ### [FaceFusion](https://github.com/facefusion/facefusion)
+
 ## Contributing
