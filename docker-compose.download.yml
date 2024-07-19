@@ -4,7 +4,6 @@ services:
     container_name: download_model
     volumes:
       - ./stable-diffusion-models/models:/data/models
-      - ./stable-diffusion-models/embeddings:/data/embeddings
     build:
       context: ./stable-diffusion-models
       dockerfile: Dockerfile
