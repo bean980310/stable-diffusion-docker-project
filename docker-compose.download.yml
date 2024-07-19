@@ -1,11 +1,31 @@
 services:
-  download_model:
+  download_txt2img_model:
     image: sd-model-download:latest
-    container_name: download_model
+    container_name: download_txt2img_model
     volumes:
       - ./stable-diffusion-models/models:/data/models
     build:
       context: ./stable-diffusion-models
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: bean980310/ubuntu-docker:1.0.2-cuda12.1.1-torch2.3.1
+  download_img2video_model:
+    image: svd-model-download:latest
+    container_name: download_img2video_model
+    volumes:
+      - ./stable-video-diffusion-models/models:/data/models
+    build:
+      context: ./stable-video-diffusion-models
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: bean980310/ubuntu-docker:1.0.2-cuda12.1.1-torch2.3.1
+  download_txt23d_model:
+    image: svd-model-download:latest
+    container_name: download_txt23d_model
+    volumes:
+      - ./stable-zero123-models/models:/data/models
+    build:
+      context: ./stable-zero123-models
       dockerfile: Dockerfile
       args:
         BASE_IMAGE: bean980310/ubuntu-docker:1.0.2-cuda12.1.1-torch2.3.1
