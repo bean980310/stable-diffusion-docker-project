@@ -6,6 +6,6 @@ set -e
 ./pre_download_alt.sh
 ./pre_download_sd2.sh
 ./pre_download_sd3.sh
+./pre_download_svd.sh
 ./pre_download_controlnet.sh
 ./pre_download_controlnet_sd2.sh
-./pre_download_svd.sh
