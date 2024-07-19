@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-apt install -y python3-launchpadlib
-apt clean
+# apt install -y python3-launchpadlib
+# apt clean
 
 git clone https://github.com/bmaltais/kohya_ss.git
 cd /app/kohya_ss

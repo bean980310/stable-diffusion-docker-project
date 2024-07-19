@@ -35,6 +35,7 @@ services:
       - ./stable-diffusion-models/models/upscale_models/LDSR:/app/stable-diffusion-webui/models/LDSR
       - &vae ./stable-diffusion-models/models/vae:/app/stable-diffusion-webui/models/VAE
       - ./stable-diffusion-models/models/vae_approx:/app/stable-diffusion-webui/models/VAE-approx
+      - ./workspace/stable-diffusion-webui/.cache/huggingface:/app/stable-diffusion-webui/.cache/huggingface
       - ./workspace/stable-diffusion-webui/extensions:/app/stable-diffusion-webui/extensions
       - ./workspace/stable-diffusion-webui/webui-user.sh:/app/stable-diffusion-webui/webui-user.sh
       - ./workspace/stable-diffusion-webui/config.json:/app/stable-diffusion-webui/config.json
@@ -47,13 +48,16 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.9.4
-        BASE_IMAGE: &BASE_IMAGE bean980310/ubuntu-docker:1.0.2-cuda12.1.1-torch2.3.1
+        BASE_IMAGE: &BASE_IMAGE bean980310/ubuntu-docker:1.0.3-cuda12.1.1-torch2.3.1
+    environment:
+      - HF_HOME=/app/stable-diffusion-webui/.cache/huggingface
   kohya_ss:
     <<: *base_service
     image: bean980310/kohya-ss:latest
     container_name: kohya_ss
     volumes:
       - ./stable-diffusion-models/models:/app/kohya_ss/models
+      - ./workspace/kohya_ss/.cache/huggingface:/app/kohya_ss/.cache/huggingface
       - ./workspace/kohya_ss/dataset:/app/kohya_ss/dataset
       - ./workspace/kohya_ss/dataset/images:/app/kohya_ss/dataset/images
       - ./workspace/kohya_ss/dataset/logs:/app/kohya_ss/dataset/logs
@@ -68,6 +72,8 @@ services:
       args:
         KOHYA_VERSION: v24.1.4
         BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/kohya_ss/.cache/huggingface
   comfyui:
     <<: *base_service
     image: bean980310/comfyui:latest
@@ -95,6 +101,7 @@ services:
       - ./stable-diffusion-models/models/ultralytics:/app/ComfyUI/models/ultralytics
       - ./stable-diffusion-models/models/unet:/app/ComfyUI/models/unet
       - ./stable-diffusion-models/models/vae_approx:/app/ComfyUI/models/vae_approx
+      - ./workspace/ComfyUI/.cache/huggingface:/app/ComfyUI/.cache/huggingface
       - ./workspace/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
       - ./workspace/ComfyUI/extra_model_paths.yaml:/app/ComfyUI/extra_model_paths.yaml
       - ./outputs/ComfyUI:/app/ComfyUI/output
@@ -107,6 +114,8 @@ services:
         COMFYUI_VERSION: &COMFYUI_VERSION v0.0.1
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/ComfyUI/.cache/huggingface
   invokeai:
     <<: *base_service
     image: bean980310/invokeai:latest
@@ -117,8 +126,8 @@ services:
         target: /app/InvokeAI
         bind:
           create_host_path: true
-      - ~/.cache/huggingface:/app/invokeai/.cache/huggingface
       - ./stable-diffusion-models/models:/app/InvokeAI/models
+      - ./workspace/InvokeAI/.cache/huggingface:/app/InvokeAI/.cache/huggingface
       - ./workspace/InvokeAI/custom_nodes:/app/InvokeAI/custom_nodes
       - ./workspace/InvokeAI/invokeai.yaml:/app/InvokeAI/invokeai.yaml
       - ./outputs/InvokeAI:/app/InvokeAI/outputs
@@ -130,6 +139,8 @@ services:
       args:
         INVOKEAI_VERSION: v4.2.4
         BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/InvokeAI/.cache/huggingface
   fooocus:
     <<: *base_service
     image: bean980310/fooocus:latest
@@ -154,6 +165,7 @@ services:
       - ./stable-diffusion-models/models/upscale_models:/app/Fooocus/models/upscale_models
       - ./stable-diffusion-models/models/vae:/app/Fooocus/models/vae
       - ./stable-diffusion-models/models/vae_approx:/app/Fooocus/models/vae_approx
+      - ./workspace/Fooocus/.cache/huggingface:/app/Fooocus/.cache/huggingface
       - ./workspace/Fooocus/config.txt:/app/Fooocus/config.txt
       - ./outputs/Fooocus:/app/Fooocus/outputs
     ports:
@@ -164,7 +176,8 @@ services:
       args:
         FOOOCUS_VERSION: v2.4.3
         BASE_IMAGE: *BASE_IMAGE
-    # environment:
+    environment:
+      - HF_HOME=/app/Fooocus/.cache/huggingface
     #   - PRESET=anime
     #   - PRESET=realistic
   stable-diffusion-webui-forge:
@@ -193,6 +206,7 @@ services:
       - ./stable-diffusion-models/models/vae_approx:/app/stable-diffusion-webui-forge/models/VAE-approx
       - ./stable-video-diffusion-models/models:/app/stable-diffusion-webui-forge/models/svd
       - ./stable-zero123-models/models/:/app/stable-diffusion-webui-forge/models/z123
+      - ./workspace/stable-diffusion-webui-forge/.cache/huggingface:/app/stable-diffusion-webui-forge/.cache/huggingface
       - ./workspace/stable-diffusion-webui-forge/extensions:/app/stable-diffusion-webui-forge/extensions
       - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
       - ./workspace/stable-diffusion-webui-forge/config.json:/app/stable-diffusion-webui-forge/config.json
@@ -206,6 +220,8 @@ services:
       args:
         FORGE_COMMIT: bfee03d8d9415a925616f40ede030fe7a51cbcfd
         BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
   sdnext:
     <<: *base_service
     image: bean980310/sdnext:latest
@@ -214,6 +230,7 @@ services:
       - ./stable-diffusion-models/models:/app/automatic/models
       - ./stable-diffusion-models/models/configs:/app/automatic/configs
       - ./stable-diffusion-models/models/vae_approx:/app/automatic/models/VAE-approx
+      - ./workspace/SD.Next/.cache/huggingface:/app/automatic/.cache/huggingface
       - ./workspace/SD.Next/extensions:/app/automatic/extensions
       - ./workspace/SD.Next/config.json:/app/automatic/config.json
       - ./workspace/SD.Next/ui-config.json:/app/automatic/ui-config.json
@@ -226,6 +243,8 @@ services:
       args:
         SDNEXT_COMMIT: 2ec6e9eec481223b8abe50cb5165d5fd9be2d086
         BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/automatic/.cache/huggingface
   easy-diffusion:
     <<: *base_service
     image: bean980310/easy-diffusion:latest
@@ -234,6 +253,7 @@ services:
       - ./stable-diffusion-models/models:/app/easy-diffusion/models
       - ./stable-diffusion-models/models/ckeckpoints:/app/easy-diffusion/models/stable-diffusion
       - ./stable-diffusion-models/models/loras:/app/easy-diffusion/models/lora
+      - ./workspace/easy-diffusion/.cache/huggingface:/app/easy-diffusion/.cache/huggingface
       - ./workspace/easy-diffusion/config.yaml:/app/easy-diffusion/scripts/config.yaml
       - ./outputs/easy-diffusion:/app/easy-diffusion/outputs
     ports:
@@ -244,6 +264,8 @@ services:
       args:
         EASYDIFF_VERSION: v3.0.2
         BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/easy-diffusion/.cache/huggingface
   swarmui:
     <<: *base_service
     image: bean980310/swarmui:latest
@@ -252,6 +274,7 @@ services:
       - swarmdata:/app/SwarmUI/Data
       - swarmbackend:/app/SwarmUI/dlbackend
       - ./stable-diffusion-models/models:/app/SwarmUI/Models
+      - ./workspace/SwarmUI/.cache/huggingface:/app/SwarmUI/.cache/huggingface
       - ./outputs/SwarmUI:/app/SwarmUI/Output
     ports:
       - "7801:7801"
@@ -262,12 +285,16 @@ services:
         SWARMUI_VERSION: 0.9.1-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/SwarmUI/.cache/huggingface
+      - SWARM_NO_VENV='true'
   facefusion:
     <<: *base_service
     image: bean980310/facefusion:latest
     container_name: facefusion
     volumes:
       - ./workspace/facefusion/.assets:/app/facefusion/.assets
+      - ./workspace/facefusion/.cache/huggingface:/app/facefusion/.cache/huggingface
     ports:
       - "3070:7860"
     build:
@@ -277,13 +304,15 @@ services:
         FACEFUSION_VERSION: 2.6.1
         BASE_IMAGE: *BASE_IMAGE
     environment:
+      - HF_HOME=/app/facefusion/.cache/huggingface
       - GRADIO_SERVER_NAME=0.0.0.0
+      - GRADIO_SERVER_PORT=7860
   omost:
     <<: *base_service
     image: bean980310/omost:latest
     container_name: omost
     volumes:
-      - ~/.cache/huggingface/hub:/data
+      - ./workspace/Omost/.cache/huggingface/hub:/app/Omost/.cache/huggingface
     ports:
       - "3080:8080"
     build:
@@ -292,13 +321,15 @@ services:
       args:
         OMOST_COMMIT: 731e74922fc6be91171688574d07624f93d3b658
         BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/Omost/.cache/huggingface
   stable-audio-tools:
     <<: *base_service
     image: bean980310/stable-audio-tools:latest
     container_name: stable-audio-tools
     volumes:
       - ./stable-audio-models/models:/app/stable-audio-tools/models
-      - ~/.cache/huggingface:/app/invokeai/.cache/huggingface
+      - ./workspace/stable-audio-models/.cache/huggingface:/app/stable-audio-models/.cache/huggingface
     ports:
       - "3090:7860"
     build:
@@ -308,8 +339,9 @@ services:
         STABLE_AUDIO_TOOLS_COMMIT: 7311840dc3ffb69c9134f83483daa1402ec452e3
         BASE_IMAGE: *BASE_IMAGE
     environment:
-      - GRADIO_SERVER_NAME="0.0.0.0"
-      - GRADIO_SERVER_PORT="7860"
+      - HF_HOME=/app/stable-audio-models/.cache/huggingface
+      - GRADIO_SERVER_NAME=0.0.0.0
+      - GRADIO_SERVER_PORT=7860
 
 volumes:
   fooocus-data:

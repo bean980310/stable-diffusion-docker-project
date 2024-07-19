@@ -1,5 +1,5 @@
 variable "BASE_IMAGE" {
-    default = "bean980310/ubuntu-docker:1.0.2-cuda12.1.1-torch2.3.1"
+    default = "bean980310/ubuntu-docker:1.0.3-cuda12.1.1-torch2.3.1"
 }
 
 variable "WEBUI_VERSION" {
