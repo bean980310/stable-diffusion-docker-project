@@ -34,3 +34,5 @@ RUN ln -s ./generative-models/configs/interface/svd.yaml ./configs/interface/svd
 RUN ln -s ./generative-models/configs/interface/svd_image_decoder.yaml ./configs/interface/svd_image_decoder.yaml
 RUN ls -s ./generative-models/configs/interface/sv3d_u.yaml ./configs/interface/sv3d_u.yaml
 RUN ls -s ./generative-models/configs/interface/sv3d_p.yaml ./configs/interface/sv3d_p.yaml
+
+RUN mkdir -p ./models/checkpoints
