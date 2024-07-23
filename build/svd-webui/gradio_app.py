@@ -28,8 +28,6 @@ from scripts.sampling.simple_video_sample import (
     load_model,
 )
 sys.path.append("generative-models")
-# from scripts.util.detection.nsfw_and_watermark_dectection import DeepFloydDataFiltering
-# from sgm.inference.helpers import embed_watermark
 from sgm.util import default, instantiate_from_config
 
 # To download all svd models
