@@ -408,8 +408,12 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
+    server_name=str(args.address)
+    server_port=int(args.port)
+    share=bool(args.share)
+    
     demo.queue(max_size=20)
     if args.listen:
-        demo.launch(share=args.share, server_name='0.0.0.0', server_port=int(args.port))
+        demo.launch(share=share, server_name='0.0.0.0', server_port=server_port)
     else:
-        demo.launch(share=args.share, server_name=str(args.address), server_port=int(args.port))
+        demo.launch(share=share, server_name=server_name, server_port=server_port)
