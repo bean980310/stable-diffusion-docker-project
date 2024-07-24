@@ -61,13 +61,6 @@ if not os.path.exists(local_file_path):
 else:
     print("File already exists. No need to download.")
     
-parser=argparse.ArgumentParser()
-parser.add_argument("--model_path", help="Specifies the model path.")
-parser.add_argument("--outputs", help="Directory to save segmentation image.")
-parser.add_argument("--port", help="Specifies the server port, default is 7860.", default=7860)
-# parser.add_argument("--listen", help="Listen a IP Address, default is 0.0.0.0.", default="0.0.0.0")
-args=parser.parse_args()
-
 version = os.path.basename(args.model_path).split(".")[0]
 
 if version == "svd":
@@ -404,5 +397,19 @@ with gr.Blocks() as demo:
     )
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--model_path', help="Specifies the model path.")
+    parser.add_argument('--outputs', help="Directory to save segmentation image.")
+    parser.add_argument('--port', help="Specifies the server port, default is 7860.", default=7860)
+    parser.add_argument('--listen', help="Listen a IP Address.", action=argparse.BooleanOptionalAction)
+    parser.add_argument('--address', type=tp, help="Specifies the server name, default is 127.0.0.1", default='127.0.0.1')
+    parser.add_argument('--share', help="Create a share link", action=argparse.BooleanOptionalAction)
+
+    args = parser.parse_args()
+    
     demo.queue(max_size=20)
-    demo.launch(share=True)
+    if args.listen:
+        demo.launch(share=args.share, server_name='0.0.0.0', server_port=int(args.port))
+    else:
+        demo.launch(share=args.share, server_name=str(args.address), server_port=int(args.port))
