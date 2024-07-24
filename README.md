@@ -34,6 +34,9 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 | easy-diffusion                | 9000:9000              |
 | swarmui                       | 7801:7801              |
 | facefusion                    | 3070:7860              |
+| omost                         | 3080:8080              |
+| stable-audio-tools            | 3090:7860              |
+| svd-webui(under construction) | coming soon            |
 
 example:
 ```bash
