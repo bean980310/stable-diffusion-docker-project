@@ -76,5 +76,6 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 ### [EasyDiffusion](https://github.com/easydiffusion/easydiffusion)
 ### [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI)
 ### [FaceFusion](https://github.com/facefusion/facefusion)
+### [Omost](https://github.com/lllyasviel/Omost)
 
 ## Contributing
