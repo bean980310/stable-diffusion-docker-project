@@ -15,11 +15,11 @@ from fire import Fire
 from omegaconf import OmegaConf
 from PIL import Image
 from rembg import remove
-# from scripts.util.detection.nsfw_and_watermark_dectection import DeepFloydDataFiltering
-# from sgm.inference.helpers import embed_watermark
 from sgm.util import default, instantiate_from_config
 from torchvision.transforms import ToTensor
 
+def get_ckpt_dir():
+    return os.environ.get("SVD_CKPT_PATH", "./models/ckeckpoints")
 
 def sample(
     input_path: str = "assets/test_image.png",  # Can either be image file or folder with image files
@@ -343,6 +343,7 @@ def load_model(
     config.model.params.sampler_config.params.guider_config.params.num_frames = (
         num_frames
     )
+    config.model.params.ckpt_path=get_ckpt_dir()+"/"+config.model.params.ckpt_path
     if device == "cuda":
         with torch.device(device):
             model = instantiate_from_config(config.model).to(device).eval()

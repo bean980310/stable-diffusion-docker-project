@@ -14,6 +14,7 @@ import cv2
 import gradio as gr
 import numpy as np
 import torch
+import pydantic as pt
 from einops import rearrange, repeat
 from fire import Fire
 from huggingface_hub import hf_hub_download
@@ -26,6 +27,7 @@ from scripts.sampling.simple_video_sample import (
     get_batch,
     get_unique_embedder_keys_from_conditioner,
     load_model,
+    get_ckpt_dir,
 )
 sys.path.append("generative-models")
 from sgm.util import default, instantiate_from_config
@@ -35,7 +37,7 @@ from sgm.util import default, instantiate_from_config
 # hf_hub_download(repo_id="stabilityai/stable-video-diffusion-img2vid", filename="svd.safetensors", local_dir="checkpoints")
 # hf_hub_download(repo_id="stabilityai/stable-video-diffusion-img2vid-xt-1-1", filename="svd_xt_1_1.safetensors", local_dir="checkpoints")
 
-ckpt_dir="./models/ckeckpoints"
+ckpt_dir=get_ckpt_dir()
 
 TYPE2PATH={
     "svd": ["stabilityai/stable-video-diffusion-img2vid", "svd.safetensors", ckpt_dir],
@@ -61,7 +63,75 @@ if not os.path.exists(local_file_path):
 else:
     print("File already exists. No need to download.")
     
-version = os.path.basename(args.model_path).split(".")[0]
+class Preset(pt.BaseModel):
+    name: str
+    checkpoint: str
+    input_path: str = "assets/test_image.png"  # Can either be image file or folder with image files
+    seed: Optional[int] = None
+    randomize_seed: bool = True
+    motion_bucket_id: int = 127
+    fps_id: int = 6
+    num_frames: Optional[int] = None
+    num_steps: Optional[int] = None
+    cond_aug: float = 0.02
+    resize_image: bool = False
+    decoding_t: int = 2  # Number of frames decoded at a time! This eats most VRAM. Reduce if necessary.
+    device: str = "cuda"
+    output_folder: Optional[str] = "outputs"
+    progress=gr.Progress(track_tqdm=True)
+    
+preset_default = Preset(
+    name="SVD",
+    checkpoint="svd",
+    num_frames=14,
+    num_steps=25,
+)
+
+presets = [
+    preset_default,
+    Preset(
+        name="SVD XT",
+        checkpoint="svd_xt",
+        num_frames=25,
+        num_steps=30,
+    ),
+    Preset(
+        name="SVD XT 1.1",
+        checkpoint="svd_xt_1_1",
+        num_frames=25,
+        num_steps=30,
+    ),
+    Preset(
+        name="SVD Image Decoder",
+        checkpoint="svd_image_decoder",
+        num_frames=14,
+        num_steps=25,
+    ),
+    Preset(
+        name="SVD XT Image Decoder",
+        checkpoint="svd_xt_image_decoder",
+        num_frames=25,
+        num_steps=30,
+    ),
+]
+    
+def get_presets():
+    return [preset.name for preset in presets]
+
+def apply_preset(
+        preset_name,
+    ):
+        preset = next((_ for _ in presets if _.name == preset_name), None)
+        return(
+            gr.update(value=preset.num_frames),
+            gr.update(value=preset.num_steps),
+            gr.update(value=preset.checkpoint),
+            gr.update(value=preset.fps_id),
+            gr.update(value=preset.motion_bucket_id),
+            gr.update(value=decoding_t),
+        )
+    
+version = str([preset.ckeckpoint for preset in presets])
 
 if version == "svd":
     num_frames = 14
@@ -124,8 +194,8 @@ model.model.to(dtype=torch.float16)
 torch.cuda.empty_cache()
 model=model.requires_grad_(False)
 
-def get_ckpt_dir():
-    return os.environ.get("SVD_CKPT_PATH", ckpt_dir)
+# def get_ckpt_dir():
+#     return os.environ.get("SVD_CKPT_PATH", ckpt_dir)
 
 def sample(
     input_path: str = "assets/test_image.png",  # Can either be image file or folder with image files
@@ -341,6 +411,27 @@ with gr.Blocks() as demo:
     )
     with gr.Row():
         with gr.Column():
+            ckpt_preset=gr.Dropdown(
+                label="Checkpoint Preset",
+                choices=get_presets(),
+                value=preset_default.name,
+                interactive=True,
+            )
+            ckpt=gr.Dropdown(
+                choices=[
+                    "svd",
+                    "svd_xt",
+                    "svd_xt_1_1",
+                    "svd_image_decoder",
+                    "svd_xt_image_decoder",
+                ],
+                label="Checkpoint",
+                value=preset_default.checkpoint,
+                allow_custom_value=True,
+                interactive=True,
+            )
+    with gr.Row():
+        with gr.Column():
             image = gr.Image(label="Upload your image", type="filepath")
             resize_image=gr.Checkbox(label="Enter Your custom size", value=True)
             generate_btn = gr.Button("Generate")
@@ -391,9 +482,15 @@ with gr.Blocks() as demo:
     image.upload(fn=resize_image, inputs=image, outputs=image, queue=False)
     generate_btn.click(
         fn=sample,
-        inputs=[image, seed, randomize_seed, motion_bucket_id, fps_id],
+        inputs=[image, ckpt, num_frames, num_steps, decoding_t, seed, randomize_seed, motion_bucket_id, fps_id],
         outputs=[video, seed],
         api_name="video",
+    )
+    
+    ckpt_preset.change(
+        fn=apply_preset,
+        inputs=[ckpt_preset],
+        outputs=[ckpt, num_frames, num_steps, fps_id, motion_bucket_id, decoding_t],
     )
 
 if __name__ == "__main__":
