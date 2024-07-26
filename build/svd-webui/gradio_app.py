@@ -194,9 +194,6 @@ model.model.to(dtype=torch.float16)
 torch.cuda.empty_cache()
 model=model.requires_grad_(False)
 
-# def get_ckpt_dir():
-#     return os.environ.get("SVD_CKPT_PATH", ckpt_dir)
-
 def sample(
     input_path: str = "assets/test_image.png",  # Can either be image file or folder with image files
     seed: Optional[int] = None,
