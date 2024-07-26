@@ -53,7 +53,7 @@ repo_id, filename, local_dir=TYPE2PATH[version]
 # Define the repo, local directory and filename
 local_file_path = os.path.join(local_dir, filename)
 
-os.makedirs("checkpoints", exist_ok=True)
+os.makedirs(ckpt_dir, exist_ok=True)
 
 # Check if the file already exists
 if not os.path.exists(local_file_path):
