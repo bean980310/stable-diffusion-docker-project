@@ -3,8 +3,10 @@ set -e
 
 git clone https://github.com/lllyasviel/stable-diffusion-webui-forge.git
 cd /app/stable-diffusion-webui-forge
-git checkout ${FORGE_COMMIT}
+git checkout ${FORGE_VERSION}
 pip3 install -r requirements_versions.txt
+
+if [ "${FORGE_VERSION}" != previous ]; then git clone https://github.com/lllyasviel/forge-legacy-extensions.git extensions
 
 pip3 install -r extensions-builtin/sd_forge_controlnet/requirements.txt
 pip3 install -r extensions-builtin/forge_legacy_preprocessors/requirements.txt

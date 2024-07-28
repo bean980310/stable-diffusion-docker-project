@@ -2,7 +2,7 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS base
 
 WORKDIR /app
-ARG FORGE_COMMIT
+ARG FORGE_VERSION
 
 # RUN git clone https://github.com/lllyasviel/stable-diffusion-webui-forge.git
 # WORKDIR /app/stable-diffusion-webui-forge
