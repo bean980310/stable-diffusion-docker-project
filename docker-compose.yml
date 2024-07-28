@@ -15,6 +15,7 @@ services:
     container_name: stable-diffusion-webui
     volumes:
       - &checkpoints ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui/models/Stable-diffusion
+      - ./stable-diffusion-models/models/clip:/app/stable-diffusion-webui/models/clip
       - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui/models/clip-interrogator
       - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui/configs
       - &controlnet ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui/models/ControlNet
