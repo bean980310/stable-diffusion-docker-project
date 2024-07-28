@@ -8,7 +8,7 @@ services:
       context: ./stable-diffusion-models
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: &BASE_IMAGE bean980310/ubuntu-docker:1.0.4-cuda12.5.1-torch2.4.0
+        BASE_IMAGE: &BASE_IMAGE bean980310/ubuntu-docker:1.0.5-cuda12.5.1-torch2.4.0
   # download_img2video_model:
   #   image: svd-model-download:latest
   #   container_name: download_img2video_model
