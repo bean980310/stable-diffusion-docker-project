@@ -138,7 +138,7 @@ services:
       args:
         INVOKEAI_VERSION: v4.2.7
         BASE_IMAGE: *BASE_IMAGE
-        TORCH_VERSION: 2.4.0
+        TORCH_VERSION: 2.4.0+cu124
         INDEX_URL: https://download.pytorch.org/whl/cu124
         XFORMERS_VERSION: 0.0.27.post2
     environment:

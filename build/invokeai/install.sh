@@ -7,6 +7,3 @@ cd /app/InvokeAI
 
 # Install InvokeAI
 pip3 install InvokeAI[xformers]==${INVOKEAI_VERSION} --use-pep517
-
-pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
-pip3 install --no-cache-dir xformers==${XFORMERS_VERSION}
