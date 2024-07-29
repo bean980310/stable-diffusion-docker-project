@@ -11,3 +11,4 @@ git submodule --quiet sync --recursive
 
 python3 install.py
 rm install.py
+pip3 cache purge

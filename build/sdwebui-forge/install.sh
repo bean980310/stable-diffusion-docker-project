@@ -18,3 +18,5 @@ pip3 install onnxruntime-gpu
 pip3 install pydantic==1.10.15
 
 python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
+
+pip3 cache purge

@@ -7,7 +7,8 @@ ARG OMOST_COMMIT
 RUN git clone https://github.com/lllyasviel/Omost.git
 WORKDIR /app/Omost
 RUN git checkout ${OMOST_COMMIT}
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt && \
+    pip cache purge
 
 WORKDIR /app
 

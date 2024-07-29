@@ -18,3 +18,4 @@ cd /app/SwarmUI/dlbackend/ComfyUI
 git checkout tags/${COMFYUI_VERSION}
 
 pip3 install -r requirements.txt
+pip3 cache purge
