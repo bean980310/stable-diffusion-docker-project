@@ -17,5 +17,8 @@ git clone https://github.com/comfyanonymous/ComfyUI.git
 cd /app/SwarmUI/dlbackend/ComfyUI
 git checkout tags/${COMFYUI_VERSION}
 
+rm requirements.txt
+cp /app/requirements.txt /app/SwarmUI/dlbackend/ComfyUI/requirements.txt
+rm /app/requirements.txt
 pip3 install -r requirements.txt
 pip3 cache purge

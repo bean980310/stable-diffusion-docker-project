@@ -7,7 +7,10 @@ git checkout ${FORGE_VERSION}
 pip3 install -r requirements_versions.txt
 
 if [ "${FORGE_VERSION}" != "previous" ]; then 
-    git clone https://github.com/lllyasviel/forge-legacy-extensions.git extensions
+    git clone https://github.com/lllyasviel/forge-legacy-extensions.git extensions/forge-legacy-extensions
+    mv extensions/forge-legacy-extensions/sd_forge_hypertile extensions
+    mv extensions/forge-legacy-extensions/sd_forge_svd extensions
+    mv extensions/forge-legacy-extensions/sd_forge_z123 extensions
 fi
 
 pip3 install -r extensions-builtin/sd_forge_controlnet/requirements.txt

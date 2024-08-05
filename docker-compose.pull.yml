@@ -215,6 +215,43 @@ services:
     pull_policy: if_not_present
     environment:
       - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
+  # stable-diffusion-webui-forge-legacy:
+  #   <<: *base_service
+  #   image: bean980310/stable-diffusion-webui-forge:legacy
+  #   container_name: stable-diffusion-webui-forge
+  #   volumes:
+  #     - ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui-forge/models/Stable-diffusion
+  #     - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui-forge/models/clip-interrogator
+  #     - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui-forge/configs
+  #     - ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui-forge/models/ControlNet
+  #     - ./stable-diffusion-models/models/deepbooru:/app/stable-diffusion-webui-forge/models/deepbooru
+  #     - ./stable-diffusion-models/models/embeddings:/app/stable-diffusion-webui-forge/embeddings
+  #     - ./stable-diffusion-models/models/facerestore_models/Codeformer:/app/stable-diffusion-webui-forge/models/Codeformer
+  #     - ./stable-diffusion-models/models/facerestore_models/GFPGAN:/app/stable-diffusion-webui-forge/models/GFPGAN
+  #     - ./stable-diffusion-models/models/hypernetworks:/app/stable-diffusion-webui-forge/models/hypernetworks
+  #     - ./stable-diffusion-models/models/karlo:/app/stable-diffusion-webui-forge/models/karlo
+  #     - ./stable-diffusion-models/models/loras:/app/stable-diffusion-webui-forge/models/Lora
+  #     - ./stable-diffusion-models/models/sams:/app/stable-diffusion-webui-forge/models/sam
+  #     - ./stable-diffusion-models/models/ultralytics:/app/stable-diffusion-webui-forge/models/adetailer
+  #     - ./stable-diffusion-models/models/upscale_models/ESRGAN:/app/stable-diffusion-webui-forge/models/ESRGAN
+  #     - ./stable-diffusion-models/models/upscale_models/RealESRGAN:/app/stable-diffusion-webui-forge/models/RealESRGAN
+  #     - ./stable-diffusion-models/models/upscale_models/SwinIR:/app/stable-diffusion-webui-forge/models/SwinIR
+  #     - ./stable-diffusion-models/models/upscale_models/LDSR:/app/stable-diffusion-webui-forge/models/LDSR
+  #     - ./stable-diffusion-models/models/vae:/app/stable-diffusion-webui-forge/models/VAE
+  #     - ./stable-diffusion-models/models/vae_approx:/app/stable-diffusion-webui-forge/models/VAE-approx
+  #     - ./stable-video-diffusion-models/models:/app/stable-diffusion-webui-forge/models/svd
+  #     - ./stable-zero123-models/models/:/app/stable-diffusion-webui-forge/models/z123
+  #     - ./workspace/stable-diffusion-webui-forge/.cache/huggingface:/app/stable-diffusion-webui-forge/.cache/huggingface
+  #     - ./workspace/stable-diffusion-webui-forge/extensions:/app/stable-diffusion-webui-forge/extensions
+  #     - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
+  #     - ./workspace/stable-diffusion-webui-forge/config.json:/app/stable-diffusion-webui-forge/config.json
+  #     - ./workspace/stable-diffusion-webui-forge/ui-config.json:/app/stable-diffusion-webui-forge/ui-config.json
+  #     - ./outputs/stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge/outputs
+  #   ports:
+  #     - "3051:7860"
+  #   pull_policy: if_not_present
+  #   environment:
+  #     - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
   sdnext:
     <<: *base_service
     image: bean980310/sdnext:latest

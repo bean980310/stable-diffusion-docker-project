@@ -6,6 +6,7 @@ ARG SWARMUI_VERSION
 ARG COMFYUI_VERSION
 
 COPY --chmod=755 ./install.* ./
+COPY ./requirements.txt ./
 RUN ./install.sh
 
 WORKDIR /app
