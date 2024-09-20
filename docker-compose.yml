@@ -69,7 +69,7 @@ services:
       context: ./build/kohya_ss
       dockerfile: Dockerfile
       args:
-        KOHYA_VERSION: v24.1.5
+        KOHYA_VERSION: v24.1.7
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/kohya_ss/.cache/huggingface
@@ -110,7 +110,7 @@ services:
       context: ./build/comfyui
       dockerfile: Dockerfile
       args:
-        COMFYUI_VERSION: &COMFYUI_VERSION v0.0.3
+        COMFYUI_VERSION: &COMFYUI_VERSION v0.2.2
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
     environment:
@@ -136,11 +136,11 @@ services:
       context: ./build/invokeai
       dockerfile: Dockerfile
       args:
-        INVOKEAI_VERSION: v4.2.7
+        INVOKEAI_VERSION: v4.2.9
         BASE_IMAGE: *BASE_IMAGE
-        TORCH_VERSION: 2.4.0+cu124
+        TORCH_VERSION: 2.4.1+cu124
         INDEX_URL: https://download.pytorch.org/whl/cu124
-        XFORMERS_VERSION: 0.0.27.post2
+        XFORMERS_VERSION: 0.0.28.post1
     environment:
       - HF_HOME=/app/InvokeAI/.cache/huggingface
   fooocus:
@@ -176,7 +176,7 @@ services:
       context: ./build/fooocus
       dockerfile: Dockerfile
       args:
-        FOOOCUS_VERSION: v2.5.2
+        FOOOCUS_VERSION: v2.5.5
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/Fooocus/.cache/huggingface
@@ -220,7 +220,7 @@ services:
       context: ./build/sdwebui-forge
       dockerfile: Dockerfile
       args:
-        FORGE_VERSION: 2f87f123b2415e9bb3bb091758fb6e8f5b776caa
+        FORGE_VERSION: b20cb4bf0e526f890fcd40a4d039da581cfebafa
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
@@ -285,7 +285,7 @@ services:
       context: ./build/vladmandic-sdnext
       dockerfile: Dockerfile
       args:
-        SDNEXT_COMMIT: a874b27e50a343ac55148756a0a80eafb3a7f87f
+        SDNEXT_COMMIT: e7ec07f9783701629ca1411ad82aec87232501b9
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/automatic/.cache/huggingface
@@ -326,7 +326,7 @@ services:
       context: ./build/swarmui
       dockerfile: Dockerfile
       args:
-        SWARMUI_VERSION: 0.9.1-Beta
+        SWARMUI_VERSION: 0.9.2-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
     environment:
