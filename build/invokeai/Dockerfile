@@ -11,14 +11,14 @@ ARG INVOKEAI_VERSION
 COPY --chmod=755 ./install.sh ./
 RUN ./install.sh
 
-ARG TORCH_VERSION
-ARG INDEX_URL
-ARG XFORMERS_VERSION
+# ARG TORCH_VERSION
+# ARG INDEX_URL
+# ARG XFORMERS_VERSION
 WORKDIR /app
 
-RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL} && \
-    pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} && \
-    pip3 cache purge
+# RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL} && \
+#     pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} && \
+#     pip3 cache purge
 
 # COPY ../../workspace/InvokeAI/invokeai.yaml /InvokeAI
 

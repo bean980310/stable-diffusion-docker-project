@@ -46,7 +46,7 @@ services:
       context: ./build/a1111-sdwebui
       dockerfile: Dockerfile
       args:
-        WEBUI_VERSION: &WEBUI_VERSION v1.10.0
+        WEBUI_VERSION: &WEBUI_VERSION v1.10.1
         BASE_IMAGE: &BASE_IMAGE bean980310/ubuntu-docker:1.0.6-cuda12.5.1-torch2.4.1
     environment:
       - HF_HOME=/app/stable-diffusion-webui/.cache/huggingface
@@ -110,7 +110,7 @@ services:
       context: ./build/comfyui
       dockerfile: Dockerfile
       args:
-        COMFYUI_VERSION: &COMFYUI_VERSION v0.2.2
+        COMFYUI_VERSION: &COMFYUI_VERSION v0.2.3
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
     environment:
@@ -136,11 +136,11 @@ services:
       context: ./build/invokeai
       dockerfile: Dockerfile
       args:
-        INVOKEAI_VERSION: v4.2.9
+        INVOKEAI_VERSION: v5.1.1
         BASE_IMAGE: *BASE_IMAGE
-        TORCH_VERSION: 2.4.1+cu124
-        INDEX_URL: https://download.pytorch.org/whl/cu124
-        XFORMERS_VERSION: 0.0.28.post1
+        # TORCH_VERSION: 2.4.1+cu124
+        # INDEX_URL: https://download.pytorch.org/whl/cu124
+        # XFORMERS_VERSION: 0.0.28.post1
     environment:
       - HF_HOME=/app/InvokeAI/.cache/huggingface
   fooocus:
@@ -220,7 +220,7 @@ services:
       context: ./build/sdwebui-forge
       dockerfile: Dockerfile
       args:
-        FORGE_VERSION: b20cb4bf0e526f890fcd40a4d039da581cfebafa
+        FORGE_VERSION: cce30d3340fe7b09630a528af26975757a46c450
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
@@ -285,7 +285,7 @@ services:
       context: ./build/vladmandic-sdnext
       dockerfile: Dockerfile
       args:
-        SDNEXT_COMMIT: e7ec07f9783701629ca1411ad82aec87232501b9
+        SDNEXT_COMMIT: bb6a40da131269554f026379ff97c5480b40e64e
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/automatic/.cache/huggingface
@@ -306,7 +306,7 @@ services:
       context: ./build/easy-diffusion
       dockerfile: Dockerfile
       args:
-        EASYDIFF_VERSION: v3.0.2
+        EASYDIFF_VERSION: v3.0.9
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/easy-diffusion/.cache/huggingface
@@ -326,7 +326,7 @@ services:
       context: ./build/swarmui
       dockerfile: Dockerfile
       args:
-        SWARMUI_VERSION: 0.9.2-Beta
+        SWARMUI_VERSION: 0.9.3-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
     environment:
@@ -345,7 +345,7 @@ services:
       context: ./build/facefusion
       dockerfile: Dockerfile
       args:
-        FACEFUSION_VERSION: 2.6.1
+        FACEFUSION_VERSION: 3.0.0
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/facefusion/.cache/huggingface
