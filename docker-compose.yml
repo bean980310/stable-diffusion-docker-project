@@ -47,7 +47,7 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.10.1
-        BASE_IMAGE: &BASE_IMAGE bean980310/ubuntu-docker:1.0.6-cuda12.5.1-torch2.4.1
+        BASE_IMAGE: &BASE_IMAGE pytorch/pytorch:2.4.1-cuda12.4-cudnn9-devel
     environment:
       - HF_HOME=/app/stable-diffusion-webui/.cache/huggingface
   kohya_ss:
