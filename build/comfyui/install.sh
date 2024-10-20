@@ -3,6 +3,9 @@ set -e
 
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
 # and set version
+apt-get update
+apt-get install -y wget git libgl1 libglib2.0-0
+
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 cd /app/stable-diffusion-webui
 git checkout tags/${WEBUI_VERSION}
