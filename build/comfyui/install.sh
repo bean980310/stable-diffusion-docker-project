@@ -15,8 +15,9 @@ cd /app/ComfyUI
 git checkout tags/${COMFYUI_VERSION}
 
 # Install requirements
-rm requirements.txt
-cp /app/requirements.txt /app/ComfyUI/requirements.txt
-rm /app/requirements.txt
+# rm requirements.txt
+# cp /app/requirements.txt /app/ComfyUI/requirements.txt
+# rm /app/requirements.txt
+pip3 install xformers
 pip3 install -r requirements.txt
 pip3 cache purge

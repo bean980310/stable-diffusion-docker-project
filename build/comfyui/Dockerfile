@@ -13,7 +13,7 @@ ARG WEBUI_VERSION
 # RUN pip3 cache purge
 
 COPY --chmod=755 ./install.sh ./
-COPY ./requirements.txt ./
+# COPY ./requirements.txt ./
 RUN ./install.sh
 
 WORKDIR /app
