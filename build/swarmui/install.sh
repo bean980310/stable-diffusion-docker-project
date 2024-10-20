@@ -1,10 +1,13 @@
 #!/bin/bash
 set -e
 
-# wget https://dot.net/v1/dotnet-install.sh
-# chmod +x dotnet-install.sh
-# ./dotnet-install.sh --channel 7.0
-# ./dotnet-install.sh --channel 8.0
+apt-get update
+apt-get install -y wget git libgl1 libglib2.0-0
+
+wget https://dot.net/v1/dotnet-install.sh
+chmod +x dotnet-install.sh
+./dotnet-install.sh --channel 7.0
+./dotnet-install.sh --channel 8.0
 
 git clone https://github.com/mcmonkeyprojects/SwarmUI.git
 cd /app/SwarmUI

@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+apt-get update
+apt-get install -y wget git libgl1 libglib2.0-0 python-is-python3
+
 git clone https://github.com/lllyasviel/stable-diffusion-webui-forge.git
 cd /app/stable-diffusion-webui-forge
 git checkout ${FORGE_VERSION}
