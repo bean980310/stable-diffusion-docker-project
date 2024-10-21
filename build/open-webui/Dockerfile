@@ -8,3 +8,25 @@ RUN apt-get update && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g npm@latest
+
+ARG OPEN_WEBUI_VERSION
+
+RUN git clone https://github.com/open-webui/open-webui.git
+
+WORKDIR /app/open-webui
+
+RUN git checkout tags/${OPEN_WEBUI_VERSION} && \
+    cp -RPp .env.example .env && \
+    npm install && \
+    npm run build
+
+WORKDIR /app/open-webui/backend
+
+RUN install -r requirements.txt -U
+
+WORKDIR /app
+
+COPY --chmod=755 ./start.sh ./
+
+SHELL ["/bin/bash", "--login", "-c"]
+CMD [ "./start.sh" ]
