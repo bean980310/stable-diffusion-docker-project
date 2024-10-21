@@ -51,12 +51,12 @@ ENV OPENAI_API_KEY="" \
 
 ## whisper TTS model settings ##
 ENV WHISPER_MODEL="base" \
-WHISPER_MODEL_DIR="/app/backend/data/cache/whisper/models"
+    WHISPER_MODEL_DIR="/app/backend/data/cache/whisper/models"
 
 ## RAG Embedding model settings ##
 ENV RAG_EMBEDDING_MODEL="$USE_EMBEDDING_MODEL_DOCKER" \
-RAG_RERANKING_MODEL="$USE_RERANKING_MODEL_DOCKER" \
-SENTENCE_TRANSFORMERS_HOME="/app/backend/data/cache/embedding/models"
+    RAG_RERANKING_MODEL="$USE_RERANKING_MODEL_DOCKER" \
+    SENTENCE_TRANSFORMERS_HOME="/app/backend/data/cache/embedding/models"
 
 ## Hugging Face download cache ##
 ENV HF_HOME="/app/backend/data/cache/embedding/models"
