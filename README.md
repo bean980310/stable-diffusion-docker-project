@@ -2,7 +2,7 @@
 Stable Diffusion WebUI and KohyaSS, ComfyUI, InvokeAI, Fooocus, and more Generative AI Applications on Docker
 
 ## Setup
-You need NVIDIA GPU and CUDA 12.1(or Upper), Docker and NVIDIA Container toolkit, if you are using Windows 10/11, you also need enable WSL2. it is recommanded on Amazon Web Services, Microsoft Azure, Google Cloud Platform.
+You need NVIDIA GPU and CUDA 12.4, Docker and NVIDIA Container toolkit, if you are using Windows 10/11, you also need enable WSL2. it is recommanded on Amazon Web Services, Microsoft Azure, Google Cloud Platform.
 
 ### How to install
 ```bash
