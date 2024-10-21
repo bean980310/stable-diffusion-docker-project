@@ -22,7 +22,7 @@ RUN git checkout tags/${OPEN_WEBUI_VERSION} && \
 
 WORKDIR /app/open-webui/backend
 
-RUN install -r requirements.txt -U
+RUN pip3 install -r requirements.txt -U
 
 WORKDIR /app
 
