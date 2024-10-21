@@ -24,7 +24,7 @@ services:
     image: bean980310/open-webui:latest
     container_name: open-webui
     volumes:
-      - open-webui:/app/backend/data
+      - open-webui:/app/open-webui/backend/data
     depends_on:
       - ollama
     ports:
