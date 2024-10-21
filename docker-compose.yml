@@ -9,6 +9,14 @@ x-base_service: &base_service
   restart: unless-stopped
 
 services:
+  ollama:
+    <<: *base_service
+    image: ollama/ollama:latest
+    container_name: ollama
+    volumes:
+      - ollama:/root/.ollama
+    pull_policy: if_not_present
+    tty: true
   stable-diffusion-webui:
     <<: *base_service
     image: bean980310/stable-diffusion-webui:latest
@@ -143,6 +151,29 @@ services:
         # XFORMERS_VERSION: 0.0.28.post1
     environment:
       - HF_HOME=/app/InvokeAI/.cache/huggingface
+  open-webui:
+    <<: *base_service
+    image: bean980310/open-webui:latest
+    container_name: open-webui
+    volumes:
+      - open-webui:/app/open-webui/backend/data
+    ports:
+      - "3000:8080"
+    build:
+      context: ./build/open-webui
+      dockerfile: Dockerfile
+      args:
+        OLLAMA_BASE_URL: '/ollama'
+        OPEN_WEBUI_VERSION: v0.3.32
+        BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - WEBUI_SECRET_KEY=
+      - HF_HOME=/app/open-webui/backend/data/cache/embedding/models
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    depends_on:
+      - ollama
   fooocus:
     <<: *base_service
     image: bean980310/fooocus:latest
@@ -388,6 +419,8 @@ services:
       - GRADIO_SERVER_PORT=7860
 
 volumes:
+  ollama:
+  open-webui:
   fooocus-data:
   swarmdata:
   swarmbackend:

@@ -12,6 +12,8 @@ git checkout ${SDNEXT_COMMIT}
 git submodule --quiet update --init --recursive
 git submodule --quiet sync --recursive
 
+pip3 install xformers
+
 python3 install.py
 rm install.py
 pip3 cache purge

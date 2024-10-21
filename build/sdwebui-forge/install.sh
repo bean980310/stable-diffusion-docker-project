@@ -22,6 +22,7 @@ pip3 install insightface
 pip3 uninstall -y onnxruntime
 pip3 install onnxruntime-gpu
 pip3 install pydantic==1.10.15
+pip3 install xformers
 
 python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
 
