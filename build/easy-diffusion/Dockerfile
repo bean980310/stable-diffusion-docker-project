@@ -5,7 +5,7 @@ WORKDIR /app
 ARG EASYDIFF_VERSION
 
 RUN apt-get update && \
-    apt-get install -y wget git libgl1 libglib2.0-0 && \
+    apt-get install -y wget git libgl1 libglib2.0-0 p7zip-full && \
     apt-get clean
 
 RUN wget https://github.com/easydiffusion/easydiffusion/releases/download/${EASYDIFF_VERSION}/Easy-Diffusion-Linux.zip
