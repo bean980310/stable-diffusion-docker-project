@@ -417,6 +417,21 @@ services:
       - HF_HOME=/app/stable-audio-models/.cache/huggingface
       - GRADIO_SERVER_NAME=0.0.0.0
       - GRADIO_SERVER_PORT=7860
+  audiocraft_plus:
+    <<: *base_service
+    image: bean980310/audiocraft-plus
+    container_name: audiocraft_plus
+    volumes:
+      - ./audiocraft-models/models:/app/audiocraft_plus/models
+    ports:
+      - "7877:7877"
+    build:
+      context: ./build/audiocraft_plus
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: *BASE_IMAGE
+    environment:
+      - HF_HOME=/app/audiocraft_plus/.cache/huggingface
 
 volumes:
   ollama:
