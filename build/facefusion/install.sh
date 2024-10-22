@@ -10,5 +10,5 @@ git checkout tags/${FACEFUSION_VERSION}
 
 pip3 install xformers
 
-python3 install.py --onnxruntime cuda-11.8 --skip-conda
+python3 install.py --onnxruntime cuda --skip-conda
 pip3 cache purge
