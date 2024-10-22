@@ -144,7 +144,7 @@ services:
       context: ./build/invokeai
       dockerfile: Dockerfile
       args:
-        INVOKEAI_VERSION: v5.1.1
+        INVOKEAI_VERSION: v5.2.0
         BASE_IMAGE: *BASE_IMAGE
         # TORCH_VERSION: 2.4.1+cu124
         # INDEX_URL: https://download.pytorch.org/whl/cu124
@@ -251,7 +251,7 @@ services:
       context: ./build/sdwebui-forge
       dockerfile: Dockerfile
       args:
-        FORGE_VERSION: cce30d3340fe7b09630a528af26975757a46c450
+        FORGE_VERSION: e4ad1140c8c8344477345f2b7a6ca973f682fb31
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
@@ -316,7 +316,7 @@ services:
       context: ./build/vladmandic-sdnext
       dockerfile: Dockerfile
       args:
-        SDNEXT_COMMIT: bb6a40da131269554f026379ff97c5480b40e64e
+        SDNEXT_COMMIT: 5c684cb07606c423feaa06abe83608b287e9b68a
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/automatic/.cache/huggingface

@@ -77,5 +77,6 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 ### [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI)
 ### [FaceFusion](https://github.com/facefusion/facefusion)
 ### [Omost](https://github.com/lllyasviel/Omost)
+### [stabl-audio-tools](https://github.com/Stability-AI/stable-audio-tools)
 
 ## Contributing
