@@ -423,6 +423,7 @@ services:
     container_name: audiocraft_plus
     volumes:
       - ./audiocraft-models/models:/app/audiocraft_plus/models
+      - ./workspace/audiocraft_plus/.cache/huggingface:/app/audiocraft_plus/.cache/huggingface
     ports:
       - "7877:7877"
     build:
