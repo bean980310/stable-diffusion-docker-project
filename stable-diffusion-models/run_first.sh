@@ -11,6 +11,7 @@ mkdir -vp models/checkpoints/sd15 \
 mkdir -vp models/vae/sd15 \
     models/vae/sd2 \
     models/vae/sdxl \
+    models/vae/pony \
     models/vae/sd3 \
     models/vae/flux1
 
