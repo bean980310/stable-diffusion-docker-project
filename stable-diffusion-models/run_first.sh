@@ -4,6 +4,7 @@ mkdir -vp models/checkpoints/sd15 \
     models/checkpoints/sd2 \
     models/checkpoints/sdxl \
     models/checkpoints/pony \
+    models/checkpoints/ilxl \
     models/checkpoints/sd3 \
     models/checkpoints/upscale \
     models/checkpoints/flux1
@@ -12,6 +13,7 @@ mkdir -vp models/vae/sd15 \
     models/vae/sd2 \
     models/vae/sdxl \
     models/vae/pony \
+    models/vae/ilxl \
     models/vae/sd3 \
     models/vae/flux1
 
@@ -25,6 +27,7 @@ mkdir -vp models/loras/sd15 \
     models/loras/sd2 \
     models/loras/sdxl \
     models/loras/pony \
+    models/loras/ilxl \
     models/loras/sd3 \
     models/loras/flux1
 
