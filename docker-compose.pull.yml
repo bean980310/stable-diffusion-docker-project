@@ -101,13 +101,11 @@ services:
       - ./stable-diffusion-models/models/clip_vision:/app/ComfyUI/models/clip_vision
       - ./stable-diffusion-models/models/configs:/app/ComfyUI/models/configs
       - ./stable-diffusion-models/models/controlnet:/app/ComfyUI/models/controlnet
+      - ./stable-diffusion-models/models/diffusers:/app/ComfyUI/models/diffusers
       - ./stable-diffusion-models/models/embeddings:/app/ComfyUI/models/embeddings
+      - ./stable-diffusion-models/models/gligen:/app/ComfyUI/models/gligen
       - ./stable-diffusion-models/models/hypernetworks:/app/ComfyUI/models/hypernetworks
       - ./stable-diffusion-models/models/loras:/app/ComfyUI/models/loras
-      - ./stable-diffusion-models/models/upscale_models:/app/ComfyUI/modeos/upscale_models
-      - ./stable-diffusion-models/models/vae:/app/ComfyUI/models/vae
-      - ./stable-diffusion-models/models/diffusers:/app/ComfyUI/models/diffusers
-      - ./stable-diffusion-models/models/gligen:/app/ComfyUI/models/gligen
       - ./stable-diffusion-models/models/mmdets:/app/ComfyUI/models/mmdets
       - ./stable-diffusion-models/models/onnx:/app/ComfyUI/models/onnx
       - ./stable-diffusion-models/models/photomaker:/app/ComfyUI/models/photomaker
@@ -115,6 +113,8 @@ services:
       - ./stable-diffusion-models/models/style_models:/app/ComfyUI/models/style_models
       - ./stable-diffusion-models/models/ultralytics:/app/ComfyUI/models/ultralytics
       - ./stable-diffusion-models/models/unet:/app/ComfyUI/models/unet
+      - ./stable-diffusion-models/models/upscale_models:/app/ComfyUI/modeos/upscale_models
+      - ./stable-diffusion-models/models/vae:/app/ComfyUI/models/vae
       - ./stable-diffusion-models/models/vae_approx:/app/ComfyUI/models/vae_approx
       - ./workspace/ComfyUI/.cache/huggingface:/app/ComfyUI/.cache/huggingface
       - ./workspace/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
