@@ -22,25 +22,26 @@ services:
     image: bean980310/stable-diffusion-webui:latest
     container_name: stable-diffusion-webui
     volumes:
-      - &checkpoints ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui/models/Stable-diffusion
+      - stable-diffusion-webui:/app/stable-diffusion-webui
+      - ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui/models/Stable-diffusion
       - ./stable-diffusion-models/models/clip:/app/stable-diffusion-webui/models/clip
       - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui/models/clip-interrogator
       - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui/configs
-      - &controlnet ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui/models/ControlNet
+      - ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui/models/ControlNet
       - ./stable-diffusion-models/models/deepbooru:/app/stable-diffusion-webui/models/deepbooru
-      - &embeddings ./stable-diffusion-models/models/embeddings:/app/stable-diffusion-webui/embeddings
+      - ./stable-diffusion-models/models/embeddings:/app/stable-diffusion-webui/embeddings
       - ./stable-diffusion-models/models/facerestore_models/Codeformer:/app/stable-diffusion-webui/models/Codeformer
       - ./stable-diffusion-models/models/facerestore_models/GFPGAN:/app/stable-diffusion-webui/models/GFPGAN
-      - &hypernetworks ./stable-diffusion-models/models/hypernetworks:/app/stable-diffusion-webui/models/hypernetworks
+      - ./stable-diffusion-models/models/hypernetworks:/app/stable-diffusion-webui/models/hypernetworks
       - ./stable-diffusion-models/models/karlo:/app/stable-diffusion-webui/models/karlo
-      - &loras ./stable-diffusion-models/models/loras:/app/stable-diffusion-webui/models/Lora
+      - ./stable-diffusion-models/models/loras:/app/stable-diffusion-webui/models/Lora
       - ./stable-diffusion-models/models/sams:/app/stable-diffusion-webui/models/sam
       - ./stable-diffusion-models/models/ultralytics:/app/stable-diffusion-webui/models/adetailer
-      - &esrgan ./stable-diffusion-models/models/upscale_models/ESRGAN:/app/stable-diffusion-webui/models/ESRGAN
-      - &resrgan ./stable-diffusion-models/models/upscale_models/RealESRGAN:/app/stable-diffusion-webui/models/RealESRGAN
-      - &swinir ./stable-diffusion-models/models/upscale_models/SwinIR:/app/stable-diffusion-webui/models/SwinIR
+      - ./stable-diffusion-models/models/upscale_models/ESRGAN:/app/stable-diffusion-webui/models/ESRGAN
+      - ./stable-diffusion-models/models/upscale_models/RealESRGAN:/app/stable-diffusion-webui/models/RealESRGAN
+      - ./stable-diffusion-models/models/upscale_models/SwinIR:/app/stable-diffusion-webui/models/SwinIR
       - ./stable-diffusion-models/models/upscale_models/LDSR:/app/stable-diffusion-webui/models/LDSR
-      - &vae ./stable-diffusion-models/models/vae:/app/stable-diffusion-webui/models/VAE
+      - ./stable-diffusion-models/models/vae:/app/stable-diffusion-webui/models/VAE
       - ./stable-diffusion-models/models/vae_approx:/app/stable-diffusion-webui/models/VAE-approx
       - ./workspace/stable-diffusion-webui/.cache/huggingface:/app/stable-diffusion-webui/.cache/huggingface
       - ./workspace/stable-diffusion-webui/extensions:/app/stable-diffusion-webui/extensions
@@ -63,6 +64,7 @@ services:
     image: bean980310/kohya-ss:latest
     container_name: kohya_ss
     volumes:
+      - kohya_ss:/app/kohya_ss
       - ./stable-diffusion-models/models:/app/kohya_ss/models
       - ./workspace/kohya_ss/.cache/huggingface:/app/kohya_ss/.cache/huggingface
       - ./workspace/kohya_ss/dataset:/app/kohya_ss/dataset
@@ -86,20 +88,17 @@ services:
     image: bean980310/comfyui:latest
     container_name: comfyui
     volumes:
-      - *checkpoints
-      - *controlnet
-      - *embeddings
-      - *hypernetworks
-      - *loras
-      - *esrgan
-      - *resrgan
-      - *swinir
-      - *vae
+      - comfyui:/app/ComfyUI
+      - ./stable-diffusion-models/models/checkpoints:/app/ComfyUI/models/checkpoints
       - ./stable-diffusion-models/models/clip:/app/ComfyUI/models/clip
       - ./stable-diffusion-models/models/clip_vision:/app/ComfyUI/models/clip_vision
       - ./stable-diffusion-models/models/configs:/app/ComfyUI/models/configs
+      - ./stable-diffusion-models/models/controlnet:/app/ComfyUI/models/controlnet
       - ./stable-diffusion-models/models/diffusers:/app/ComfyUI/models/diffusers
+      - ./stable-diffusion-models/models/embeddings:/app/ComfyUI/models/embeddings
       - ./stable-diffusion-models/models/gligen:/app/ComfyUI/models/gligen
+      - ./stable-diffusion-models/models/hypernetworks:/app/ComfyUI/models/hypernetworks
+      - ./stable-diffusion-models/models/loras:/app/ComfyUI/models/loras
       - ./stable-diffusion-models/models/mmdets:/app/ComfyUI/models/mmdets
       - ./stable-diffusion-models/models/onnx:/app/ComfyUI/models/onnx
       - ./stable-diffusion-models/models/photomaker:/app/ComfyUI/models/photomaker
@@ -107,6 +106,8 @@ services:
       - ./stable-diffusion-models/models/style_models:/app/ComfyUI/models/style_models
       - ./stable-diffusion-models/models/ultralytics:/app/ComfyUI/models/ultralytics
       - ./stable-diffusion-models/models/unet:/app/ComfyUI/models/unet
+      - ./stable-diffusion-models/models/upscale_models:/app/ComfyUI/modeos/upscale_models
+      - ./stable-diffusion-models/models/vae:/app/ComfyUI/models/vae
       - ./stable-diffusion-models/models/vae_approx:/app/ComfyUI/models/vae_approx
       - ./workspace/ComfyUI/.cache/huggingface:/app/ComfyUI/.cache/huggingface
       - ./workspace/ComfyUI/custom_nodes:/app/ComfyUI/custom_nodes
@@ -128,11 +129,7 @@ services:
     image: bean980310/invokeai:latest
     container_name: invokeai
     volumes:
-      - type: bind
-        source: ./workspace/InvokeAI
-        target: /app/InvokeAI
-        bind:
-          create_host_path: true
+      - invokeai:/app/InvokeAI
       - ./stable-diffusion-models/models:/app/InvokeAI/models
       - ./workspace/InvokeAI/.cache/huggingface:/app/InvokeAI/.cache/huggingface
       - ./workspace/InvokeAI/custom_nodes:/app/InvokeAI/custom_nodes
@@ -218,6 +215,7 @@ services:
     image: bean980310/stable-diffusion-webui-forge:latest
     container_name: stable-diffusion-webui-forge
     volumes:
+      - stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge
       - ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui-forge/models/Stable-diffusion
       - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui-forge/models/clip-interrogator
       - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui-forge/configs
@@ -302,6 +300,7 @@ services:
     image: bean980310/sdnext:latest
     container_name: sdnext
     volumes:
+      - sdnext:/app/automatic
       - ./stable-diffusion-models/models:/app/automatic/models
       - ./stable-diffusion-models/models/configs:/app/automatic/configs
       - ./stable-diffusion-models/models/vae_approx:/app/automatic/models/VAE-approx
@@ -325,6 +324,7 @@ services:
     image: bean980310/easy-diffusion:latest
     container_name: easy-diffusion
     volumes:
+      - easy-diffusion:/app/easy-diffusion
       - ./stable-diffusion-models/models:/app/easy-diffusion/models
       - ./stable-diffusion-models/models/ckeckpoints:/app/easy-diffusion/models/stable-diffusion
       - ./stable-diffusion-models/models/loras:/app/easy-diffusion/models/lora
@@ -348,6 +348,7 @@ services:
     volumes:
       - swarmdata:/app/SwarmUI/Data
       - swarmbackend:/app/SwarmUI/dlbackend
+      - swarmui:/app/SwarmUI
       - ./stable-diffusion-models/models:/app/SwarmUI/Models
       - ./workspace/SwarmUI/.cache/huggingface:/app/SwarmUI/.cache/huggingface
       - ./outputs/SwarmUI:/app/SwarmUI/Output
@@ -368,6 +369,7 @@ services:
     image: bean980310/facefusion:latest
     container_name: facefusion
     volumes:
+      - facefusion:/app/facefusion
       - ./workspace/facefusion/.assets:/app/facefusion/.assets
       - ./workspace/facefusion/.cache/huggingface:/app/facefusion/.cache/huggingface
     ports:
@@ -387,6 +389,7 @@ services:
     image: bean980310/omost:latest
     container_name: omost
     volumes:
+      - omost:/app/Omost
       - ./workspace/Omost/.cache/huggingface/hub:/app/Omost/.cache/huggingface
     ports:
       - "3080:8080"
@@ -403,6 +406,7 @@ services:
     image: bean980310/stable-audio-tools:latest
     container_name: stable-audio-tools
     volumes:
+      - stable-audio-tools:/app/stable-audio-tools
       - ./stable-audio-models/models:/app/stable-audio-tools/models
       - ./workspace/stable-audio-models/.cache/huggingface:/app/stable-audio-models/.cache/huggingface
     ports:
@@ -422,6 +426,7 @@ services:
     image: bean980310/audiocraft-plus:latest
     container_name: audiocraft_plus
     volumes:
+      - audiocraft_plus:/app/audiocraft_plus
       - ./audiocraft-models/models:/app/audiocraft_plus/models
       - ./workspace/audiocraft_plus/.cache/huggingface:/app/audiocraft_plus/.cache/huggingface
     ports:
@@ -437,6 +442,18 @@ services:
 volumes:
   ollama:
   open-webui:
+  stable-diffusion-webui:
+  comfyui:
+  kohya_ss:
+  invokeai:
   fooocus-data:
+  stable-diffusion-webui-forge:
+  sdnext:
+  easy-diffusion:
+  swarmui:
   swarmdata:
   swarmbackend:
+  facefusion:
+  omost:
+  stable-audio-tools:
+  audiocraft_plus:

@@ -42,6 +42,7 @@ services:
     volumes:
       - stable-diffusion-webui:/app/stable-diffusion-webui
       - ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui/models/Stable-diffusion
+      - ./stable-diffusion-models/models/clip:/app/stable-diffusion-webui/models/clip
       - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui/models/clip-interrogator
       - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui/configs
       - ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui/models/ControlNet
@@ -293,6 +294,7 @@ services:
     volumes:
       - swarmdata:/app/SwarmUI/Data
       - swarmbackend:/app/SwarmUI/dlbackend
+      - swarmui:/app/SwarmUI
       - ./stable-diffusion-models/models:/app/SwarmUI/Models
       - ./workspace/SwarmUI/.cache/huggingface:/app/SwarmUI/.cache/huggingface
       - ./outputs/SwarmUI:/app/SwarmUI/Output
@@ -369,6 +371,7 @@ volumes:
   stable-diffusion-webui-forge:
   sdnext:
   easy-diffusion:
+  swarmui:
   swarmdata:
   swarmbackend:
   facefusion:
