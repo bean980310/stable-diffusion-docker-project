@@ -161,6 +161,7 @@ def main():
     installer.check_version()
     installer.log.info(f'Platform: {installer.print_dict(installer.get_platform())}')
     installer.set_environment()
+    installer.install('uv', 'uv')
     installer.install('onnxruntime-gpu', 'onnxruntime-gpu')
     installer.install('onnx', 'onnx')
     installer.check_torch()
