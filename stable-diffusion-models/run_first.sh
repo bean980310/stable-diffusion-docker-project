@@ -36,3 +36,5 @@ mkdir -vp models/embeddings/sd15 \
     models/embeddings/sdxl \
     models/embeddings/sd3 \
     models/embeddings/flux1
+
+mkdir -vp models/clip/sd3
