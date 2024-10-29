@@ -9,11 +9,8 @@ You need NVIDIA GPU and CUDA 12.4, Docker and NVIDIA Container toolkit, if you a
 git clone https://github.com/bean980310/stable-diffusion-docker-project.git
 ```
 
-First, run the docker-compose.download.yml
-```bash
-cd <your_path_of_dir>/stable-diffusion-docker-project
-docker compose -f docker-compose.download.yml up
-```
+First, run the run_first.ipynb on Jupyter Notebook(if not installed cuda, cudnn, docker, and NVIDIA Container toolkit.) and then run the download.ipynb on Jupyter Notebook.
+
 And you must put models in directory stable-diffusion-models/models.
 
 ```bash
@@ -77,6 +74,6 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 ### [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI)
 ### [FaceFusion](https://github.com/facefusion/facefusion)
 ### [Omost](https://github.com/lllyasviel/Omost)
-### [stabl-audio-tools](https://github.com/Stability-AI/stable-audio-tools)
+### [stable-audio-tools](https://github.com/Stability-AI/stable-audio-tools)
 
 ## Contributing
