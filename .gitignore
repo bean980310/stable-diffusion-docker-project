@@ -2,3 +2,7 @@
 .docker_temp_*
 stable-diffusion-docker-v*.zip
 mypassword
+*.safetensors
+*.ckpt
+*.pt
+*.pth
