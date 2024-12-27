@@ -78,7 +78,7 @@ services:
     container_name: kohya_ss
     volumes:
       - kohya_ss:/app/kohya_ss
-      - ./stable-diffusion-models/models:/app/kohya_ss/models
+      - ./stable-diffusion-models/models/checkpoints:/app/kohya_ss/models
       - ./workspace/kohya_ss/.cache/huggingface:/app/kohya_ss/.cache/huggingface
       - ./workspace/kohya_ss/dataset:/app/kohya_ss/dataset
       - ./workspace/kohya_ss/dataset/images:/app/kohya_ss/dataset/images
