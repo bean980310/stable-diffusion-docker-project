@@ -12,7 +12,16 @@ git clone https://github.com/comfyanonymous/ComfyUI.git
 cd /app/ComfyUI
 git checkout tags/${COMFYUI_VERSION}
 
+python3.11 -m venv venv
+source venv/bin/activate
+
+pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
+pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
+pip3 install tensorflow tensorboard tensorboardx
+pip3 install -U bitsandbytes
+
 # Install requirements
 
 pip install -r requirements.txt
 pip cache purge
+deactivate

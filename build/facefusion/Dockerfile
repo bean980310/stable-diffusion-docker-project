@@ -4,15 +4,17 @@ FROM ${BASE_IMAGE} AS base
 WORKDIR /app
 
 ARG FACEFUSION_VERSION
-# ENV GRADIO_SERVER_NAME=0.0.0.0
+ARG TORCH_VERSION
+ARG INDEX_URL
+ARG XFORMERS_VERSION
 
-# RUN git clone https://github.com/facefusion/facefusion.git
-# WORKDIR /app/facefusion
-# RUN git checkout ${FACEFUSION_VERSION}
-
-# RUN pip3 install -r requirements.txt
-# RUN pip3 install -U onnxruntime-gpu
-# RUN python3 install.py --skip-conda
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip && \
+    update-ca-certificates
+    
+RUN add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.11 python3.11-venv
 
 COPY --chmod=755 ./install.sh ./
 RUN ./install.sh

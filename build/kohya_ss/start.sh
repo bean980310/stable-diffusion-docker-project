@@ -2,6 +2,6 @@
 set -e
 
 cd /app/kohya_ss
-# export HF_HOME="/app"
+source venv/bin/activate
 
 ./gui.sh --listen 0.0.0.0 --server_port 7860 --headless

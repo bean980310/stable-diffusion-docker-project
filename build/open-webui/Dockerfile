@@ -7,6 +7,10 @@ ARG USE_RERANKING_MODEL=""
 ARG UID=0
 ARG GID=0
 
+ARG TORCH_VERSION
+ARG INDEX_URL
+ARG XFORMERS_VERSION
+
 WORKDIR /app
 
 RUN apt-get update && \
@@ -20,17 +24,7 @@ RUN apt-get update && \
 RUN apt-get install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
-    apt-get install -y python3.11
-
-RUN whereis python3 && \
-    whereis python3.11 && \
-    update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
-
-RUN pip3 install -U bitsandbytes && \
-    pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL} && \
-    pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL} && \
-    pip3 install tensorflow tensorboard tensorboardx
+    apt-get install -y python3.11 python3.11-venv
 
 ARG OPEN_WEBUI_VERSION
 
@@ -81,10 +75,20 @@ ENV HF_HOME="/app/open-webui/backend/data/cache/embedding/models"
 
 WORKDIR /app/open-webui/backend
 
+RUN python3.11 -m venv venv && \
+    source venv/bin/activate
+
+RUN pip3 install -U bitsandbytes && \
+    pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL} && \
+    pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL} && \
+    pip3 install tensorflow tensorboard tensorboardx
+
 RUN curl -fsSL https://ollama.com/install.sh | sh && \
     pip3 install -r requirements.txt -U && \
     python -c "import os; from sentence_transformers import SentenceTransformer; SentenceTransformer(os.environ['RAG_EMBEDDING_MODEL'], device='cpu')" && \
     python -c "import os; from faster_whisper import WhisperModel; WhisperModel(os.environ['WHISPER_MODEL'], device='cpu', compute_type='int8', download_root=os.environ['WHISPER_MODEL_DIR'])"
+
+RUN deactivate
 
 WORKDIR /app
 
