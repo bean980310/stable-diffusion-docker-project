@@ -3,6 +3,8 @@ FROM ${BASE_IMAGE} AS base
 
 WORKDIR /app
 
+SHELL ["bin/bash", "-c"]
+
 RUN apt-get update
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y software-properties-common bash wget curl git build-essential libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev libnvrtc11.2 ca-certificates python3-pip python3-venv python3-dev && \
