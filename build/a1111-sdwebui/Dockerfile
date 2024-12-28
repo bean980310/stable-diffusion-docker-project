@@ -34,7 +34,10 @@ RUN pip3 install -r requirements_versions.txt
 
 RUN pip3 install -r requirements.txt
 RUN python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
-RUN pip3 cache purge && deactivate && source venv/bin/activate
+RUN pip3 cache purge 
+RUN source venv/bin/deactivate
+
+RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "webui.sh", "-f" ]

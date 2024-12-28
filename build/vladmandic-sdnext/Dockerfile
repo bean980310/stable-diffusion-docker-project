@@ -41,7 +41,7 @@ RUN python3 install.py
 RUN rm /install.py
 RUN pip3 cache purge
 
-RUN deactivate
+RUN source venv/bin/deactivate
 RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]

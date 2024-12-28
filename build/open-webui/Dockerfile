@@ -97,9 +97,8 @@ RUN curl -fsSL https://ollama.com/install.sh | sh && \
     python -c "import os; from sentence_transformers import SentenceTransformer; SentenceTransformer(os.environ['RAG_EMBEDDING_MODEL'], device='cpu')" && \
     python -c "import os; from faster_whisper import WhisperModel; WhisperModel(os.environ['WHISPER_MODEL'], device='cpu', compute_type='int8', download_root=os.environ['WHISPER_MODEL_DIR'])"
 
-RUN deactivate
+RUN source venv/bin/deactivate
 
-WORKDIR /app/open-webui/backend
 RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]

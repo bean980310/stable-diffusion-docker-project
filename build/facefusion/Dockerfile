@@ -36,7 +36,7 @@ RUN pip3 install tensorflow tensorboard tensorboardx
 
 RUN python3 install.py --onnxruntime cuda --skip-conda
 RUN pip3 cache purge
-RUN deactivate
+RUN source venv/bin/deactivate
 
 RUN source venv/bin/activate
 

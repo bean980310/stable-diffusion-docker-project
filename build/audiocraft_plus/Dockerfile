@@ -37,7 +37,7 @@ RUN pip3 install -r requirements.txt
 RUN pip3 install -e .
 RUN pip3 purge
 
-RUN deactivate
+RUN source venv/bin/deactivate
 RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]

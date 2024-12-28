@@ -32,7 +32,7 @@ RUN pip3 install tensorflow tensorboard tensorboardx
 
 RUN pip3 install InvokeAI[xformers]==${INVOKEAI_VERSION} --use-pep517
 RUN pip3 cache purge
-RUN deactivate
+RUN source venv/bin/deactivate
 
 RUN mkdir -vp /app/InvokeAI/models \
     /app/InvokeAI/outputs

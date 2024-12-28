@@ -52,7 +52,8 @@ RUN pip3 install -r extensions-builtin/sd_forge_controlnet/requirements.txt && \
 RUN python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
 
 RUN pip3 cache purge
-RUN deactivate
+RUN source venv/bin/deactivate
+
 RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]

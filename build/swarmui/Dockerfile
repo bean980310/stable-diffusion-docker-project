@@ -46,9 +46,10 @@ RUN git checkout tags/${COMFYUI_VERSION}
 
 RUN pip3 install -r requirements.txt
 RUN pip3 cache purge
-RUN deactivate
 
 WORKDIR /app/SwarmUI
+RUN source venv/bin/deactivate
+
 RUN source venv/bin/activate
 
 COPY --chmod=755 ./start.sh ./
