@@ -56,7 +56,7 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.10.1
-        BASE_IMAGE: &BASE_IMAGE pytorch/pytorch:2.5.0-cuda12.4-cudnn9-devel
+        BASE_IMAGE: &BASE_IMAGE pytorch/pytorch:2.5.1-cuda12.4-cudnn9-devel
     environment:
       - HF_HOME=/app/stable-diffusion-webui/.cache/huggingface
   kohya_ss:
@@ -120,7 +120,7 @@ services:
       context: ./build/comfyui
       dockerfile: Dockerfile
       args:
-        COMFYUI_VERSION: &COMFYUI_VERSION v0.2.4
+        COMFYUI_VERSION: &COMFYUI_VERSION v0.3.10
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
     environment:
@@ -142,7 +142,7 @@ services:
       context: ./build/invokeai
       dockerfile: Dockerfile
       args:
-        INVOKEAI_VERSION: v5.3.0
+        INVOKEAI_VERSION: v5.5.0
         BASE_IMAGE: pytorch/pytorch:2.4.1-cuda12.4-cudnn9-devel
         # TORCH_VERSION: 2.4.1+cu124
         # INDEX_URL: https://download.pytorch.org/whl/cu124
@@ -162,7 +162,7 @@ services:
       dockerfile: Dockerfile
       args:
         OLLAMA_BASE_URL: '/ollama'
-        OPEN_WEBUI_VERSION: v0.3.35
+        OPEN_WEBUI_VERSION: v0.5.2
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
@@ -359,7 +359,7 @@ services:
       context: ./build/swarmui
       dockerfile: Dockerfile
       args:
-        SWARMUI_VERSION: 0.9.3-Beta
+        SWARMUI_VERSION: 0.9.4-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
     environment:
@@ -379,7 +379,7 @@ services:
       context: ./build/facefusion
       dockerfile: Dockerfile
       args:
-        FACEFUSION_VERSION: 3.0.0
+        FACEFUSION_VERSION: 3.1.0
         BASE_IMAGE: *BASE_IMAGE
     environment:
       - HF_HOME=/app/facefusion/.cache/huggingface

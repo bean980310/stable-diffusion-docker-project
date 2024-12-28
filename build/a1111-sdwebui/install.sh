@@ -2,7 +2,7 @@
 set -e
 
 apt-get update
-apt-get install -y wget git libgl1 libglib2.0-0
+apt-get install -y wget git libgl1 libglib2.0-0 libgoogle-perftools4 libtcmalloc-minimal4
 # Clone the git repo of the Stable Diffusion Web UI by Automatic1111
 # and set version
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
