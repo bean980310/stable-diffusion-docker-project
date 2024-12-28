@@ -24,7 +24,7 @@ RUN apt-get update && \
 RUN apt-get install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
-    apt-get install -y python3.11 python3.11-venv
+    apt-get install -y python3.11 python3.11-venv python3.11-dev python3-pip
 
 ARG OPEN_WEBUI_VERSION
 
@@ -78,10 +78,10 @@ WORKDIR /app/open-webui/backend
 RUN python3.11 -m venv venv && \
     source venv/bin/activate
 
-RUN pip3 install -U bitsandbytes && \
-    pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL} && \
+RUN  pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL} && \
     pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL} && \
-    pip3 install tensorflow tensorboard tensorboardx
+    pip3 install tensorflow tensorboard tensorboardx && \
+    pip3 install -U bitsandbytes
 
 RUN curl -fsSL https://ollama.com/install.sh | sh && \
     pip3 install -r requirements.txt -U && \

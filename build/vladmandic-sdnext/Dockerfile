@@ -4,23 +4,32 @@ FROM ${BASE_IMAGE} AS base
 WORKDIR /app
 ARG SDNEXT_COMMIT
 
-# RUN git clone https://github.com/vladmandic/automatic
-# COPY --chmod=755 ./install.py /automatic
-# WORKDIR /app/automatic
-# RUN git checkout ${SDNEXT_COMMIT}
 
-# RUN git submodule --quiet update --init --recursive
-# RUN git submodule --quiet sync --recursive
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip python3-venv python3-dev && \
+    update-ca-certificates
 
-# RUN python3 install.py
-# RUN rm /install.py
+RUN git clone https://github.com/vladmandic/automatic
+COPY --chmod=755 ./install.py /automatic
+WORKDIR /app/automatic
+RUN git checkout ${SDNEXT_COMMIT}
 
-COPY --chmod=755 ./install.* ./
-RUN ./install.sh
+RUN git submodule --quiet update --init --recursive
+RUN git submodule --quiet sync --recursive
 
-WORKDIR /app
+RUN python3 -m venv venv && \
+    source venv/bin/activate
 
-COPY --chmod=755 ./start.sh ./
+RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
+RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
+RUN pip3 install tensorflow tensorboard tensorboardx
+RUN pip3 install -U bitsandbytes
 
-SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "./start.sh" ]
+RUN python3 install.py
+RUN rm /install.py
+RUN pip3 cache purge
+
+RUN deactivate
+RUN source venv/bin/activate
+
+CMD [ "python3" "launch.py" "--listen" "--port 7860" ]

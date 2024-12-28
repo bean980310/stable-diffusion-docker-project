@@ -4,25 +4,26 @@ FROM ${BASE_IMAGE} AS base
 WORKDIR /app
 ARG FOOOCUS_VERSION
 
-# RUN git clone https://github.com/lllyasviel/Fooocus.git && \
-#     cd /Fooocus && \
-#     git checkout ${FOOOCUS_VERSION}
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip python3-venv python3-dev && \
+    update-ca-certificates
 
-# WORKDIR /app/Fooocus
+RUN git clone https://github.com/lllyasviel/Fooocus.git
+WORKDIR /app/Fooocus
+RUN git checkout tags/${FOOOCUS_VERSION}
 
-# RUN pip3 install -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu121 && \
-#     sed '$d' launch.py > setup.py && \
-#     python3 -m setup
+RUN python3 -m venv venv && \
+    source venv/bin/activate
 
-COPY --chmod=755 ./install.sh ./
-RUN ./install.sh
+RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
+RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
+RUN pip3 install tensorflow tensorboard tensorboardx
+RUN pip3 install -U bitsandbytes
 
-WORKDIR /app
+RUN pip3 install -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu124
 
-COPY --chmod=755 ./start.sh ./
+RUN pip3 cache purge
+RUN deactivate
+RUN source venv/bin/activate
 
-# RUN export HF_HOME="/app"
-
-SHELL ["/bin/bash", "--login", "-c"]
-# CMD ["nohup", "python3", "entry_with_update.py", "--listen", "--port", "7860", ">", "/app/fooocus.log", "2>&1", "&"]
-CMD [ "./start.sh" ]
+CMD ["python3", "entry_with_update.py", "--listen", "--port", "7860"]
