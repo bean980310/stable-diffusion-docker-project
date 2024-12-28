@@ -1,6 +1,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE} AS base
 
+ENV TZ=Asia/Seoul
+
 WORKDIR /app
 ARG COMFYUI_VERSION
 ARG WEBUI_VERSION
@@ -34,7 +36,7 @@ RUN pip3 install -r requirements.txt
 RUN pip3 cache purge
 RUN deactivate
 
-RUN TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
+ENV TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
 ENV LD_PRELOAD="${TCMALLOC}"
 
 RUN source venv/bin/activate
