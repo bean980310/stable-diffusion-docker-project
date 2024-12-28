@@ -1,5 +1,6 @@
 .DS_Store
 .docker_temp_*
+.cache/
 stable-diffusion-docker-v*.zip
 mypassword
 *.safetensors
