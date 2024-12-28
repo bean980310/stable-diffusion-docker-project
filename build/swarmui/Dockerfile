@@ -48,11 +48,6 @@ RUN pip3 install -r requirements.txt
 RUN pip3 cache purge
 
 WORKDIR /app/SwarmUI
-RUN source venv/bin/deactivate
-
-RUN source venv/bin/activate
-
-COPY --chmod=755 ./start.sh ./
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "launch-linux.sh" ]

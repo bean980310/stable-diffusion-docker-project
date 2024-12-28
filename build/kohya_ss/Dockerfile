@@ -40,9 +40,6 @@ RUN pip3 install -U ninja pip setuptools wheel
 RUN pip3 install -r requirements_linux_docker.txt
 RUN pip3 install -r requirements.txt
 RUN pip3 cache purge 
-RUN source venv/bin/deactivate
-
-RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "gui.sh", "--listen", "0.0.0.0", "--server_port", "7860", "--headless" ]
