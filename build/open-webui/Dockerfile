@@ -11,7 +11,7 @@ ARG TORCH_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
-SHELL ["bin/bash", "-c"]
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /app
 
@@ -99,4 +99,5 @@ RUN deactivate
 WORKDIR /app/open-webui/backend
 RUN source venv/bin/activate
 
+SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "start.sh" ]

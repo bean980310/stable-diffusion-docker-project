@@ -7,6 +7,8 @@ ARG TORCH_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN apt-get update && \
     apt-get install -y wget git libglib2.0-0 libgl1 curl
 

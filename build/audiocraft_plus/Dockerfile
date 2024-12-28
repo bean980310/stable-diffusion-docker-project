@@ -6,7 +6,7 @@ ARG TORCH_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
-SHELL ["bin/bash", "-c"]
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apt-get update
 RUN apt-get update && apt-get upgrade -y && \
@@ -34,4 +34,5 @@ RUN pip3 purge
 RUN deactivate
 RUN source venv/bin/activate
 
+SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "python3", "app.py", "--server_port 7877", "--listen 0.0.0.0" ]

@@ -7,7 +7,7 @@ ARG TORCH_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
-SHELL ["bin/bash"]
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y software-properties-common bash wget curl git build-essential libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev libnvrtc11.2 ca-certificates python3-pip python3-venv python3-dev python3-launchpadlib && \
@@ -33,4 +33,5 @@ RUN deactivate
 
 RUN source venv/bin/activate
 
+SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "webui.sh", "-f" ]
