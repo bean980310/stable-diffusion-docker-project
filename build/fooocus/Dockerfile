@@ -23,7 +23,6 @@ RUN python3 -m venv venv && \
 RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
 RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
 RUN pip3 install tensorflow tensorboard tensorboardx
-RUN pip3 install -U bitsandbytes
 
 RUN pip3 install -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu124
 

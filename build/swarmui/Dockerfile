@@ -29,7 +29,6 @@ RUN python3 -m venv venv && \
 RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
 RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
 RUN pip3 install tensorflow tensorboard tensorboardx
-RUN pip3 install -U bitsandbytes
 
 WORKDIR /app/SwarmUI/dlbackend
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git

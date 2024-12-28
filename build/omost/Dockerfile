@@ -20,7 +20,6 @@ RUN git checkout ${OMOST_COMMIT}
 RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
 RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
 RUN pip3 install tensorflow tensorboard tensorboardx
-RUN pip3 install -U bitsandbytes
 
 RUN pip install -r requirements.txt && \
     pip cache purge

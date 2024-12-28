@@ -25,8 +25,6 @@ RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDE
 RUN pip3 install tensorflow tensorboard tensorboardx
 RUN pip3 install -r requirements_versions.txt
 
-RUN pip3 install -U bitsandbytes
-
 RUN pip3 install -r requirements.txt
 RUN python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
 RUN pip3 cache purge

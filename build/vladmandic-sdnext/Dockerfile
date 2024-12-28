@@ -27,7 +27,6 @@ RUN python3 -m venv venv && \
 RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
 RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
 RUN pip3 install tensorflow tensorboard tensorboardx
-RUN pip3 install -U bitsandbytes
 
 RUN python3 install.py
 RUN rm /install.py
