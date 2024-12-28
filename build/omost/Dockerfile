@@ -13,6 +13,11 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y software-properties-common bash wget curl git build-essential libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev libnvrtc11.2 ca-certificates python3-pip python3-venv python3-dev python3-launchpadlib && \
     update-ca-certificates
 
+RUN apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.11 python3.11-venv python3.11-dev
+
 RUN git clone https://github.com/lllyasviel/Omost.git
 WORKDIR /app/Omost
 RUN git checkout ${OMOST_COMMIT}

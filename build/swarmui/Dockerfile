@@ -14,6 +14,11 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y software-properties-common bash wget curl git build-essential libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev libnvrtc11.2 ca-certificates python3-pip python3-venv python3-dev python3-launchpadlib && \
     update-ca-certificates
 
+RUN apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.11 python3.11-venv python3.11-dev
+
 RUN wget https://dot.net/v1/dotnet-install.sh
 RUN chmod +x dotnet-install.sh
 RUN ./dotnet-install.sh --channel 7.0
@@ -23,7 +28,7 @@ RUN git clone https://github.com/mcmonkeyprojects/SwarmUI.git
 WORKDIR /app/SwarmUI
 RUN checkout tags/${SWARMUI_VERSION}
 
-RUN python3 -m venv venv && \
+RUN python3.11 -m venv venv && \
     source venv/bin/activate
 
 RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}

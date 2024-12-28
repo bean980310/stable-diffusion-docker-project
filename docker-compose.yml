@@ -56,7 +56,7 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.10.1
-        BASE_IMAGE: &BASE_IMAGE nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
+        BASE_IMAGE: &BASE_IMAGE nvidia/cuda:12.6.3-cudnn-devel-ubuntu24.04
         TORCH_VERSION: &TORCH_VERSION 2.5.1+cu124
         INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
         XFORMERS_VERSION: &XFORMERS_VERSION 0.0.28.post3
