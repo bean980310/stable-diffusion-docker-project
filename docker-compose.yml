@@ -56,7 +56,10 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.10.1
-        BASE_IMAGE: &BASE_IMAGE pytorch/pytorch:2.5.1-cuda12.4-cudnn9-devel
+        BASE_IMAGE: &BASE_IMAGE nvidia/cuda:12.6.3-cudnn-devel-ubuntu24.04
+        TORCH_VERSION: &TORCH_VERSION 2.5.1+cu124
+        INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
+        XFORMERS_VERSION: &XFORMERS_VERSION 0.0.28.post3
     environment:
       - HF_HOME=/app/stable-diffusion-webui/.cache/huggingface
   kohya_ss:
@@ -82,6 +85,9 @@ services:
       args:
         KOHYA_VERSION: v24.1.7
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/kohya_ss/.cache/huggingface
   comfyui:
@@ -123,6 +129,9 @@ services:
         COMFYUI_VERSION: &COMFYUI_VERSION v0.3.10
         WEBUI_VERSION: *WEBUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/ComfyUI/.cache/huggingface
   invokeai:
@@ -143,10 +152,10 @@ services:
       dockerfile: Dockerfile
       args:
         INVOKEAI_VERSION: v5.5.0
-        BASE_IMAGE: pytorch/pytorch:2.4.1-cuda12.4-cudnn9-devel
-        # TORCH_VERSION: 2.4.1+cu124
-        # INDEX_URL: https://download.pytorch.org/whl/cu124
-        # XFORMERS_VERSION: 0.0.28.post1
+        BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: 2.4.1+cu124
+        INDEX_URL: https://download.pytorch.org/whl/cu124
+        XFORMERS_VERSION: 0.0.28.post1
     environment:
       - HF_HOME=/app/InvokeAI/.cache/huggingface
   open-webui:
@@ -164,6 +173,9 @@ services:
         OLLAMA_BASE_URL: '/ollama'
         OPEN_WEBUI_VERSION: v0.5.2
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
       - WEBUI_SECRET_KEY=
@@ -207,6 +219,9 @@ services:
       args:
         FOOOCUS_VERSION: v2.5.5
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/Fooocus/.cache/huggingface
     #   - PRESET=anime
@@ -252,6 +267,9 @@ services:
       args:
         FORGE_VERSION: e4ad1140c8c8344477345f2b7a6ca973f682fb31
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
   # stable-diffusion-webui-forge-legacy:
@@ -318,6 +336,9 @@ services:
       args:
         SDNEXT_COMMIT: 5c684cb07606c423feaa06abe83608b287e9b68a
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/automatic/.cache/huggingface
   easy-diffusion:
@@ -340,6 +361,9 @@ services:
       args:
         EASYDIFF_VERSION: v3.0.9
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/easy-diffusion/.cache/huggingface
   swarmui:
@@ -362,6 +386,9 @@ services:
         SWARMUI_VERSION: 0.9.4-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/SwarmUI/.cache/huggingface
       - SWARM_NO_VENV='true'
@@ -381,6 +408,9 @@ services:
       args:
         FACEFUSION_VERSION: 3.1.0
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/facefusion/.cache/huggingface
       - GRADIO_SERVER_NAME=0.0.0.0
@@ -400,6 +430,9 @@ services:
       args:
         OMOST_COMMIT: 731e74922fc6be91171688574d07624f93d3b658
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/Omost/.cache/huggingface
   stable-audio-tools:
@@ -418,6 +451,9 @@ services:
       args:
         STABLE_AUDIO_TOOLS_COMMIT: 7311840dc3ffb69c9134f83483daa1402ec452e3
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/stable-audio-models/.cache/huggingface
       - GRADIO_SERVER_NAME=0.0.0.0
@@ -437,6 +473,9 @@ services:
       dockerfile: Dockerfile
       args:
         BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/audiocraft_plus/.cache/huggingface
 

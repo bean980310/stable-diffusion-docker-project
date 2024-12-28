@@ -1,10 +1,6 @@
 #!/bin/bash
 set -e
 
-apt-get update
-apt-get install -y wget git libgl1 libglib2.0-0
-apt-get install -y python3-launchpadlib
-
 git clone https://github.com/bmaltais/kohya_ss.git
 cd /app/kohya_ss
 git checkout tags/${KOHYA_VERSION}

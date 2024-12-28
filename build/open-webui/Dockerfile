@@ -17,6 +17,21 @@ RUN apt-get update && \
     apt-get install -y nodejs && \
     npm install -g npm@latest
 
+RUN apt-get install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.11
+
+RUN whereis python3 && \
+    whereis python3.11 && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
+
+RUN pip3 install -U bitsandbytes && \
+    pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL} && \
+    pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL} && \
+    pip3 install tensorflow tensorboard tensorboardx
+
 ARG OPEN_WEBUI_VERSION
 
 RUN git clone https://github.com/open-webui/open-webui.git
