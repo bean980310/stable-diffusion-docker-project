@@ -6,6 +6,7 @@ ENV TZ=Asia/Seoul
 WORKDIR /app
 ARG FORGE_VERSION
 ARG TORCH_VERSION
+ARG CUDA_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
@@ -17,22 +18,21 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y software-properties-common bash wget curl git build-essential libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev libnvrtc11.2 ca-certificates python3-pip python3-venv python3-dev python3-launchpadlib && \
     update-ca-certificates
 
-RUN apt-get install -y software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y python3.11 python3.11-venv python3.11-dev
+RUN wget https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
+RUN bash Anaconda3-2024.10-1-Linux-x86_64.sh -b -p ./anaconda3
+RUN source ./anaconda3/bin/activate && conda init --all
+RUN conda config --set auto_activate_base true
+RUN conda create -y --name sdwebui-forge python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
+RUN conda activate sdwebui-forge
 
 RUN git clone https://github.com/lllyasviel/stable-diffusion-webui-forge.git
 WORKDIR /app/stable-diffusion-webui-forge
 RUN git checkout ${FORGE_COMMIT}
-RUN python3.11 -m venv venv && \
-    source venv/bin/activate
 
-RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
-RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
-RUN pip3 install tensorflow tensorboard tensorboardx
+RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
+RUN pip install tensorflow tensorboard tensorboardx
 
-RUN pip3 install -r requirements_versions.txt
+RUN pip install -r requirements_versions.txt
 
 RUN if [ "${FORGE_VERSION}" != "previous" ]; then && \
     git clone https://github.com/lllyasviel/forge-legacy-extensions.git extensions/forge-legacy-extensions && \
@@ -42,16 +42,18 @@ RUN if [ "${FORGE_VERSION}" != "previous" ]; then && \
     rm -rf extensions/forge-legacy-extensions && \
     fi
 
-RUN pip3 install -r extensions-builtin/sd_forge_controlnet/requirements.txt && \
-    pip3 install -r extensions-builtin/forge_legacy_preprocessors/requirements.txt && \
-    pip3 install insightface && \
-    pip3 uninstall -y onnxruntime && \
-    pip3 install onnxruntime-gpu && \
-    pip3 install pydantic==1.10.15
+RUN pip install -r extensions-builtin/sd_forge_controlnet/requirements.txt && \
+    pip install -r extensions-builtin/forge_legacy_preprocessors/requirements.txt && \
+    pip install insightface && \
+    pip uninstall -y onnxruntime && \
+    pip install onnxruntime-gpu && \
+    pip install pydantic==1.10.15
 
-RUN python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
+RUN python -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
 
-RUN pip3 cache purge
+RUN pip cache purge
+RUN conda deactivate
+RUN conda activate sdwebui-forge
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "webui.sh", "-f" ]

@@ -13,7 +13,7 @@ install_dir="/app"
 export COMMANDLINE_ARGS="--port 7860 --listen --api --xformers --enable-insecure-extension-access --no-half-vae"
 
 # python3 executable
-#python_cmd="python3"
+python_cmd="python"
 
 # git executable
 #export GIT="git"
