@@ -36,12 +36,9 @@ RUN pip3 install tensorflow tensorboard tensorboardx
 
 RUN pip3 install -r requirements.txt
 RUN pip3 cache purge
-RUN deactivate
 
 ENV TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
 ENV LD_PRELOAD="${TCMALLOC}"
-
-RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "python3", "main.py"," --listen", "0.0.0.0", "--port", "8188" ]
