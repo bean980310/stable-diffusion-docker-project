@@ -7,7 +7,7 @@ git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 cd /app/stable-diffusion-webui
 git checkout tags/${WEBUI_VERSION}
 
-python3.11 -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 
 pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}

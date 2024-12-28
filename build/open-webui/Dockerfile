@@ -90,9 +90,7 @@ RUN curl -fsSL https://ollama.com/install.sh | sh && \
 
 RUN deactivate
 
-WORKDIR /app
+WORKDIR /app/open-webui/backend
+RUN source venv/bin/activate
 
-COPY --chmod=755 ./start.sh ./
-
-SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "./start.sh" ]
+CMD [ "bash", "start.sh" ]

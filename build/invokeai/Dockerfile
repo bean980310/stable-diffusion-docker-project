@@ -8,37 +8,25 @@ ARG INDEX_URL
 ARG XFORMERS_VERSION
 
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip && \
+    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip python3-venv python3-dev && \
     update-ca-certificates
-    
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y python3.11 python3.11-venv
-
-COPY --chmod=755 ./install.sh ./
-RUN ./install.sh
-
-# ARG TORCH_VERSION
-# ARG INDEX_URL
-# ARG XFORMERS_VERSION
-WORKDIR /app
-
-# RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL} && \
-#     pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} && \
-#     pip3 cache purge
-
-# COPY ../../workspace/InvokeAI/invokeai.yaml /InvokeAI
-
-# RUN rm /start.sh
-COPY --chmod=755 ./start.sh ./
 
 WORKDIR /app/InvokeAI
+RUN python3 -m venv venv && \
+    source venv/bin/activate
+
+RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
+RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
+RUN pip3 install tensorflow tensorboard tensorboardx
+RUN pip3 install -U bitsandbytes
+
+RUN pip3 install InvokeAI[xformers]==${INVOKEAI_VERSION} --use-pep517
+RUN pip3 cache purge
+RUN deactivate
 
 RUN mkdir -vp /app/InvokeAI/models \
     /app/InvokeAI/outputs
 
-WORKDIR /app
+RUN source venv/bin/activate
 
-SHELL ["/bin/bash", "--login", "-c"]
-# CMD ["nohup", "invokeai-web", "--root", "/workspace/InvokeAI", ">", "/workspace/logs/invokeai.log", "2>&1", "&"]
-CMD [ "./start.sh" ]
+CMD [ "invokeai-web", "--root", "/app/InvokeAI" ]

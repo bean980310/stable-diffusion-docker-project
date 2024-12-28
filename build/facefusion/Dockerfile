@@ -9,19 +9,25 @@ ARG INDEX_URL
 ARG XFORMERS_VERSION
 
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip && \
+    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip python3-venv python3-dev && \
     update-ca-certificates
     
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y python3.11 python3.11-venv
+RUN git clone https://github.com/facefusion/facefusion.git
+WORKDIR /app/facefusion
+RUN git checkout tags/${FACEFUSION_VERSION}
 
-COPY --chmod=755 ./install.sh ./
-RUN ./install.sh
+RUN python3 -m venv venv && \
+    source venv/bin/activate
 
-WORKDIR /app
+RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
+RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
+RUN pip3 install tensorflow tensorboard tensorboardx
+RUN pip3 install -U bitsandbytes
 
-COPY --chmod=755 ./start.sh ./
+RUN python3 install.py --onnxruntime cuda --skip-conda
+RUN pip3 cache purge
+RUN deactivate
 
-SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "./start.sh" ]
+RUN source venv/bin/activate
+
+CMD [ "python3" "run.py" "--execution-provides" "cuda" ]

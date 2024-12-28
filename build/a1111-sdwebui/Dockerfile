@@ -8,23 +8,27 @@ ARG INDEX_URL
 ARG XFORMERS_VERSION
 
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip && \
+    apt-get install -y software-properties-common bash wget curl git libgl1 libglib2.0-0 libsm6 libgl1 libxrender1 libxext6 ffmpeg libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev ca-certificates python3-pip python3-venv python3-dev && \
     update-ca-certificates
-    
-RUN add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y python3.11 python3.11-venv
 
-COPY --chmod=755 ./install.sh ./
-RUN ./install.sh
+RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+WORKDIR /app/stable-diffusion-webui
+RUN git checkout tags/${WEBUI_VERSION}
 
-WORKDIR /app
+RUN python3 -m venv venv && \
+    source venv/bin/activate
 
-# COPY ../../workspace/stable-diffusion-webui/config.json /stable-diffusion-webui
-# COPY ../../workspace/stable-diffusion-webui/webui-user.sh /stable-diffusion-webui
+RUN pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
+RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
+RUN pip3 install tensorflow tensorboard tensorboardx
 
-COPY --chmod=755 ./start.sh ./
+RUN pip3 install -U bitsandbytes
 
-SHELL ["/bin/bash", "--login", "-c"]
-# CMD ["nohup", "./webui.sh", "-f", ">", "/app/webui.log", "2>&1", "&"]
-CMD [ "./start.sh" ]
+RUN pip3 install -r requirements.txt
+RUN python3 -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
+RUN pip3 cache purge
+RUN deactivate
+
+RUN source venv/bin/activate
+
+CMD [ "bash", "webui.sh", "-f" ]

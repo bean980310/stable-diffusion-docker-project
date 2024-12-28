@@ -12,7 +12,7 @@ git clone https://github.com/comfyanonymous/ComfyUI.git
 cd /app/ComfyUI
 git checkout tags/${COMFYUI_VERSION}
 
-python3.11 -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 
 pip3 install --no-cache-dir torch==${TORCH_VERSION} torchvision torchaudio --index-url ${INDEX_URL}
@@ -22,6 +22,6 @@ pip3 install -U bitsandbytes
 
 # Install requirements
 
-pip install -r requirements.txt
-pip cache purge
+pip3 install -r requirements.txt
+pip3 cache purge
 deactivate
