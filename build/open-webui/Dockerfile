@@ -9,13 +9,15 @@ ARG USE_RERANKING_MODEL=""
 ARG UID=0
 ARG GID=0
 
+WORKDIR /app
+
 ARG TORCH_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-WORKDIR /app
+RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
 
 RUN apt-get update && \
     apt-get install -y git curl wget build-essential pandoc gcc netcat-openbsd libglib2.0-0 libgl1 jq && \
