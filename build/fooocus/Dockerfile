@@ -36,8 +36,6 @@ RUN pip3 install tensorflow tensorboard tensorboardx
 RUN pip3 install -r requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu124
 
 RUN pip3 cache purge
-RUN source venv/bin/deactivate
-RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD ["python3", "entry_with_update.py", "--listen", "--port", "7860"]
