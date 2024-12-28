@@ -3,6 +3,9 @@ FROM ${BASE_IMAGE} AS base
 
 WORKDIR /app
 ARG STABLE_AUDIO_TOOLS_COMMIT
+ARG TORCH_VERSION
+ARG INDEX_URL
+ARG XFORMERS_VERSION
 
 RUN apt-get update && \
     apt-get install -y wget git libglib2.0-0 libgl1 curl

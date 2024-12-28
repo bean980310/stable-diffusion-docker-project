@@ -11,6 +11,8 @@ ARG TORCH_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
+SHELL ["bin/bash", "-c"]
+
 WORKDIR /app
 
 RUN apt-get update && \
