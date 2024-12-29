@@ -18,7 +18,9 @@ RUN mkdir -p ~/miniconda3
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
 RUN bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
 RUN rm ~/miniconda3/miniconda.sh
-RUN source ~/miniconda3/bin/activate && conda init --all
+RUN source ~/miniconda3/bin/activate
+RUN ~/miniconda3/bin/conda init --all
+RUN bash ~/.bashrc
 RUN conda config --set auto_activate_base true
 
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
