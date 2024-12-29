@@ -12,6 +12,7 @@ ARG CUDA_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
+RUN conda init
 RUN conda create -y --name comfyui python=3.12 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 RUN conda activate comfyui
 

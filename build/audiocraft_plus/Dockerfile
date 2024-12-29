@@ -10,6 +10,7 @@ ARG CUDA_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
+RUN conda init
 RUN conda create -y --name audiocraft_plus python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 RUN conda activate audiocraft_plus
 
@@ -23,14 +24,14 @@ WORKDIR /app/audiocraft_plus
 RUN python3.11 -m venv venv && \
     source venv/bin/activate
 
-RUN pip3 install -U pip wheel
+RUN pip install -U pip wheel
 
-RUN pip3 install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
-RUN pip3 install tensorflow tensorboard tensorboardx
+RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
+RUN pip install tensorflow tensorboard tensorboardx
 
-RUN pip3 install -r requirements.txt
-RUN pip3 install -e .
-RUN pip3 purge
+RUN pip install -r requirements.txt
+RUN pip install -e .
+RUN pip purge
 
 RUN source venv/bin/deactivate
 RUN source venv/bin/activate

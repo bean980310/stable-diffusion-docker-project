@@ -16,6 +16,7 @@ ARG CUDA_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
+RUN conda init
 RUN conda create -y --name open-webui python=3.11 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 RUN conda activate open-webui
 
