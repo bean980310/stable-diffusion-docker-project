@@ -18,7 +18,7 @@ RUN conda create -y --name a1111-sdwebui python=3.10 pytorch==${TORCH_VERSION} t
 RUN echo $"\
 # >>> conda initialize >>> \n\
 # !! Contents within this block are managed by 'conda init' !! \n\
-__conda_setup="$('/home/<user>/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)" \n\
+__conda_setup="$('/root/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)" \n\
 if [ $? -eq 0 ]; then \n\
     eval "$__conda_setup" \n\
 else \n\
