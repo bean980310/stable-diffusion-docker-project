@@ -30,7 +30,7 @@ RUN pip install tensorflow tensorboard tensorboardx
 
 RUN pip install -r requirements.txt
 RUN pip install -e .
-RUN pip purge
+RUN pip cache purge
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "python3", "app.py", "--server_port 7877", "--listen 0.0.0.0" ]
