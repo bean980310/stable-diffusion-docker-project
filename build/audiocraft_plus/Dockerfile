@@ -19,9 +19,6 @@ RUN conda init bash && . ~/.bashrc
 RUN git clone https://github.com/GrandaddyShmax/audiocraft_plus.git
 WORKDIR /app/audiocraft_plus
 
-RUN python3.11 -m venv venv && \
-    source venv/bin/activate
-
 RUN pip install -U pip wheel
 
 RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
