@@ -283,7 +283,7 @@ services:
       context: ./build/sdwebui-forge
       dockerfile: Dockerfile
       args:
-        FORGE_VERSION: e4ad1140c8c8344477345f2b7a6ca973f682fb31
+        FORGE_VERSION: main
         BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
@@ -326,10 +326,10 @@ services:
     ports:
       - "3051:7860"
     build:
-      context: ./build/sdwebui-forge
+      context: ./build/sdwebui-reforge
       dockerfile: Dockerfile
       args:
-        FORGE_VERSION: previous
+        REFORGE_VERSION: main
         BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
@@ -357,7 +357,7 @@ services:
       context: ./build/vladmandic-sdnext
       dockerfile: Dockerfile
       args:
-        SDNEXT_COMMIT: 5c684cb07606c423feaa06abe83608b287e9b68a
+        SDNEXT_COMMIT: master
         BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
@@ -455,7 +455,7 @@ services:
       context: ./build/omost
       dockerfile: Dockerfile
       args:
-        OMOST_COMMIT: 731e74922fc6be91171688574d07624f93d3b658
+        OMOST_COMMIT: main
         BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
@@ -477,7 +477,7 @@ services:
       context: ./build/stable-audio-tools
       dockerfile: Dockerfile
       args:
-        STABLE_AUDIO_TOOLS_COMMIT: 7311840dc3ffb69c9134f83483daa1402ec452e3
+        STABLE_AUDIO_TOOLS_COMMIT: main
         BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
