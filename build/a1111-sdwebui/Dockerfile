@@ -28,10 +28,7 @@ RUN pip install -U pip
 
 RUN pip install -r requirements.txt
 RUN python -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
-RUN pip cache purge 
-
-RUN conda deactivate
-RUN conda activate a1111-sdwebui
+RUN pip cache purge
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "webui.sh", "-f" ]

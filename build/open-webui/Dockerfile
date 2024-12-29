@@ -18,11 +18,10 @@ ARG XFORMERS_VERSION
 
 RUN conda init
 RUN conda create -y --name open-webui python=3.11 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
-RUN conda activate open-webui
+ENV PATH /opt/miniconda3/envs/open-webui/bin:$PATH
 
-RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate open-webui" >> ~/.bashrc
+RUN conda init bash && . ~/.bashrc
 
 ARG OPEN_WEBUI_VERSION
 
@@ -82,8 +81,6 @@ RUN curl -fsSL https://ollama.com/install.sh | sh && \
     python -c "import os; from faster_whisper import WhisperModel; WhisperModel(os.environ['WHISPER_MODEL'], device='cpu', compute_type='int8', download_root=os.environ['WHISPER_MODEL_DIR'])"
 
 RUN pip purge
-RUN conda deactivate
-RUN conda activate open-webui
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "start.sh" ]
