@@ -77,10 +77,11 @@ RUN pip install tensorflow tensorboard tensorboardx
 
 RUN curl -fsSL https://ollama.com/install.sh | sh && \
     pip install -r requirements.txt -U && \
+    pip install tf_keras && \
     python -c "import os; from sentence_transformers import SentenceTransformer; SentenceTransformer(os.environ['RAG_EMBEDDING_MODEL'], device='cpu')" && \
     python -c "import os; from faster_whisper import WhisperModel; WhisperModel(os.environ['WHISPER_MODEL'], device='cpu', compute_type='int8', download_root=os.environ['WHISPER_MODEL_DIR'])"
 
-RUN pip purge
+RUN pip cache purge
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "start.sh" ]
