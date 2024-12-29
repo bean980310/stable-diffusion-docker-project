@@ -33,6 +33,7 @@ RUN echo $"\
     # <<< conda initialize <<<" \
     >> ~/.bashrc
 RUN source ~/.bashrc
+RUN conda init
 RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate a1111-sdwebui" >> ~/.bashrc
