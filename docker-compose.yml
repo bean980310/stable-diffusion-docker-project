@@ -9,6 +9,18 @@ x-base_service: &base_service
   restart: unless-stopped
 
 services:
+  base:
+    <<: *base_service
+    image: &BASE_IMAGE bean980310/ubuntu-docker-conda:cu124
+    build:
+      context: ./build/base
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
+        TORCH_VERSION: &TORCH_VERSION 2.5.1
+        REQUIRED_CUDA_VERSION: &CUDA_VERSION 12.4
+        INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
+        XFORMERS_VERSION: &XFORMERS_VERSION 0.0.28.post3
   ollama:
     <<: *base_service
     image: ollama/ollama:latest
@@ -56,11 +68,11 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.10.1
-        BASE_IMAGE: &BASE_IMAGE nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
-        TORCH_VERSION: &TORCH_VERSION 2.5.1
-        CUDA_VERSION: &CUDA_VERSION 12.4
-        INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
-        XFORMERS_VERSION: &XFORMERS_VERSION 0.0.28.post3
+        BASE_IMAGE: *BASE_IMAGE
+        TORCH_VERSION: *TORCH_VERSION
+        CUDA_VERSION: *CUDA_VERSION
+        INDEX_URL: *INDEX_URL
+        XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - HF_HOME=/app/stable-diffusion-webui/.cache/huggingface
   kohya_ss:
