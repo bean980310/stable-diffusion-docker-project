@@ -11,7 +11,6 @@ ARG CUDA_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
-RUN conda init
 RUN conda create -y --name facefusion python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 ENV PATH /opt/miniconda3/envs/facefusion/bin:$PATH 
 
