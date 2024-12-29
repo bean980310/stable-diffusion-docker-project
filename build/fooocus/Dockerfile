@@ -14,6 +14,10 @@ ARG XFORMERS_VERSION
 RUN conda create -y --name fooocus python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 RUN conda activate fooocus
 
+RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+RUN echo "conda activate fooocus" >> ~/.bashrc
+
 RUN git clone https://github.com/lllyasviel/Fooocus.git
 WORKDIR /app/Fooocus
 RUN git checkout tags/${FOOOCUS_VERSION}

@@ -19,6 +19,10 @@ ARG XFORMERS_VERSION
 RUN conda create -y --name open-webui python=3.11 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 RUN conda activate open-webui
 
+RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+RUN echo "conda activate open-webui" >> ~/.bashrc
+
 ARG OPEN_WEBUI_VERSION
 
 RUN git clone https://github.com/open-webui/open-webui.git

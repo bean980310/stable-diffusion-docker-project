@@ -13,6 +13,10 @@ ARG XFORMERS_VERSION
 RUN conda create -y --name audiocraft_plus python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 RUN conda activate audiocraft_plus
 
+RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+RUN echo "conda activate audiocraft_plus" >> ~/.bashrc
+
 RUN git clone https://github.com/GrandaddyShmax/audiocraft_plus.git
 WORKDIR /app/audiocraft_plus
 

@@ -14,6 +14,10 @@ ARG XFORMERS_VERSION
 RUN conda create -y --name a1111-sdwebui python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 RUN conda activate a1111-sdwebui
 
+RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+RUN echo "conda activate a1111-sdwebui" >> ~/.bashrc
+
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 WORKDIR /app/stable-diffusion-webui
 RUN git checkout tags/${WEBUI_VERSION}

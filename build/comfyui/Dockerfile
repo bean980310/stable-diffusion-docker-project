@@ -15,6 +15,10 @@ ARG XFORMERS_VERSION
 RUN conda create -y --name comfyui python=3.12 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 RUN conda activate comfyui
 
+RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
+RUN echo "conda activate comfyui" >> ~/.bashrc
+
 RUN git clone https://github.com/comfyanonymous/ComfyUI.git
 WORKDIR /app/ComfyUI
 RUN git checkout tags/${COMFYUI_VERSION}
