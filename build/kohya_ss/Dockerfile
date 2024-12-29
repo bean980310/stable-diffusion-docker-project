@@ -13,11 +13,10 @@ ARG XFORMERS_VERSION
 
 RUN conda init
 RUN conda create -y --name kohya_ss python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
-RUN conda activate kohya_ss
+ENV PATH /opt/miniconda3/envs/kohya_ss/bin:$PATH
 
-RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate kohya_ss" >> ~/.bashrc
+RUN conda init bash && . ~/.bashrc
     
 RUN git clone https://github.com/bmaltais/kohya_ss.git
 WORKDIR /app/kohya_ss
@@ -32,9 +31,6 @@ RUN pip install -U ninja pip setuptools wheel
 RUN pip install -r requirements_linux_docker.txt
 RUN pip install -r requirements.txt
 RUN pip cache purge
-
-RUN conda deactivate
-RUN conda activate kohya_ss
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "gui.sh", "--listen", "0.0.0.0", "--server_port", "7860", "--headless" ]

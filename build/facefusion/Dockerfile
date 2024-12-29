@@ -13,11 +13,10 @@ ARG XFORMERS_VERSION
 
 RUN conda init
 RUN conda create -y --name facefusion python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
-RUN conda activate facefusion
+ENV PATH /opt/miniconda3/envs/facefusion/bin:$PATH 
 
-RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate facefusion" >> ~/.bashrc
+RUN conda init bash && . ~/.bashrc
 
 RUN git clone https://github.com/facefusion/facefusion.git
 WORKDIR /app/facefusion
@@ -28,9 +27,6 @@ RUN pip install tensorflow tensorboard tensorboardx
 
 RUN python install.py --onnxruntime cuda --skip-conda
 RUN pip cache purge
-
-RUN conda deactivate
-RUN conda activate facefusion
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "python3", "run.py", "--execution-provides", "cuda" ]

@@ -12,11 +12,10 @@ ARG XFORMERS_VERSION
 
 RUN conda init
 RUN conda create -y --name audiocraft_plus python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
-RUN conda activate audiocraft_plus
+ENV PATH=/opt/miniconda3/envs/audiocraft_plus/bin:$PATH
 
-RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate audiocraft_plus" >> ~/.bashrc
+RUN conda init bash && . ~/.bashrc
 
 RUN git clone https://github.com/GrandaddyShmax/audiocraft_plus.git
 WORKDIR /app/audiocraft_plus
@@ -32,9 +31,6 @@ RUN pip install tensorflow tensorboard tensorboardx
 RUN pip install -r requirements.txt
 RUN pip install -e .
 RUN pip purge
-
-RUN source venv/bin/deactivate
-RUN source venv/bin/activate
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "python3", "app.py", "--server_port 7877", "--listen 0.0.0.0" ]

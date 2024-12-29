@@ -13,11 +13,10 @@ ARG XFORMERS_VERSION
 
 RUN conda init
 RUN conda create -y --name sdwebui-forge python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
-RUN conda activate sdwebui-forge
+ENV PATH /opt/miniconda3/envs/sdwebui-forge/bin:$PATH
 
-RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate sdwebui-forge" >> ~/.bashrc
+RUN conda init bash && . ~/.bashrc
 
 RUN git clone https://github.com/lllyasviel/stable-diffusion-webui-forge.git
 WORKDIR /app/stable-diffusion-webui-forge
@@ -46,8 +45,6 @@ RUN pip install -r requirements_versions.txt
 RUN python -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
 
 RUN pip cache purge
-RUN conda deactivate
-RUN conda activate sdwebui-forge
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "webui.sh", "-f" ]

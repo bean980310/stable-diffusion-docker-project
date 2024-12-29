@@ -13,11 +13,10 @@ ARG XFORMERS_VERSION
 
 RUN conda init
 RUN conda create -y --name fooocus python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
-RUN conda activate fooocus
+ENV PATH /opt/miniconda3/envs/fooocus/bin:$PATH
 
-RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate fooocus" >> ~/.bashrc
+RUN conda init bash && . ~/.bashrc
 
 RUN git clone https://github.com/lllyasviel/Fooocus.git
 WORKDIR /app/Fooocus
@@ -29,8 +28,6 @@ RUN pip install tensorflow tensorboard tensorboardx
 RUN pip install -r requirements_versions.txt --extra-index-url ${INDEX_URL}
 
 RUN pip cache purge
-RUN conda deactivate
-RUN conda activate fooocus
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD ["python3", "entry_with_update.py", "--listen", "--port", "7860"]

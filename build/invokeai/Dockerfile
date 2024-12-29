@@ -13,22 +13,18 @@ ARG XFORMERS_VERSION
 
 RUN conda init
 RUN conda create -y --name invokeai python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
-RUN conda activate invokeai
+ENV PATH /opt/miniconda3/envs/invokeai/bin:$PATH
 
-RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
-RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN echo "conda activate invokeai" >> ~/.bashrc
+RUN conda init bash && . ~/.bashrc
 
 WORKDIR /app/InvokeAI
 
 RUN pip install InvokeAI[xformers]==${INVOKEAI_VERSION} --use-pep517
 RUN pip cache purge
-RUN conda deactivate
 
 RUN mkdir -vp /app/InvokeAI/models \
     /app/InvokeAI/outputs
-
-RUN conda activate invokeai
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "invokeai-web", "--root", "/app/InvokeAI" ]
