@@ -1,7 +1,10 @@
 ARG BASE_IMAGE
+# FROM continuumio/miniconda3:latest AS miniconda
+
 FROM ${BASE_IMAGE} AS base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Seoul \
     PYTHONUNBUFFERED=1 \
@@ -14,16 +17,15 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y python3-pip python3-tk python3-venv python3-dev python3-launchpadlib && \
     update-ca-certificates
 
-RUN mkdir -p ~/miniconda3
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
-RUN bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
-RUN rm ~/miniconda3/miniconda.sh
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh
 
-ENV PATH=~/miniconda3/bin:$PATH
+ENV CONDA_DIR /opt/miniconda3
 
-RUN source ~/miniconda3/bin/activate
-RUN conda init --all
-RUN conda config --set auto_activate_base true
+RUN /bin/bash /tmp/miniconda.sh -b -p /opt/miniconda3
+ENV PATH /root/.local/bin:$CONDA_DIR/bin:$PATH
+
+RUN conda init && echo "conda activate base" >> ~/.bashrc
+RUN conda init bash && . ~/.bashrc
 
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
