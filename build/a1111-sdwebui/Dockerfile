@@ -16,22 +16,22 @@ RUN conda create -y --name a1111-sdwebui python=3.10 pytorch==${TORCH_VERSION} t
 
 
 RUN echo $"\
-    # >>> conda initialize >>> \n\
-    # !! Contents within this block are managed by 'conda init' !! \n\
-    __conda_setup="$('/home/<user>/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)" \n\
-    if [ $? -eq 0 ]; then \n\
-        eval "$__conda_setup" \n\
+# >>> conda initialize >>> \n\
+# !! Contents within this block are managed by 'conda init' !! \n\
+__conda_setup="$('/home/<user>/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)" \n\
+if [ $? -eq 0 ]; then \n\
+    eval "$__conda_setup" \n\
+else \n\
+    if [ -f "/root/miniconda3/etc/profile.d/conda.sh" ]; then \n\
+        . "/root/miniconda3/etc/profile.d/conda.sh" \n\
     else \n\
-        if [ -f "/root/miniconda3/etc/profile.d/conda.sh" ]; then \n\
-            . "/root/miniconda3/etc/profile.d/conda.sh" \n\
-        else \n\
-            export PATH="/root/miniconda3/bin:$PATH" \n\
-        fi \n\
+        export PATH="/root/miniconda3/bin:$PATH" \n\
     fi \n\
-    unset __conda_setup \n\
-    " \n\
-    # <<< conda initialize <<<" \
-    >> ~/.bashrc
+fi \n\
+unset __conda_setup \n\
+" \n\
+# <<< conda initialize <<<"
+>> ~/.bashrc
 RUN source ~/.bashrc
 RUN conda init
 RUN ln -s ~/miniconda3/etc/profile.d/conda.sh /etc/profile.d/conda.sh
