@@ -20,7 +20,7 @@ RUN conda init bash && . ~/.bashrc
 RUN git clone https://github.com/bmaltais/kohya_ss.git
 WORKDIR /app/kohya_ss
 RUN git checkout tags/${KOHYA_VERSION}
-RUN submodule update --init --recursive
+RUN git submodule update --init --recursive
 
 RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
 RUN pip install tensorflow tensorboard tensorboardx
