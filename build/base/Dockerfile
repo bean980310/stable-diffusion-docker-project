@@ -29,9 +29,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g npm@latest
 
-RUN curl https://rclone.org/install.sh | bash -
-RUN rclone config
-
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
