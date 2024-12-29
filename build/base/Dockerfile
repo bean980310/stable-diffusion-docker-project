@@ -14,12 +14,16 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y python3-pip python3-tk python3-venv python3-dev python3-launchpadlib && \
     update-ca-certificates
 
-RUN curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
-RUN bash Anaconda3-2024.10-1-Linux-x86_64.sh -b -p $HOME/anaconda3
-RUN source ~/anaconda3/bin/activate
+RUN mkdir -p ~/miniconda3
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+RUN bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+RUN rm ~/miniconda3/miniconda.sh
+
+ENV PATH=~/miniconda3/bin:$PATH
+
+RUN source ~/miniconda3/bin/activate
 RUN conda init --all
 RUN conda config --set auto_activate_base true
-RUN rm Anaconda3-2024.10-1-Linux-x86_64.sh
 
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
