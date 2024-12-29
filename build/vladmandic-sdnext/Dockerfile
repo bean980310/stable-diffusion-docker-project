@@ -18,7 +18,7 @@ RUN echo "conda activate vladmandic-sdnext" >> ~/.bashrc
 RUN conda init bash && . ~/.bashrc
 
 RUN git clone https://github.com/vladmandic/automatic
-COPY --chmod=755 ./install.py /automatic
+COPY --chmod=755 ./install.py /app/automatic
 WORKDIR /app/automatic
 RUN git checkout ${SDNEXT_COMMIT}
 
