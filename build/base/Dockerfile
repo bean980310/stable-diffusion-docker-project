@@ -19,7 +19,7 @@ RUN bash Anaconda3-2024.10-1-Linux-x86_64.sh -b -p $HOME/anaconda3
 RUN source ~/anaconda3/bin/activate
 RUN conda init --all
 RUN conda config --set auto_activate_base true
-RUN rm ~/Anaconda3-2024.10-1-Linux-x86_64.sh
+RUN rm Anaconda3-2024.10-1-Linux-x86_64.sh
 
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
