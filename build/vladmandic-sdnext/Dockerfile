@@ -29,7 +29,7 @@ RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX
 RUN pip install tensorflow tensorboard tensorboardx
 
 RUN python install.py
-RUN rm /install.py
+RUN rm install.py
 RUN pip cache purge
 
 SHELL ["/bin/bash", "--login", "-c"]
