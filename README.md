@@ -26,6 +26,7 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 | invokeai                      | 9090:9090              |
 | fooocus                       | 3040:7860              |
 | stable-diffusion-webui-forge  | 3050:7860              |
+| stable-diffusion-webui-reforge| coming soon            |
 | sdnext                        | 3060:7860              |
 | open-webui                    | 3000:8080              |
 | easy-diffusion                | 9000:9000              |
@@ -33,6 +34,7 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 | facefusion                    | 3070:7860              |
 | omost                         | 3080:8080              |
 | stable-audio-tools            | 3090:7860              |
+| audiocraft_plus               | 7877:7877              |
 | svd-webui(under construction) | coming soon            |
 
 example:
