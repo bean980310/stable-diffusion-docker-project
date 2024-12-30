@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-from IPython import get_ipython
 
 # # Download Model
 
@@ -8,9 +7,9 @@ from IPython import get_ipython
 
 # In[ ]:
 
-
 import os
 import shutil
+from IPython import get_ipython
 
 def makedirs(path):
     if not os.path.exists(path):
@@ -33,19 +32,30 @@ unet_model_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd
 upscale_model_dir=['ESRGAN', 'RealESRGAN', 'LDSR', 'SwinIR']
 vae_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
 
+makedirs("./models/animatediff_models")
+makedirs("./models/animatediff_motion_lora")
+makedirs("./models/animatediff_video_formats")
+makedirs("./models/blip")
 [makedirs(os.path.join("./models/checkpoints", dir)) for dir in ckpt_dir]
 [makedirs(os.path.join("./models/clip", dir)) for dir in clip_dir]
 makedirs("./models/clip_vision")
+makedirs("./models/CogVideo")
 makedirs("./models/configs")
 [makedirs(os.path.join("./models/controlnet", dir)) for dir in controlnet_dir]
 makedirs("./models/deepbooru")
 [makedirs(os.path.join("./models/diffusers", dir)) for dir in diffusers_dir]
+makedirs("./models/diffusion_models")
 [makedirs(os.path.join("./models/embeddings", dir)) for dir in embedding_dir]
 [makedirs(os.path.join('./models/facerestore_models', dir)) for dir in facerestore_model_dir]
 makedirs("./models/gligen")
 [makedirs(os.path.join("./models/hypernetworks", dir)) for dir in hypernetwork_dir]
+makedirs("./models/insightface")
 makedirs("./models/inpaint")
+makedirs("./models/Joy_caption")
 makedirs("./models/karlo")
+makedirs("./models/layerstyle")
+makedirs("./models/liveportrait")
+makedirs("./models/LLM")
 [makedirs(os.path.join("./models/loras", dir)) for dir in lora_dir]
 makedirs("./models/mmdets")
 [makedirs(os.path.join('./models/onnx', dir)) for dir in onnx_model_dir]
@@ -59,6 +69,7 @@ makedirs("./models/style_models")
 [makedirs(os.path.join('./models/upscale_models', dir)) for dir in upscale_model_dir]
 [makedirs(os.path.join("./models/vae", dir)) for dir in vae_dir]
 makedirs("./models/vae_approx")
+makedirs("./models/xlabs")
 
 
 # ## Login to huggingface

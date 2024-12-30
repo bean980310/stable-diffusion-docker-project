@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-from IPython import get_ipython
 
 # # Run First
 
@@ -11,6 +10,7 @@ from IPython import get_ipython
 # IMPORTANT: DON'T LEAK YOUR PASSWORD!
 from getpass import getpass
 import os
+from IPython import get_ipython
 
 def check_passwd():
     if os.path.exists('mypassword'):

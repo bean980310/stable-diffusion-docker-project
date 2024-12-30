@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from IPython import get_ipython
-
 # ## Run Compose
 
 # In[ ]:
-
+from IPython import get_ipython
 
 get_ipython().system('docker compose up -d stable-diffusion-webui')
 
@@ -91,7 +89,7 @@ get_ipython().system('docker compose up -d audiocraft_plus')
 
 # ## Build Compose
 
-# In[1]:
+# In[ ]:
 
 
 get_ipython().system('docker compose build stable-diffusion-webui')
