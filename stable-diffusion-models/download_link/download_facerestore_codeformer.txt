@@ -1,2 +1,0 @@
-https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/CodeFormer.pth
-https://github.com/TencentARC/GFPGAN/releases/download/v1.3.4/RestoreFormer.pth
