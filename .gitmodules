@@ -1,3 +1,6 @@
 [submodule "build/svd-webui/generative-models"]
 	path = build/svd-webui/generative-models
 	url = https://github.com/Stability-AI/generative-models
+[submodule "containers"]
+	path = containers
+	url = https://github.com/runpod/containers.git
