@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
+from IPython import get_ipython
 
 # # Run First
-
-from IPython import get_ipython
 
 # In[1]:
 
@@ -151,13 +150,13 @@ get_ipython().run_line_magic('conda', 'init --all')
 
 # ## Install Pytorch
 
-# In[1]:
+# In[ ]:
 
 
 get_ipython().run_line_magic('pip', 'install torch torchvision torchaudio')
 
 
-# In[1]:
+# In[ ]:
 
 
 get_ipython().run_line_magic('conda', 'install -y pytorch torchvision torchaudio pytorch-cuda=12.4 -c pytorch -c nvidia')
@@ -165,33 +164,33 @@ get_ipython().run_line_magic('conda', 'install -y pytorch torchvision torchaudio
 
 # ## Install Huggingface
 
-# In[2]:
+# In[ ]:
 
 
-get_ipython().run_line_magic('pip', 'install huggingface huggingface-hub transformers diffusers safetensors')
+get_ipython().run_line_magic('pip', 'install huggingface-hub transformers diffusers safetensors tokenizers datasets peft gradio')
 
 
-# In[3]:
+# In[ ]:
 
 
-get_ipython().run_line_magic('conda', 'install -y huggingface_hub transformers safetensors -c huggingface')
+get_ipython().run_line_magic('conda', 'install -y huggingface_hub transformers safetensors tokenizers datasets -c huggingface')
 
 
-# In[4]:
+# In[ ]:
 
 
-get_ipython().run_line_magic('conda', 'install -y diffusers -c conda-forge')
+get_ipython().run_line_magic('conda', 'install -y diffusers accelerate sentence-transformers -c conda-forge')
 
 
-# In[5]:
+# In[ ]:
 
 
-get_ipython().run_line_magic('pip', 'install huggingface')
+get_ipython().run_line_magic('pip', 'install peft gradio')
 
 
 # ## Install Tensorflow
 
-# In[6]:
+# In[ ]:
 
 
 get_ipython().run_line_magic('pip', 'install tensorflow tensorboard tensorboardx')
@@ -199,7 +198,7 @@ get_ipython().run_line_magic('pip', 'install tensorflow tensorboard tensorboardx
 
 # ## Install onnxruntime
 
-# In[1]:
+# In[ ]:
 
 
 get_ipython().run_line_magic('pip', 'install onnxruntime-gpu onnx')
@@ -207,7 +206,7 @@ get_ipython().run_line_magic('pip', 'install onnxruntime-gpu onnx')
 
 # ## Install CivitAI Model Downloader
 
-# In[2]:
+# In[ ]:
 
 
 get_ipython().run_line_magic('pip', 'install civitai-model-downloader')
@@ -215,7 +214,7 @@ get_ipython().run_line_magic('pip', 'install civitai-model-downloader')
 
 # ## configure API key
 
-# In[1]:
+# In[ ]:
 
 
 from huggingface_hub import notebook_login
@@ -223,7 +222,7 @@ from huggingface_hub import notebook_login
 notebook_login()
 
 
-# In[8]:
+# In[ ]:
 
 
 from civitai_downloader import login

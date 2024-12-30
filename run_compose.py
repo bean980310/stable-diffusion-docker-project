@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ## Run Compose
-
 from IPython import get_ipython
+
+# ## Run Compose
 
 # In[ ]:
 

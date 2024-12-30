@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
+from IPython import get_ipython
 
 # # Download Model
 
 # ## Create a sub-directory
-
-from IPython import get_ipython
 
 # In[ ]:
 
@@ -22,6 +21,9 @@ def makedirs(path):
 
 ckpt_dir = ['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'flux1', 'upscale']
 [makedirs(os.path.join("./models/checkpoints", dir)) for dir in ckpt_dir]
+
+diffusers_dir = ['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'flux1']
+[makedirs(os.path.join("./models/diffusers", dir)) for dir in diffusers_dir]
 
 vae_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'flux1']
 [makedirs(os.path.join("./models/vae", dir)) for dir in vae_dir]
