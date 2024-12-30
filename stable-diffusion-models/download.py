@@ -19,31 +19,51 @@ def makedirs(path):
     else:
         print(f"{path} already exists")
 
-ckpt_dir = ['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'flux1', 'upscale']
+ckpt_dir = ['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d', 'upscale']
+clip_dir=['sd3', 'sd35_medium', 'sd35_large']
+controlnet_dir=['sd15', 'sd2', 'sdxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
+diffusers_dir = ['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d', 'flux1']
+embedding_dir=['sd15', 'sd2', 'sdxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
+facerestore_model_dir=['CodeFormer', 'GFPGAN', 'RestoreFormer']
+hypernetwork_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
+lora_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
+onnx_model_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
+ultralytics_dir=['bbox', 'segm']
+unet_model_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
+upscale_model_dir=['ESRGAN', 'RealESRGAN', 'LDSR', 'SwinIR']
+vae_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
+
 [makedirs(os.path.join("./models/checkpoints", dir)) for dir in ckpt_dir]
-
-diffusers_dir = ['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'flux1']
-[makedirs(os.path.join("./models/diffusers", dir)) for dir in diffusers_dir]
-
-vae_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'flux1']
-[makedirs(os.path.join("./models/vae", dir)) for dir in vae_dir]
-
-lora_dir=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'flux1']
-[makedirs(os.path.join("./models/loras", dir)) for dir in lora_dir]
-
-embedding_dir=['sd15', 'sd2', 'sdxl', 'sd3', 'flux1']
-[makedirs(os.path.join("./models/embeddings", dir)) for dir in embedding_dir]
-
-controlnet_dir=['sd15', 'sd2', 'sdxl', 'sd3', 'flux1']
-[makedirs(os.path.join("./models/controlnet", dir)) for dir in controlnet_dir]
-
-clip_dir=['sd3']
 [makedirs(os.path.join("./models/clip", dir)) for dir in clip_dir]
+makedirs("./models/clip_vision")
+makedirs("./models/configs")
+[makedirs(os.path.join("./models/controlnet", dir)) for dir in controlnet_dir]
+makedirs("./models/deepbooru")
+[makedirs(os.path.join("./models/diffusers", dir)) for dir in diffusers_dir]
+[makedirs(os.path.join("./models/embeddings", dir)) for dir in embedding_dir]
+[makedirs(os.path.join('./models/facerestore_models', dir)) for dir in facerestore_model_dir]
+makedirs("./models/gligen")
+[makedirs(os.path.join("./models/hypernetworks", dir)) for dir in hypernetwork_dir]
+makedirs("./models/inpaint")
+makedirs("./models/karlo")
+[makedirs(os.path.join("./models/loras", dir)) for dir in lora_dir]
+makedirs("./models/mmdets")
+[makedirs(os.path.join('./models/onnx', dir)) for dir in onnx_model_dir]
+makedirs("./models/photomaker")
+makedirs("./models/prompt_expansion")
+makedirs("./models/safety_ckecker")
+makedirs("./models/sams")
+makedirs("./models/style_models")
+[makedirs(os.path.join('./models/ultralytics', dir)) for dir in ultralytics_dir]
+[makedirs(os.path.join('./models/unet', dir)) for dir in unet_model_dir]
+[makedirs(os.path.join('./models/upscale_models', dir)) for dir in upscale_model_dir]
+[makedirs(os.path.join("./models/vae", dir)) for dir in vae_dir]
+makedirs("./models/vae_approx")
 
 
 # ## Login to huggingface
 
-# In[ ]:
+# In[2]:
 
 
 from huggingface_hub import notebook_login, hf_hub_download, snapshot_download
@@ -53,7 +73,7 @@ notebook_login(new_session=False)
 
 # ## Login to CivitAI with API token
 
-# In[4]:
+# In[ ]:
 
 
 from civitai_downloader import login, civitai_download, advanced_download
@@ -63,12 +83,12 @@ token=login()
 
 # ## Download Model
 
-# In[5]:
+# In[4]:
 
 
 models_dir='./models'
 model_types=['checkpoints', 'clip', 'clip_vision', 'configs', 'controlnet', 'deepbooru', 'diffusers', 'embeddings', 'facerestore_models', 'gligen', 'hypernetworks', 'inpaint', 'karlo', 'loras', 'mmdets', 'onnx', 'photomaker', 'prompt_expansion', 'safety_ckecker', 'sams', 'style_models', 'ultralytics', 'unet', 'upscale_models', 'vae', 'vae_approx']
-model_versions=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'flux1']
+model_versions=['sd15', 'sd2', 'sdxl', 'pony', 'ilxl', 'sd3', 'sd35_medium', 'sd35_large', 'flux1_s', 'flux1_d']
 
 class ModelDirs:
     def __init__(self, model_versions):
@@ -139,12 +159,15 @@ civitai_download(model_version_id=90854, local_dir=sd15_ckpt_dir)
 
 
 # Download AbyssOrangeMix3 Model
-hf_hub_download(repo_id="WarriorMama777/OrangeMixs", filename="Models/AbyssOrangeMix3/AOM3A1B_orangemixs.safetensors", local_dir=sd15_ckpt_dir)
-filename="AOM3A1B_orangemixs.safetensors"
-src=os.path.join(sd15_ckpt_dir, "Models/AbyssOrangeMix3")
-dst=sd15_ckpt_dir
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
-shutil.rmtree(os.path.join(sd15_ckpt_dir, "Models"))
+if os.path.exists(f"{sd15_ckpt_dir}/AOM3A1B_orangemixs.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="WarriorMama777/OrangeMixs", filename="AOM3A1B_orangemixs.safetensors", subfolder='Models/AbyssOrangeMix3', local_dir=sd15_ckpt_dir)
+    filename="AOM3A1B_orangemixs.safetensors"
+    src=os.path.join(sd15_ckpt_dir, "Models/AbyssOrangeMix3")
+    dst=sd15_ckpt_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    shutil.rmtree(os.path.join(sd15_ckpt_dir, "Models"))
 
 
 # In[ ]:
@@ -278,6 +301,7 @@ hf_hub_download(repo_id="Lykon/AnyLoRA", filename="AnyLoRA_bakedVae_blessed_fp16
 
 # Delete cache
 get_ipython().system('rm -rf {sd15_ckpt_dir}/.cache')
+get_ipython().system('rm -rf {sd15_ckpt_dir}/.civitai')
 
 
 # #### VAE
@@ -293,24 +317,30 @@ hf_hub_download(repo_id="stabilityai/sd-vae-ft-mse-original", filename="vae-ft-m
 
 
 # Download Waifu Diffusion v1.4 kl-f8-anime2 VAE
-hf_hub_download(repo_id="hakurei/waifu-diffusion-v1-4", filename="vae/kl-f8-anime2.ckpt", local_dir=sd15_vae_dir)
-filename="kl-f8-anime2.ckpt"
-src=os.path.join(sd15_vae_dir, "vae")
-dst=sd15_vae_dir
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
-os.rmdir(src)
+if os.path.exists(f"{sd15_vae_dir}/kl-f8-anime2.ckpt"):
+    pass
+else:
+    hf_hub_download(repo_id="hakurei/waifu-diffusion-v1-4", filename="kl-f8-anime2.ckpt", subfolder='vae', local_dir=sd15_vae_dir)
+    filename="kl-f8-anime2.ckpt"
+    src=os.path.join(sd15_vae_dir, "vae")
+    dst=sd15_vae_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download OrangeMix VAE
-hf_hub_download(repo_id="WarriorMama777/OrangeMixs", filename="VAEs/orangemix.vae.pt", local_dir=sd15_vae_dir)
-filename="orangemix.vae.pt"
-src=os.path.join(sd15_vae_dir, "VAEs")
-dst=sd15_vae_dir
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
-os.rmdir(src)
+if os.path.exists(f"{sd15_vae_dir}/orangemix.vae.pt"):
+    pass
+else:
+    hf_hub_download(repo_id="WarriorMama777/OrangeMixs", filename="orangemix.vae.pt", subfolder='VAEs', local_dir=sd15_vae_dir)
+    filename="orangemix.vae.pt"
+    src=os.path.join(sd15_vae_dir, "VAEs")
+    dst=sd15_vae_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
@@ -332,6 +362,7 @@ civitai_download(model_version_id=88156, local_dir=sd15_vae_dir)
 
 # Delete cache
 get_ipython().system('rm -rf {sd15_vae_dir}/.cache')
+get_ipython().system('rm -rf {sd15_vae_dir}/.civitai')
 
 
 # #### LoRA
@@ -340,11 +371,14 @@ get_ipython().system('rm -rf {sd15_vae_dir}/.cache')
 
 
 # Download Stable Diffusion 1.5 LCM LoRA
-hf_hub_download(repo_id="latent-consistency/lcm-lora-sdv1-5", filename="pytorch_lora_weights.safetensors", local_dir=sd15_lora_dir)
-filepath=sd15_lora_dir
-src=os.path.join(filepath, "pytorch_lora_weights.safetensors")
-dst=os.path.join(filepath, "lcm-lora-sdv1-5.safetensors")
-os.rename(src, dst)
+if os.path.exists(f"{sd15_lora_dir}/lcm-lora-sdv1-5.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="latent-consistency/lcm-lora-sdv1-5", filename="pytorch_lora_weights.safetensors", local_dir=sd15_lora_dir)
+    filepath=sd15_lora_dir
+    src=os.path.join(filepath, "pytorch_lora_weights.safetensors")
+    dst=os.path.join(filepath, "lcm-lora-sdv1-5.safetensors")
+    os.rename(src, dst)
 
 
 # In[ ]:
@@ -429,6 +463,7 @@ civitai_download(model_version_id=215522, local_dir=sd15_lora_dir)
 
 # Delete cache
 get_ipython().system('rm -rf {sd15_lora_dir}/.cache')
+get_ipython().system('rm -rf {sd15_lora_dir}/.civitai')
 
 
 # #### Embedding
@@ -444,12 +479,15 @@ hf_hub_download(repo_id="gsdf/EasyNegative", repo_type="dataset", filename="Easy
 
 
 # Download EasyNegativeV2
-hf_hub_download(repo_id="gsdf/Counterfeit-V3.0", filename="embedding/EasyNegativeV2.safetensors", local_dir=sd15_embedding_dir)
-filename="EasyNegativeV2.safetensors"
-src=os.path.join(sd15_embedding_dir, "embedding")
-dst=os.path.join(sd15_embedding_dir)
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
-os.rmdir(src)
+if os.path.exists(f"{sd15_embedding_dir}/EasyNegativeV2.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="gsdf/Counterfeit-V3.0", filename="EasyNegativeV2.safetensors", subfolder='embedding', local_dir=sd15_embedding_dir)
+    filename="EasyNegativeV2.safetensors"
+    src=os.path.join(sd15_embedding_dir, "embedding")
+    dst=os.path.join(sd15_embedding_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
@@ -513,6 +551,7 @@ civitai_download(model_version_id=95611, local_dir=sd15_embedding_dir)
 
 # Delete cache
 get_ipython().system('rm -rf {sd15_embedding_dir}/.cache')
+get_ipython().system('rm -rf {sd15_embedding_dir}/.civitai')
 
 
 # #### ControlNet
@@ -690,17 +729,7 @@ get_ipython().system('rm -rf {sd2_ckpt_dir}/.cache')
 
 
 # Download Stable Diffusion 2.1 ControlNet
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_ade20k.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_canny.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_color.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_depth.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_hed.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_lineart.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_normalbae.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_openpose.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_openposev2.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_scribble.safetensors", local_dir=sd2_controlnet_dir)
-hf_hub_download(repo_id="thibaud/controlnet-sd21", filename="control_v11p_sd21_zoedepth.safetensors", local_dir=sd2_controlnet_dir)
+snapshot_download(repo_id="thibaud/controlnet-sd21", allow_patterns="*.safetensors", local_dir=sd2_controlnet_dir)
 
 
 # In[85]:
@@ -712,7 +741,7 @@ get_ipython().system('rm -rf {sd2_controlnet_dir}/.cache')
 
 # ### Download Stable Diffusion XL Model
 
-# In[86]:
+# In[6]:
 
 
 sdxl_ckpt_dir=model_dirs.dirs['sdxl']['checkpoints']
@@ -820,6 +849,7 @@ hf_hub_download(repo_id="Lykon/DreamShaper", filename="DreamShaperXL1.0Alpha2_fi
 
 # Delete cache
 get_ipython().system('rm -rf {sdxl_ckpt_dir}/.cache')
+get_ipython().system('rm -rf {sdxl_ckpt_dir}/.civitai')
 
 
 # #### VAE
@@ -844,11 +874,14 @@ get_ipython().system('rm -rf {sdxl_vae_dir}/.cache')
 
 
 # Download Stable Diffusion XL LCM LoRA
-hf_hub_download(repo_id="latent-consistency/lcm-lora-sdxl", filename="pytorch_lora_weights.safetensors", local_dir=sdxl_lora_dir)
-filepath=sdxl_lora_dir
-src=os.path.join(filepath,"pytorch_lora_weights.safetensors")
-dst=os.path.join(filepath, "lcm-lora-sdxl.safetensors")
-os.rename(src, dst)
+if os.path.exists(f"{sdxl_lora_dir}/lcm-lora-sdxl.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="latent-consistency/lcm-lora-sdxl", filename="pytorch_lora_weights.safetensors", local_dir=sdxl_lora_dir)
+    filepath=sdxl_lora_dir
+    src=os.path.join(filepath,"pytorch_lora_weights.safetensors")
+    dst=os.path.join(filepath, "lcm-lora-sdxl.safetensors")
+    os.rename(src, dst)
 
 
 # In[ ]:
@@ -968,6 +1001,7 @@ hf_hub_download(repo_id="bean980310/headswap_xl_animagine", filename="headswap_x
 
 # Delete cache
 get_ipython().system('rm -rf {sdxl_lora_dir}/.cache')
+get_ipython().system('rm -rf {sdxl_lora_dir}/.civitai')
 
 
 # #### Embedding
@@ -976,39 +1010,60 @@ get_ipython().system('rm -rf {sdxl_lora_dir}/.cache')
 
 
 # Download NegativeXL A
-hf_hub_download(repo_id="gsdf/CounterfeitXL", filename="embeddings/negativeXL_A.safetensors", local_dir=sdxl_embedding_dir)
-filename="negativeXL_A.safetensors"
-src=os.path.join(sdxl_embedding_dir, "embeddings")
-dst=sdxl_embedding_dir
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sdxl_embedding_dir}/negativeXL_A.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="gsdf/CounterfeitXL", filename="negativeXL_A.safetensors", subfolder='embeddings', local_dir=sdxl_embedding_dir)
+    filename="negativeXL_A.safetensors"
+    src=os.path.join(sdxl_embedding_dir, "embeddings")
+    dst=sdxl_embedding_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download NegativeXL B
-hf_hub_download(repo_id="gsdf/CounterfeitXL", filename="embeddings/negativeXL_B.safetensors", local_dir=sdxl_embedding_dir)
-filename="negativeXL_B.safetensors"
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sdxl_embedding_dir}/negativeXL_B.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="gsdf/CounterfeitXL", filename="negativeXL_B.safetensors", subfolder='embeddings', local_dir=sdxl_embedding_dir)
+    filename="negativeXL_B.safetensors"
+    src=os.path.join(sdxl_embedding_dir, "embeddings")
+    dst=sdxl_embedding_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download NegativeXL C
-hf_hub_download(repo_id="gsdf/CounterfeitXL", filename="embeddings/negativeXL_C.safetensors", local_dir=sdxl_embedding_dir)
-filename="negativeXL_C.safetensors"
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sdxl_embedding_dir}/negativeXL_C.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="gsdf/CounterfeitXL", filename="negativeXL_C.safetensors", subfolder='embeddings', local_dir=sdxl_embedding_dir)
+    filename="negativeXL_C.safetensors"
+    src=os.path.join(sdxl_embedding_dir, "embeddings")
+    dst=sdxl_embedding_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download NegativeXL D
-hf_hub_download(repo_id="gsdf/CounterfeitXL", filename="embeddings/negativeXL_D.safetensors", local_dir=sdxl_embedding_dir)
-filename="negativeXL_D.safetensors"
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
-os.rmdir(src)
+if os.path.exists(f"{sdxl_embedding_dir}/negativeXL_D.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="gsdf/CounterfeitXL", filename="negativeXL_D.safetensors", subfolder='embeddings', local_dir=sdxl_embedding_dir)
+    filename="negativeXL_D.safetensors"
+    src=os.path.join(sdxl_embedding_dir, "embeddings")
+    dst=sdxl_embedding_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
@@ -1044,6 +1099,7 @@ civitai_download(model_version_id=431425, local_dir=sdxl_embedding_dir)
 
 # Delete cache
 get_ipython().system('rm -rf {sdxl_embedding_dir}/.cache')
+get_ipython().system('rm -rf {sdxl_embedding_dir}/.civitai')
 
 
 # #### ControlNet
@@ -1054,39 +1110,60 @@ get_ipython().system('rm -rf {sdxl_embedding_dir}/.cache')
 
 
 # Download Stability AI ControlNet XL Canny
-hf_hub_download(repo_id="stabilityai/control-lora", filename="control-LoRAs-rank256/control-lora-canny-rank256.safetensors", local_dir=sdxl_controlnet_dir)
-filename='control-lora-canny-rank256.safetensors'
-src=os.path.join(sdxl_controlnet_dir, 'control-LoRAs-rank256')
-dst=sdxl_controlnet_dir
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sdxl_controlnet_dir}/control-lora-canny-rank256.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/control-lora", filename="control-lora-canny-rank256.safetensors", subfolder='control-LoRAs-rank256', local_dir=sdxl_controlnet_dir)
+    filename='control-lora-canny-rank256.safetensors'
+    src=os.path.join(sdxl_controlnet_dir, 'control-LoRAs-rank256')
+    dst=sdxl_controlnet_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download Stability AI ControlNet XL Depth
-hf_hub_download(repo_id="stabilityai/control-lora", filename="control-LoRAs-rank256/control-lora-depth-rank256.safetensors", local_dir=sdxl_controlnet_dir)
-filename='control-lora-depth-rank256.safetensors'
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sdxl_controlnet_dir}/control-lora-depth-rank256.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/control-lora", filename="control-lora-depth-rank256.safetensors", subfolder='control-LoRAs-rank256', local_dir=sdxl_controlnet_dir)
+    filename='control-lora-depth-rank256.safetensors'
+    src=os.path.join(sdxl_controlnet_dir, 'control-LoRAs-rank256')
+    dst=sdxl_controlnet_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download Stability AI ControlNet XL Recolor
-hf_hub_download(repo_id="stabilityai/control-lora", filename="control-LoRAs-rank256/control-lora-recolor-rank256.safetensors", local_dir=sdxl_controlnet_dir)
-filename='control-lora-recolor-rank256.safetensors'
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sdxl_controlnet_dir}/control-lora-recolor-rank256.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/control-lora", filename="control-lora-recolor-rank256.safetensors", subfolder='control-LoRAs-rank256', local_dir=sdxl_controlnet_dir)
+    filename='control-lora-recolor-rank256.safetensors'
+    src=os.path.join(sdxl_controlnet_dir, 'control-LoRAs-rank256')
+    dst=sdxl_controlnet_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download Stability AI ControlNet XL Sketch
-hf_hub_download(repo_id="stabilityai/control-lora", filename="control-LoRAs-rank256/control-lora-sketch-rank256.safetensors", local_dir=sdxl_controlnet_dir)
-filename='control-lora-sketch-rank256.safetensors'
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
-os.rmdir(src)
+if os.path.exists(f"{sdxl_controlnet_dir}/control-lora-sketch-rank256.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/control-lora", filename="control-lora-sketch-rank256.safetensors", subfolder='control-LoRAs-rank256', local_dir=sdxl_controlnet_dir)
+    filename='control-lora-sketch-rank256.safetensors'
+    src=os.path.join(sdxl_controlnet_dir, 'control-LoRAs-rank256')
+    dst=sdxl_controlnet_dir
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # **Diffusers**
@@ -1095,21 +1172,27 @@ os.rmdir(src)
 
 
 # Download Diffusers ControlNet XL Canny
-hf_hub_download(repo_id="diffusers/controlnet-canny-sdxl-1.0", filename="diffusion_pytorch_model.fp16.safetensors", local_dir=sdxl_controlnet_dir)
-filepath=sdxl_controlnet_dir
-src=os.path.join(filepath,"diffusion_pytorch_model.fp16.safetensors")
-dst=os.path.join(filepath, "controlnet-canny-sdxl-1.0.safetensors")
-os.rename(src, dst)
+if os.path.exists(f"{sdxl_controlnet_dir}/controlnet-canny-sdxl-1.0.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="diffusers/controlnet-canny-sdxl-1.0", filename="diffusion_pytorch_model.fp16.safetensors", local_dir=sdxl_controlnet_dir)
+    filepath=sdxl_controlnet_dir
+    src=os.path.join(filepath,"diffusion_pytorch_model.fp16.safetensors")
+    dst=os.path.join(filepath, "controlnet-canny-sdxl-1.0.safetensors")
+    os.rename(src, dst)
 
 
 # In[ ]:
 
 
 # Download Diffusers ControlNet XL Depth
-hf_hub_download(repo_id="diffusers/controlnet-depth-sdxl-1.0", filename="diffusion_pytorch_model.fp16.safetensors", local_dir=sdxl_controlnet_dir)
-src=os.path.join(filepath,"diffusion_pytorch_model.fp16.safetensors")
-dst=os.path.join(filepath, "controlnet-depth-sdxl-1.0.safetensors")
-os.rename(src, dst)
+if os.path.exists(f"{sdxl_controlnet_dir}/controlnet-depth-sdxl-1.0.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="diffusers/controlnet-depth-sdxl-1.0", filename="diffusion_pytorch_model.fp16.safetensors", local_dir=sdxl_controlnet_dir)
+    src=os.path.join(filepath,"diffusion_pytorch_model.fp16.safetensors")
+    dst=os.path.join(filepath, "controlnet-depth-sdxl-1.0.safetensors")
+    os.rename(src, dst)
 
 
 # **Kataragi**
@@ -1185,10 +1268,13 @@ hf_hub_download(repo_id="thibaud/controlnet-openpose-sdxl-1.0", filename="contro
 
 
 # Download Xinsir ControlNet XL Union
-hf_hub_download(repo_id="xinsir/controlnet-union-sdxl-1.0", filename="diffusion_pytorch_model_promax.safetensors", local_dir=sdxl_controlnet_dir)
-src=os.path.join(sdxl_controlnet_dir,"diffusion_pytorch_model_promax.safetensors")
-dst=os.path.join(sdxl_controlnet_dir, "controlnet-union-sdxl-1.0-promax.safetensors")
-os.rename(src, dst)
+if os.path.exists(f"{sdxl_controlnet_dir}/controlnet-union-sdxl-1.0-promax.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="xinsir/controlnet-union-sdxl-1.0", filename="diffusion_pytorch_model_promax.safetensors", local_dir=sdxl_controlnet_dir)
+    src=os.path.join(sdxl_controlnet_dir,"diffusion_pytorch_model_promax.safetensors")
+    dst=os.path.join(sdxl_controlnet_dir, "controlnet-union-sdxl-1.0-promax.safetensors")
+    os.rename(src, dst)
 
 
 # In[146]:
@@ -1257,6 +1343,7 @@ civitai_download(model_version_id=814910, local_dir=pony_ckpt_dir)
 
 # Delete cache
 get_ipython().system('rm -rf {pony_ckpt_dir}/.cache')
+get_ipython().system('rm -rf {pony_ckpt_dir}/.civitai')
 
 
 # #### VAE
@@ -1279,7 +1366,7 @@ civitai_download(model_version_id=739267, local_dir=pony_vae_dir)
 
 
 # Delete cache
-# !rm -rf {pony_vae_dir}/.cache
+get_ipython().system('rm -rf {pony_vae_dir}/.civitai')
 
 
 # #### LoRA
@@ -1323,7 +1410,7 @@ advanced_download(model_version_id=647477, local_dir=pony_lora_dir, type_filter=
 
 
 # Delete cache
-# !rm -rf {pony_lora_dir}/.cache
+get_ipython().system('rm -rf {pony_lora_dir}/.civitai')
 
 
 # ### Download Illustrious XL Model
@@ -1363,10 +1450,16 @@ get_ipython().system('rm -rf {ilxl_ckpt_dir}/.cache')
 
 
 sd3_ckpt_dir=model_dirs.dirs['sd3']['checkpoints']
+sd35_medium_ckpt_dir=model_dirs.dirs['sd35_medium']['checkpoints']
+sd35_large_ckpt_dir=model_dirs.dirs['sd35_large']['checkpoints']
 sd3_clip_dir=model_dirs.dirs['sd3']['clip']
+sd35_medium_clip_dir=model_dirs.dirs['sd35_medium']['clip']
+sd35_large_clip_dir=model_dirs.dirs['sd35_large']['clip']
 
 
 # #### Checkpoint
+
+# **Stable Diffusion 3 Medium**
 
 # In[ ]:
 
@@ -1375,25 +1468,29 @@ sd3_clip_dir=model_dirs.dirs['sd3']['clip']
 hf_hub_download(repo_id="stabilityai/stable-diffusion-3-medium", filename="sd3_medium.safetensors", local_dir=sd3_ckpt_dir)
 
 
+# **Stable Diffusion 3.5 Medium**
+
 # In[ ]:
 
 
 # Download Stable Diffusion 3.5 Medium Model
-hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-medium", filename="sd3.5_medium.safetensors", local_dir=sd3_ckpt_dir)
-
-
-# In[ ]:
-
-
-# Download Stable Diffusion 3.5 Large Model
-hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="sd3.5_large.safetensors", local_dir=sd3_ckpt_dir)
+hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-medium", filename="sd3.5_medium.safetensors", local_dir=sd35_medium_ckpt_dir)
 
 
 # In[ ]:
 
 
 # Download Intermediate(SD 3.5 medium) Model
-civitai_download(model_version_id=1019118, local_dir=sd3_ckpt_dir)
+civitai_download(model_version_id=1019118, local_dir=sd35_medium_ckpt_dir)
+
+
+# **Stable Diffusion 3.5 Large**
+
+# In[ ]:
+
+
+# Download Stable Diffusion 3.5 Large Model
+hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="sd3.5_large.safetensors", local_dir=sd35_large_ckpt_dir)
 
 
 # In[174]:
@@ -1401,64 +1498,228 @@ civitai_download(model_version_id=1019118, local_dir=sd3_ckpt_dir)
 
 # Delete cache
 get_ipython().system('rm -rf {sd3_ckpt_dir}/.cache')
+get_ipython().system('rm -rf {sd35_medium_ckpt_dir}/.cache')
+get_ipython().system('rm -rf {sd35_medium_ckpt_dir}/.civitai')
+get_ipython().system('rm -rf {sd35_large_ckpt_dir}/.cache')
 
 
 # #### Clip
+
+# **Stable Diffusion 3**
 
 # In[ ]:
 
 
 # Download Clip L
-hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="text_encoders/clip_l.safetensors", local_dir=sd3_clip_dir)
-filename='clip_l.safetensors'
-src=os.path.join(sd3_clip_dir, 'text_encoders')
-dst=os.path.join(sd3_clip_dir)
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sd3_clip_dir}/clip_l.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3-medium", filename="clip_l.safetensors", subfolder='text_encoders', local_dir=sd3_clip_dir)
+    filename='clip_l.safetensors'
+    src=os.path.join(sd3_clip_dir, 'text_encoders')
+    dst=os.path.join(sd3_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download Clip G
-hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="text_encoders/clip_g.safetensors", local_dir=sd3_clip_dir)
-filename='clip_g.safetensors'
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sd3_clip_dir}/clip_g.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3-medium", filename="clip_g.safetensors", subfolder='text_encoders', local_dir=sd3_clip_dir)
+    filename='clip_g.safetensors'
+    src=os.path.join(sd3_clip_dir, 'text_encoders')
+    dst=os.path.join(sd3_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download T5 XXL FP8
-hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="text_encoders/t5xxl_fp8_e4m3fn.safetensors", local_dir=sd3_clip_dir)
-filename='t5xxl_fp8_e4m3fn.safetensors'
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+if os.path.exists(f"{sd3_clip_dir}/t5xxl_fp8_e4m3fn.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3-medium", filename="t5xxl_fp8_e4m3fn.safetensors", subfolder='text_encoders', local_dir=sd3_clip_dir)
+    filename='t5xxl_fp8_e4m3fn.safetensors'
+    src=os.path.join(sd3_clip_dir, 'text_encoders')
+    dst=os.path.join(sd3_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
 # In[ ]:
 
 
 # Download T5 XXL FP16
-hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="text_encoders/t5xxl_fp16.safetensors", local_dir=sd3_clip_dir)
-filename='t5xxl_fp16.safetensors'
-shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
-os.rmdir(src)
+if os.path.exists(f"{sd3_clip_dir}/t5xxl_fp16.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3-medium", filename="t5xxl_fp16.safetensors", subfolder='text_encoders', local_dir=sd3_clip_dir)
+    filename='t5xxl_fp16.safetensors'
+    src=os.path.join(sd3_clip_dir, 'text_encoders')
+    dst=os.path.join(sd3_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
 
 
-# In[179]:
+# In[ ]:
 
 
 # Delete cache
 get_ipython().system('rm -rf {sd3_clip_dir}/.cache')
 
 
-# ### Download Flux.1 Model
+# **Stable Diffusion 3.5 Medium**
+
+# In[ ]:
+
+
+# Download Clip L
+if os.path.exists(f"{sd35_medium_clip_dir}/clip_l.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-medium", filename="clip_l.safetensors", subfolder='text_encoders', local_dir=sd35_medium_clip_dir)
+    filename='clip_l.safetensors'
+    src=os.path.join(sd35_medium_clip_dir, 'text_encoders')
+    dst=os.path.join(sd35_medium_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
+
+
+# In[ ]:
+
+
+# Download Clip G
+if os.path.exists(f"{sd35_medium_clip_dir}/clip_g.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-medium", filename="clip_g.safetensors", subfolder='text_encoders', local_dir=sd35_medium_clip_dir)
+    filename='clip_g.safetensors'
+    src=os.path.join(sd35_medium_clip_dir, 'text_encoders')
+    dst=os.path.join(sd35_medium_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
+
+
+# In[ ]:
+
+
+# Download T5 XXL FP8
+if os.path.exists(f"{sd35_medium_clip_dir}/t5xxl_fp8_e4m3fn.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-medium", filename="t5xxl_fp8_e4m3fn.safetensors", subfolder='text_encoders', local_dir=sd35_medium_clip_dir)
+    filename='t5xxl_fp8_e4m3fn.safetensors'
+    src=os.path.join(sd35_medium_clip_dir, 'text_encoders')
+    dst=os.path.join(sd35_medium_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
+
+
+# In[ ]:
+
+
+# Download T5 XXL FP16
+if os.path.exists(f"{sd35_medium_clip_dir}/t5xxl_fp16.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-medium", filename="t5xxl_fp16.safetensors", subfolder='text_encoders', local_dir=sd35_medium_clip_dir)
+    filename='t5xxl_fp16.safetensors'
+    src=os.path.join(sd35_medium_clip_dir, 'text_encoders')
+    dst=os.path.join(sd35_medium_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
+
+
+# In[ ]:
+
+
+# Delete cache
+get_ipython().system('rm -rf {sd35_medium_clip_dir}/.cache')
+
+
+# **Stable Diffusion 3.5 Large**
+
+# In[ ]:
+
+
+# Download Clip L
+if os.path.exists(f"{sd35_large_clip_dir}/clip_l.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="clip_l.safetensors", subfolder='text_encoders', local_dir=sd35_large_clip_dir)
+    filename='clip_l.safetensors'
+    src=os.path.join(sd35_large_clip_dir, 'text_encoders')
+    dst=os.path.join(sd35_large_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
+
+
+# In[ ]:
+
+
+# Download Clip G
+if os.path.exists(f"{sd35_large_clip_dir}/clip_g.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="clip_g.safetensors", subfolder='text_encoders', local_dir=sd35_large_clip_dir)
+    filename='clip_g.safetensors'
+    src=os.path.join(sd35_large_clip_dir, 'text_encoders')
+    dst=os.path.join(sd35_large_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
+
+
+# In[ ]:
+
+
+# Download T5 XXL FP8
+if os.path.exists(f"{sd35_large_clip_dir}/t5xxl_fp8_e4m3fn.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="t5xxl_fp8_e4m3fn.safetensors", subfolder='text_encoders', local_dir=sd35_large_clip_dir)
+    filename='t5xxl_fp8_e4m3fn.safetensors'
+    src=os.path.join(sd35_large_clip_dir, 'text_encoders')
+    dst=os.path.join(sd35_large_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
+
+
+# In[ ]:
+
+
+# Download T5 XXL FP16
+if os.path.exists(f"{sd35_large_clip_dir}/t5xxl_fp16.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="stabilityai/stable-diffusion-3.5-large", filename="t5xxl_fp16.safetensors", subfolder='text_encoders', local_dir=sd35_large_clip_dir)
+    filename='t5xxl_fp16.safetensors'
+    src=os.path.join(sd35_large_clip_dir, 'text_encoders')
+    dst=os.path.join(sd35_large_clip_dir)
+    shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
+    os.rmdir(src)
+
+
+# In[179]:
+
+
+# Delete cache
+get_ipython().system('rm -rf {sd35_large_clip_dir}/.cache')
+
+
+# ### Download Flux.1 Dev Model
 
 # In[6]:
 
 
-flux_ckpt_dir=model_dirs.dirs['flux1']['checkpoints']
-flux_vae_dir=model_dirs.dirs['flux1']['vae']
-flux_lora_dir=model_dirs.dirs['flux1']['loras']
+flux_dev_ckpt_dir=model_dirs.dirs['flux1_d']['checkpoints']
+flux_dev_vae_dir=model_dirs.dirs['flux1_d']['vae']
+flux_dev_lora_dir=model_dirs.dirs['flux1_d']['loras']
 
 
 # #### Checkpoint
@@ -1467,21 +1728,21 @@ flux_lora_dir=model_dirs.dirs['flux1']['loras']
 
 
 # Download Flux.1 Dev Model
-hf_hub_download(repo_id="black-forest-labs/FLUX.1-dev", filename="flux1-dev.safetensors", local_dir=flux_ckpt_dir)
+hf_hub_download(repo_id="black-forest-labs/FLUX.1-dev", filename="flux1-dev.safetensors", local_dir=flux_dev_ckpt_dir)
 
 
 # In[ ]:
 
 
 # Download Blue Pencil Flux 1 Model
-hf_hub_download(repo_id="bluepen5805/blue_pencil-flux1", filename="blue_pencil-flux1-v0.2.1-bf16.safetensors", local_dir=flux_ckpt_dir)
+hf_hub_download(repo_id="bluepen5805/blue_pencil-flux1", filename="blue_pencil-flux1-v0.2.1-bf16.safetensors", local_dir=flux_dev_ckpt_dir)
 
 
 # In[9]:
 
 
 # Delete cache
-get_ipython().system('rm -rf {flux_ckpt_dir}/.cache')
+get_ipython().system('rm -rf {flux_dev_ckpt_dir}/.cache')
 
 
 # #### VAE
@@ -1490,14 +1751,14 @@ get_ipython().system('rm -rf {flux_ckpt_dir}/.cache')
 
 
 # Download Flux.1 Dev VAE
-hf_hub_download(repo_id="black-forest-labs/FLUX.1-dev", filename="ae.safetensors", local_dir=flux_vae_dir)
+hf_hub_download(repo_id="black-forest-labs/FLUX.1-dev", filename="ae.safetensors", local_dir=flux_dev_vae_dir)
 
 
 # In[11]:
 
 
 # Delete cache
-get_ipython().system('rm -rf {flux_vae_dir}/.cache')
+get_ipython().system('rm -rf {flux_dev_vae_dir}/.cache')
 
 
 # #### LoRA
@@ -1506,28 +1767,29 @@ get_ipython().system('rm -rf {flux_vae_dir}/.cache')
 
 
 # Download Flux.1 Dev AntiBlur LoRA
-hf_hub_download(repo_id="Shakker-Labs/FLUX.1-dev-LoRA-AntiBlur", filename="FLUX-dev-lora-AntiBlur.safetensors", local_dir=flux_lora_dir)
+hf_hub_download(repo_id="Shakker-Labs/FLUX.1-dev-LoRA-AntiBlur", filename="FLUX-dev-lora-AntiBlur.safetensors", local_dir=flux_dev_lora_dir)
 
 
 # In[ ]:
 
 
 # Download Flux.1 Dev Add Details LoRA
-hf_hub_download(repo_id="Shakker-Labs/FLUX.1-dev-LoRA-add-details", filename="FLUX-dev-lora-add_details.safetensors", local_dir=flux_lora_dir)
+hf_hub_download(repo_id="Shakker-Labs/FLUX.1-dev-LoRA-add-details", filename="FLUX-dev-lora-add_details.safetensors", local_dir=flux_dev_lora_dir)
 
 
 # In[ ]:
 
 
 # Download Tomboy for Flux LoRA
-civitai_download(model_version_id=797322, local_dir=flux_lora_dir)
+civitai_download(model_version_id=797322, local_dir=flux_dev_lora_dir)
 
 
 # In[15]:
 
 
 # Delete cache
-get_ipython().system('rm -rf {flux_lora_dir}/.cache')
+get_ipython().system('rm -rf {flux_dev_lora_dir}/.cache')
+get_ipython().system('rm -rf {flux_dev_lora_dir}/.civitai')
 
 
 # ### Download Upscale Model
@@ -1576,7 +1838,6 @@ def download(url, filename):
         f.write(response.content)
 
 realesrgan_dir="./models/upscale_models/RealESRGAN"
-os.makedirs(realesrgan_dir, exist_ok=True)
 
 
 # In[ ]:
@@ -1747,30 +2008,39 @@ clip_vision_dir='./models/clip_vision'
 
 
 # Download OpenAI Clip Vit Large Patch14
-hf_hub_download(repo_id="openai/clip-vit-large-patch14", filename="model.safetensors", local_dir=clip_vision_dir)
-src=os.path.join(clip_vision_dir,"model.safetensors")
-dst=os.path.join(clip_vision_dir, "clip-vit-large-patch14.safetensors")
-os.rename(src, dst)
+if os.path.exists(f"{clip_vision_dir}/clip-vit-large-patch14.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="openai/clip-vit-large-patch14", filename="model.safetensors", local_dir=clip_vision_dir)
+    src=os.path.join(clip_vision_dir,"model.safetensors")
+    dst=os.path.join(clip_vision_dir, "clip-vit-large-patch14.safetensors")
+    os.rename(src, dst)
 
 
 # In[ ]:
 
 
 # Download Laion CLIP-ViT-H-14-laion2B-s32B-b79K
-hf_hub_download(repo_id="laion/CLIP-ViT-H-14-laion2B-s32B-b79K", filename="open_clip_pytorch_model.safetensors", local_dir=clip_vision_dir)
-src=os.path.join(clip_vision_dir,"open_clip_pytorch_model.safetensors")
-dst=os.path.join(clip_vision_dir, "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors")
-os.rename(src, dst)
+if os.path.exists(f"{clip_vision_dir}/CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="laion/CLIP-ViT-H-14-laion2B-s32B-b79K", filename="open_clip_pytorch_model.safetensors", local_dir=clip_vision_dir)
+    src=os.path.join(clip_vision_dir,"open_clip_pytorch_model.safetensors")
+    dst=os.path.join(clip_vision_dir, "CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors")
+    os.rename(src, dst)
 
 
 # In[ ]:
 
 
 # Download Laion CLIP-ViT-bigG-14-laion2B-39B-b160k
-hf_hub_download(repo_id="laion/CLIP-ViT-bigG-14-laion2B-39B-b160k", filename="open_clip_pytorch_model.safetensors", local_dir=clip_vision_dir)
-src=os.path.join(clip_vision_dir,"open_clip_pytorch_model.safetensors")
-dst=os.path.join(clip_vision_dir, "CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors")
-os.rename(src, dst)
+if os.path.exists(f"{clip_vision_dir}/CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors"):
+    pass
+else:
+    hf_hub_download(repo_id="laion/CLIP-ViT-bigG-14-laion2B-39B-b160k", filename="open_clip_pytorch_model.safetensors", local_dir=clip_vision_dir)
+    src=os.path.join(clip_vision_dir,"open_clip_pytorch_model.safetensors")
+    dst=os.path.join(clip_vision_dir, "CLIP-ViT-bigG-14-laion2B-39B-b160k.safetensors")
+    os.rename(src, dst)
 
 
 # In[205]:
