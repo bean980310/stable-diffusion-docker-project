@@ -6,7 +6,7 @@ You need NVIDIA GPU and CUDA 12.4, Docker and NVIDIA Container toolkit, if you a
 
 ### How to install
 ```bash
-git clone https://github.com/bean980310/stable-diffusion-docker-project.git
+git clone --recurse-submodules https://github.com/bean980310/stable-diffusion-docker-project.git
 ```
 
 First, run the run_first.ipynb on Jupyter Notebook(if not installed cuda, cudnn, docker, and NVIDIA Container toolkit.) and then run the download.ipynb on Jupyter Notebook.
