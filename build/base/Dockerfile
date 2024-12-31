@@ -15,8 +15,6 @@ ENV DEFAULT_HF_MODULES_CACHE="/app/.cache/huggingface/modules/"
 ENV HUGGINGFACE_HUB_CACHE="/app/.cache/huggingface/hub/"
 ENV HUGGINGFACE_ASSETS_CACHE="/app/.cache/huggingface/assets/"
 
-ENV HF_HUB_ENABLE_HF_TRANSFER="1"
-
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
 
 RUN apt-get update && apt-get upgrade -y && \
