@@ -32,6 +32,7 @@ RUN wget -P /app/ComfyUI/models/checkpoints/sd15 https://huggingface.co/runwayml
 RUN wget -P /app/ComfyUI/models/checkpoints/sd15 https://huggingface.co/WarriorMama777/OrangeMixs/resolve/main/Models/AbyssOrangeMix3/AOM3A1B_orangemixs.safetensors
 RUN wget -P /app/ComfyUI/models/checkpoints/sdxl https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
 RUN wget -P /app/ComfyUI/models/checkpoints/sdxl https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
+RUN wget -P /app/stable-diffusion-webui/models/Stable-diffusion/sdxl https://huggingface.co/cagliostrolab/animagine-xl-3.1/resolve/main/animagine-xl-3.1.safetensors
 
 RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
 RUN pip install tensorflow tensorboard tensorboardx
