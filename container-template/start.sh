@@ -85,7 +85,7 @@ start_jupyter() {
 #                               Main Program                                   #
 # ---------------------------------------------------------------------------- #
 
-start_nginx
+# start_nginx
 
 execute_script "/pre_start.sh" "Running pre-start script..."
 
