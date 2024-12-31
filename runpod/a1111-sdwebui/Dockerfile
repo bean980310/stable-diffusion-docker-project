@@ -61,7 +61,9 @@ COPY --from=start relauncher.py /app/stable-diffusion-webui/
 COPY --from=start webui-user.sh /app/stable-diffusion-webui/
 
 COPY --from=start pre_start.sh /pre_start.sh
+COPY --from=scripts start.sh /
 RUN chmod +x /pre_start.sh
+RUN chmod +x /start.sh
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "/start.sh" ]
