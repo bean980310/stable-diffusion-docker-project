@@ -16,7 +16,7 @@ services:
       context: ./build/base
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
+        BASE_IMAGE: nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
         TORCH_VERSION: &TORCH_VERSION 2.5.1
         REQUIRED_CUDA_VERSION: &CUDA_VERSION 12.4
         INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
