@@ -20,8 +20,6 @@ RUN conda init bash && . ~/.bashrc
 RUN conda install -y jupyter jupyterlab jupyterlab_widgets ipykernel ipywidgets -c conda-forge
 RUN conda install -y huggingface_hub transformers safetensors tokenizers datasets -c huggingface
 RUN conda install -y diffusers accelerate sentence-transformers -c conda-forge 
-RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION}
-RUN pip install tensorflow tensorboard tensorboardx
 
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 WORKDIR /app/stable-diffusion-webui
