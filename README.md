@@ -69,13 +69,21 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 ### [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 ### [InvokeAI](https://github.com/invoke-ai/InvokeAI)
 ### [Fooocus](https://github.com/lllyasviel/Fooocus)
-### [Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge)
+### ~~[Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge)~~
+Temporary suspend
+### ~~[Reforge](https://github.com/lllyasviel/stable-diffusion-webui-reforge)~~
+Coming soon
 ### [SD.Next](https://github.com/vladmandic/automatic)
 ### [Open-WebUI](https://github.com/open-webui/open-webui)
-### [EasyDiffusion](https://github.com/easydiffusion/easydiffusion)
+### ~~[EasyDiffusion](https://github.com/easydiffusion/easydiffusion)~~
+Temporary suspend
 ### [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI)
 ### [FaceFusion](https://github.com/facefusion/facefusion)
-### [Omost](https://github.com/lllyasviel/Omost)
-### [stable-audio-tools](https://github.com/Stability-AI/stable-audio-tools)
+### ~~[Omost](https://github.com/lllyasviel/Omost)~~
+Temporary suspend
+### ~~[stable-audio-tools](https://github.com/Stability-AI/stable-audio-tools)~~
+Temporary suspend
+### svd-webui(My Original)
+Coming soon
 
 ## Contributing
