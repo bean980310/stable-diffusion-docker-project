@@ -44,7 +44,7 @@ RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git custom_nodes/Comfy
 RUN pip cache purge
 
 # Start Scripts
-COPY pre_start.sh /pre_start.sh 
+COPY --from=start pre_start.sh /pre_start.sh 
 RUN chmod +x /pre_start.sh
 
 ENV TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"

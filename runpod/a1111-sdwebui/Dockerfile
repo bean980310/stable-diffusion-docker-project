@@ -53,14 +53,14 @@ RUN git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-
 
 RUN pip cache purge
 
-COPY cache-sd-model.py /app/stable-diffusion-webui/
+COPY --from=start cache-sd-model.py /app/stable-diffusion-webui/
 
 RUN mkdir /app/downloader && git clone https://github.com/jjangga0214/sd-models-downloader.git /app/downloader
 
-COPY relauncher.py /app/stable-diffusion-webui/
-COPY webui-user.sh /app/stable-diffusion-webui/
+COPY --from=start relauncher.py /app/stable-diffusion-webui/
+COPY --from=start webui-user.sh /app/stable-diffusion-webui/
 
-COPY pre_start.sh /pre_start.sh
+COPY --from=start pre_start.sh /pre_start.sh
 RUN chmod +x /pre_start.sh
 
 SHELL ["/bin/bash", "--login", "-c"]

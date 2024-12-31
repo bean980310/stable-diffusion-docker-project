@@ -42,7 +42,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g npm@latest
 
-RUN apt apt-get autoremove -y
+RUN apt-get autoremove -y
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 RUN echo "ko_KR.UTF-8 UTF-8" > /etc/locale.gen
@@ -82,7 +82,7 @@ COPY README.md /usr/share/nginx/html/README.md
 
 # Start Scripts
 COPY --from=scripts start.sh /
-COPY post_start.sh /
+COPY --from=start post_start.sh /
 RUN chmod +x /start.sh && \
     chmod +x /post_start.sh
 

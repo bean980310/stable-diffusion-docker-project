@@ -41,6 +41,7 @@ target "base" {
         scripts = "container-template"
         proxy = "container-template/proxy"
         logo = "container-template"
+        start = "runpod/base"
     }
     args={
         BASE_IMAGE="nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04"
@@ -59,6 +60,7 @@ target "stable-diffusion-webui" {
     contexts = {
         scripts = "container-template"
         proxy = "container-template/proxy"
+        start = "runpod/a1111-sdwebui"
     }
     args={
         BASE_IMAGE="${BASE_IMAGE}"
@@ -97,6 +99,7 @@ target "comfyui" {
     contexts = {
         scripts = "container-template"
         proxy = "container-template/proxy"
+        start = "runpod/comfyui"
     }
     args={
         BASE_IMAGE="${BASE_IMAGE}"
