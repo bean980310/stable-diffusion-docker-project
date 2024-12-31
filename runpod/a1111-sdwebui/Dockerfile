@@ -57,6 +57,13 @@ RUN pip cache purge
 
 COPY --from=start cache-sd-model.py /app/stable-diffusion-webui/
 
+# NGINX Proxy
+COPY --from=proxy nginx.conf /etc/nginx/nginx.conf
+COPY --from=proxy readme.html /usr/share/nginx/html/readme.html
+
+# Copy the README.md
+COPY README.md /usr/share/nginx/html/README.md
+
 RUN mkdir /app/downloader && git clone https://github.com/jjangga0214/sd-models-downloader.git /app/downloader
 
 COPY --from=start relauncher.py /app/stable-diffusion-webui/
@@ -66,6 +73,11 @@ COPY --from=start pre_start.sh /pre_start.sh
 COPY --from=scripts start.sh /
 RUN chmod +x /pre_start.sh
 RUN chmod +x /start.sh
+
+# Welcome Message
+COPY --from=logo runpod.txt /etc/runpod.txt
+RUN echo 'cat /etc/runpod.txt' >> /root/.bashrc
+RUN echo 'echo -e "\nFor detailed documentation and guides, please visit:\n\033[1;34mhttps://docs.runpod.io/\033[0m and \033[1;34mhttps://blog.runpod.io/\033[0m\n\n"' >> /root/.bashrc
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "/start.sh" ]
