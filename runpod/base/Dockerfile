@@ -20,10 +20,11 @@ ENV HF_HUB_ENABLE_HF_TRANSFER="1"
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
 
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y bash ca-certificates wget curl file git git-lfs inotify-tools jq libgl1 libglib2.0-0 libgl1 libxrender1 libnvrtc11.2 libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev lsof vim nano tmux openssh-server procps rsync sudo software-properties-common unzip p7zip-full zip pandoc net-tools netcat-openbsd && \
+    apt-get install -y bash ca-certificates wget curl file git git-lfs inotify-tools jq libgl1 libglib2.0-0 libgl1 libxrender1 libnvrtc11.2 libgoogle-perftools4 libtcmalloc-minimal4 pkg-config libcairo2-dev lsof vim nano tmux nginx openssh-server procps rsync sudo software-properties-common unzip p7zip-full zip pandoc net-tools netcat-openbsd && \
     apt-get install -y build-essential gcc g++ make cmake gfortran libblas-dev liblapack-dev && \ 
     apt-get install -y ffmpeg libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libjpeg-dev libpng-dev libpostproc-dev libswresample-dev libswscale-dev libtiff-dev libv4l-dev libx264-dev libxext6 libxrender-dev libxvidcore-dev && \
     apt-get install -y libatlas-base-dev libffi-dev libhdf5-serial-dev libsm6 libssl-dev && \
+    apt-get install -y cifs-utils nfs-common zstd && \
     apt-get install -y python3-pip python3-tk python3-venv python3-dev python3-launchpadlib && \
     update-ca-certificates
 
@@ -66,8 +67,29 @@ RUN ./dotnet-install.sh --channel 8.0
 RUN python -m ipykernel install --name "python3" --display-name "Python 3"
 RUN pip cache purge
 
-# Remove existing SSH host keys
-RUN rm -f /etc/ssh/ssh_host_*
+# Extras
+RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+RUN brew update
+RUN brew tap filebrowser/tap && brew install filebrowser
+
+# NGINX Proxy
+COPY --from=proxy nginx.conf /etc/nginx/nginx.conf
+COPY --from=proxy readme.html /usr/share/nginx/html/readme.html
+
+# Copy the README.md
+COPY README.md /usr/share/nginx/html/README.md
+
+# Start Scripts
+COPY --from=scripts start.sh /
+COPY post_start.sh /
+RUN chmod +x /start.sh && \
+    chmod +x /post_start.sh
+
+# Welcome Message
+COPY --from=logo runpod.txt /etc/runpod.txt
+RUN echo 'cat /etc/runpod.txt' >> /root/.bashrc
+RUN echo 'echo -e "\nFor detailed documentation and guides, please visit:\n\033[1;34mhttps://docs.runpod.io/\033[0m and \033[1;34mhttps://blog.runpod.io/\033[0m\n\n"' >> /root/.bashrc
 
 # Start the container
-CMD ["bin/bash"]
+CMD ["/start.sh"]
