@@ -71,7 +71,7 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 ### [Fooocus](https://github.com/lllyasviel/Fooocus)
 ### ~~[Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge)~~
 Temporary suspend
-### ~~[Reforge](https://github.com/lllyasviel/stable-diffusion-webui-reforge)~~
+### ~~[Reforge](https://github.com/Panchovix/stable-diffusion-webui-reForge)~~
 Coming soon
 ### [SD.Next](https://github.com/vladmandic/automatic)
 ### [Open-WebUI](https://github.com/open-webui/open-webui)
@@ -83,7 +83,7 @@ Temporary suspend
 Temporary suspend
 ### ~~[stable-audio-tools](https://github.com/Stability-AI/stable-audio-tools)~~
 Temporary suspend
-### svd-webui(My Original)
+### ~~svd-webui(My Original)~~
 Coming soon
 
 ## Contributing
