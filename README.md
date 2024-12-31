@@ -4,6 +4,8 @@ Stable Diffusion WebUI and KohyaSS, ComfyUI, InvokeAI, Fooocus, and more Generat
 ## Setup
 You need NVIDIA GPU and CUDA 12.4, Docker and NVIDIA Container toolkit, if you are using Windows 10/11, you also need enable WSL2. it is recommanded on Amazon Web Services, Microsoft Azure, Google Cloud Platform.
 
+Now you can use my automatic1111 webui runpod template
+
 ### How to install
 ```bash
 git clone --recurse-submodules https://github.com/bean980310/stable-diffusion-docker-project.git
@@ -65,6 +67,7 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 
 ## Features
 ### [AUTOMATIC1111](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
+Now you can use my automatic1111 webui template on runpod
 ### [KohyaSS](https://github.com/bmaltais/kohya_ss)
 ### [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 ### [InvokeAI](https://github.com/invoke-ai/InvokeAI)
