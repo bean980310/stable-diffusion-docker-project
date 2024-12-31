@@ -11,7 +11,7 @@ variable "TORCH_VERSION" {
 }
 
 variable "CUDA_VERSION" {
-    default = "cu124"
+    default = "12.4"
 }
 
 variable "INDEX_URL" {

@@ -68,10 +68,10 @@ RUN python -m ipykernel install --name "python3" --display-name "Python 3"
 RUN pip cache purge
 
 # Extras
-RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
-RUN brew update
-RUN brew tap filebrowser/tap && brew install filebrowser
+# RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
+# RUN brew update
+# RUN brew tap filebrowser/tap && brew install filebrowser
 
 # NGINX Proxy
 COPY --from=proxy nginx.conf /etc/nginx/nginx.conf
