@@ -10,7 +10,7 @@ install_dir="/app"
 #clone_dir="stable-diffusion-webui"
 
 # Commandline arguments for webui.py, for example: export COMMANDLINE_ARGS="--medvram --opt-split-attention"
-export COMMANDLINE_ARGS="--port 3000 --listen --api --xformers --enable-insecure-extension-access --no-half-vae"
+export COMMANDLINE_ARGS="--port 7860 --listen --api --xformers --enable-insecure-extension-access --no-half-vae"
 #export XFORMERS_PACKAGE="xformers==0.0.17.dev447"
 
 # python3 executable

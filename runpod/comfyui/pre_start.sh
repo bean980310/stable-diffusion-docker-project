@@ -6,4 +6,4 @@
 # ln -s /comfy-models/* /workspace/ComfyUI/models/checkpoints/
 
 cd /app/ComfyUI
-python main.py --listen --port 3000 &
+python main.py --listen --port 8188 &
