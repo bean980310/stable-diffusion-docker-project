@@ -28,7 +28,7 @@ RUN git checkout tags/${WEBUI_VERSION}
 RUN mkdir -vp /app/stable-diffusion-webui/models/Stable-diffusion/sd15 && \
     mkdir -vp /app/stable-diffusion-webui/models/Stable-diffusion/sdxl
 RUN wget -P /app/stable-diffusion-webui/models/Stable-diffusion/sd15 https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.safetensors
-RUN wget -P /app/ComfyUI/models/checkpoints/sd15 https://huggingface.co/runwayml/stable-diffusion-inpainting/resolve/main/sd-v1-5-inpainting.ckpt
+RUN wget -P /app/stable-diffusion-webui/models/checkpoints/sd15 https://huggingface.co/runwayml/stable-diffusion-inpainting/resolve/main/sd-v1-5-inpainting.ckpt
 RUN wget -P /app/stable-diffusion-webui/models/Stable-diffusion/sd15 https://huggingface.co/WarriorMama777/OrangeMixs/resolve/main/Models/AbyssOrangeMix3/AOM3A1B_orangemixs.safetensors
 RUN wget -P /app/stable-diffusion-webui/models/Stable-diffusion/sdxl https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors
 RUN wget -P /app/stable-diffusion-webui/models/Stable-diffusion/sdxl https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
