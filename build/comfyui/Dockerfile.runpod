@@ -27,13 +27,15 @@ RUN pip install tensorflow tensorboard tensorboardx
 
 RUN pip install -r requirements.txt
 
-# Install ComfyUI and ComfyUI Manager
 RUN git clone https://github.com/ltdrdata/ComfyUI-Manager.git custom_nodes/ComfyUI-Manager
 WORKDIR /app/ComfyUI/custom_nodes/ComfyUI-Manager
 RUN pip install -r requirements.txt
 
-
 RUN pip cache purge
+
+RUN mv /app/ComfyUI /ComfyUI
+
+
 
 ENV TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
 ENV LD_PRELOAD="${TCMALLOC}"
