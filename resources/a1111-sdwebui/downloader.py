@@ -16,7 +16,6 @@ else:
     dst=sd15_ckpt_dir
     shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
     shutil.rmtree(os.path.join(sd15_ckpt_dir, "Models"))
-    shutil.rmtree(os.path.join(sd15_ckpt_dir, ".cache"))
 
 hf_hub_download(repo_id="stabilityai/stable-diffusion-xl-base-1.0", filename="sd_xl_base_1.0.safetensors", local_dir=sdxl_ckpt_dir)
 hf_hub_download(repo_id="stabilityai/stable-diffusion-xl-refiner-1.0", filename="sd_xl_refiner_1.0.safetensors", local_dir=sdxl_ckpt_dir)
