@@ -7,6 +7,8 @@ x-base_service: &base_service
             count: all
             capabilities: [gpu]
   restart: unless-stopped
+  ports:
+    - "8888:8888"
 
 services:
   base:
@@ -16,7 +18,7 @@ services:
       context: ./build/base
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: nvidia/cuda:12.6.3-cudnn-devel-ubuntu22.04
+        BASE_IMAGE: nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
         TORCH_VERSION: &TORCH_VERSION 2.5.1
         REQUIRED_CUDA_VERSION: &CUDA_VERSION 12.4
         INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
@@ -31,7 +33,7 @@ services:
     tty: true
   stable-diffusion-webui:
     <<: *base_service
-    image: bean980310/stable-diffusion-webui:latest
+    image: bean980310/stable-diffusion-webui:runpod
     container_name: stable-diffusion-webui
     volumes:
       - stable-diffusion-webui:/app/stable-diffusion-webui
@@ -77,7 +79,7 @@ services:
       - HF_HOME=/app/stable-diffusion-webui/.cache/huggingface
   kohya_ss:
     <<: *base_service
-    image: bean980310/kohya-ss:latest
+    image: bean980310/kohya-ss:runpod
     container_name: kohya_ss
     volumes:
       - kohya_ss:/app/kohya_ss
@@ -94,7 +96,7 @@ services:
       - "3020:7860"
     build:
       context: ./build/kohya_ss
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         KOHYA_VERSION: v24.1.7
         BASE_IMAGE: *BASE_IMAGE
@@ -106,7 +108,7 @@ services:
       - HF_HOME=/app/kohya_ss/.cache/huggingface
   comfyui:
     <<: *base_service
-    image: bean980310/comfyui:latest
+    image: bean980310/comfyui:runpod
     container_name: comfyui
     volumes:
       - comfyui:/app/ComfyUI
@@ -138,7 +140,7 @@ services:
       - "3030:8188"
     build:
       context: ./build/comfyui
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         COMFYUI_VERSION: &COMFYUI_VERSION v0.3.10
         WEBUI_VERSION: *WEBUI_VERSION
@@ -151,7 +153,7 @@ services:
       - HF_HOME=/app/ComfyUI/.cache/huggingface
   invokeai:
     <<: *base_service
-    image: bean980310/invokeai:latest
+    image: bean980310/invokeai:runpod
     container_name: invokeai
     volumes:
       - invokeai:/app/InvokeAI
@@ -164,7 +166,7 @@ services:
       - "9090:9090"
     build:
       context: ./build/invokeai
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         INVOKEAI_VERSION: v5.5.0
         BASE_IMAGE: *BASE_IMAGE
@@ -176,7 +178,7 @@ services:
       - HF_HOME=/app/InvokeAI/.cache/huggingface
   open-webui:
     <<: *base_service
-    image: bean980310/open-webui:latest
+    image: bean980310/open-webui:runpod
     container_name: open-webui
     volumes:
       - open-webui:/app/open-webui/backend/data
@@ -184,7 +186,7 @@ services:
       - "3000:8080"
     build:
       context: ./build/open-webui
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         OLLAMA_BASE_URL: '/ollama'
         OPEN_WEBUI_VERSION: v0.5.2
@@ -203,7 +205,7 @@ services:
       - ollama
   fooocus:
     <<: *base_service
-    image: bean980310/fooocus:latest
+    image: bean980310/fooocus:runpod
     container_name: fooocus
     volumes:
       - fooocus-data:/app/Fooocus
@@ -232,7 +234,7 @@ services:
       - "3040:7860"
     build:
       context: ./build/fooocus
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         FOOOCUS_VERSION: v2.5.5
         BASE_IMAGE: *BASE_IMAGE
@@ -339,7 +341,7 @@ services:
   #     - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
   sdnext:
     <<: *base_service
-    image: bean980310/sdnext:latest
+    image: bean980310/sdnext:runpod
     container_name: sdnext
     volumes:
       - sdnext:/app/automatic
@@ -355,7 +357,7 @@ services:
       - "3060:7860"
     build:
       context: ./build/vladmandic-sdnext
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         SDNEXT_COMMIT: master
         BASE_IMAGE: *BASE_IMAGE
@@ -393,7 +395,7 @@ services:
   #     - HF_HOME=/app/easy-diffusion/.cache/huggingface
   swarmui:
     <<: *base_service
-    image: bean980310/swarmui:latest
+    image: bean980310/swarmui:runpod
     container_name: swarmui
     volumes:
       - swarmdata:/app/SwarmUI/Data
@@ -406,7 +408,7 @@ services:
       - "7801:7801"
     build:
       context: ./build/swarmui
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         SWARMUI_VERSION: 0.9.4-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
@@ -420,7 +422,7 @@ services:
       - SWARM_NO_VENV='true'
   facefusion:
     <<: *base_service
-    image: bean980310/facefusion:latest
+    image: bean980310/facefusion:runpod
     container_name: facefusion
     volumes:
       - facefusion:/app/facefusion
@@ -430,7 +432,7 @@ services:
       - "3070:7860"
     build:
       context: ./build/facefusion
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         FACEFUSION_VERSION: 3.1.0
         BASE_IMAGE: *BASE_IMAGE
@@ -489,7 +491,7 @@ services:
   #     - GRADIO_SERVER_PORT=7860
   audiocraft_plus:
     <<: *base_service
-    image: bean980310/audiocraft-plus:latest
+    image: bean980310/audiocraft-plus:runpod
     container_name: audiocraft_plus
     volumes:
       - audiocraft_plus:/app/audiocraft_plus
@@ -499,7 +501,7 @@ services:
       - "7877:7877"
     build:
       context: ./build/audiocraft_plus
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.runpod
       args:
         BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
