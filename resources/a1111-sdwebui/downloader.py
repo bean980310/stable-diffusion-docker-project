@@ -7,7 +7,7 @@ sdxl_ckpt_dir="/app/stable-diffusion-webui/models/Stable-diffusion/sdxl"
 
 hf_hub_download(repo_id="runwayml/stable-diffusion-v1-5", filename="v1-5-pruned-emaonly.safetensors", local_dir=sd15_ckpt_dir)
 hf_hub_download(repo_id="runwayml/stable-diffusion-inpainting", filename="sd-v1-5-inpainting.ckpt", local_dir=sd15_ckpt_dir)
-hf_hub_download(repo_id="WarriorMama777/OrangeMixs", filename="AOM3A1B_orangemixs.safetensors", subfolder=sd15_ckpt_dir, local_dir=sd15_ckpt_dir)
+hf_hub_download(repo_id="WarriorMama777/OrangeMixs", filename="AOM3A1B_orangemixs.safetensors", subfolder="Models/AbyssOrangeMix3", local_dir=sd15_ckpt_dir)
 filename="AOM3A1B_orangemixs.safetensors"
 src=os.path.join(sd15_ckpt_dir, "Models/AbyssOrangeMix3")
 dst=sd15_ckpt_dir
