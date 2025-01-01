@@ -84,4 +84,5 @@ start_jupyter
 export_env_vars
 
 python downloader.py
-bash /app/stable-diffusion-webui/webui.sh -f &
+cd /app/ComfyUI
+python main.py --listen --port 8188 &

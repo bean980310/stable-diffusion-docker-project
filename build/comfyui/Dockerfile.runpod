@@ -33,12 +33,22 @@ RUN pip install -r requirements.txt
 
 RUN pip cache purge
 
+COPY --from=workspace extra_model_paths.yaml /app/ComfyUI/extra_model_paths.yaml
+
 RUN mv /app/ComfyUI /ComfyUI
 
+WORKDIR /
 
+COPY --from=resources comfyui.conf /etc/nginx/sites-available/comfyui.conf
+RUN ln -s /etc/nginx/sites-available/comfyui.conf /etc/nginx/sites-enabled/comfyui.conf
+
+COPY --from=resources entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+COPY --from=resources downloader.py /downloader.py
 
 ENV TCMALLOC="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
 ENV LD_PRELOAD="${TCMALLOC}"
 
 SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "python", "main.py"," --listen", "0.0.0.0", "--port", "8188" ]
+ENTRYPOINT [ "entrypoint.sh" ]
