@@ -41,11 +41,11 @@ WORKDIR /app/stable-diffusion-webui
 COPY --from=workspace webui-user.sh /app/stable-diffusion-webui/webui-user.sh
 COPY --from=workspace config.json /app/stable-diffusion-webui/config.json
 
-COPY --from=resources a1111-sdwebui.runpod /etc/nginx/sites-available/a1111-sdwebui.runpod
-RUN ln -s /etc/nginx/sites-available/a1111-sdwebui.runpod /etc/nginx/sites-enabled/a1111-sdwebui.runpod
+COPY --from=resources a1111-sdwebui.conf /etc/nginx/sites-available/a1111-sdwebui.conf
+RUN ln -s /etc/nginx/sites-available/a1111-sdwebui.conf /etc/nginx/sites-enabled/a1111-sdwebui.conf
 
 COPY --from=resources entrypoint.sh /entrypoint.sh
 
 SHELL ["/bin/bash", "--login", "-c"]
-ENTRYPOINT [ "/runpod_entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "bash", "webui.sh", "-f" ]
