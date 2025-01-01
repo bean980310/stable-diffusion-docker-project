@@ -78,3 +78,6 @@ start_nginx
 setup_ssh
 start_jupyter
 export_env_vars
+
+cd /app/stable-diffusion-webui
+bash webui.sh -f

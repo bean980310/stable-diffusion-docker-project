@@ -49,4 +49,3 @@ RUN chmod +x /entrypoint.sh
 
 SHELL ["/bin/bash", "--login", "-c"]
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "bash", "webui.sh", "-f" ]
