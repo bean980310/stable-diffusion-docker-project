@@ -41,6 +41,8 @@ WORKDIR /app/stable-diffusion-webui
 COPY --from=workspace/stable-diffusion-webui/ webui-user.sh /app/stable-diffusion-webui/
 COPY --from=workspace/stable-diffusion-webui/ config.json /app/stable-diffusion-webui/
 
+COPY --from=build/a1111-sdwebui entrypoint.sh /
+
 SHELL ["/bin/bash", "--login", "-c"]
-ENTRYPOINT [ "nohup" "jupyter lab"" --allow-root" "--no-browser" "--port=8888" "--ip=*" "--FileContentsManager.delete_to_trash=False" "--ServerApp.allow_origin=*" "--ServerApp.preferred_dir=/app"" &>" "/jupyter.log &" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "bash", "webui.sh", "-f" ]
