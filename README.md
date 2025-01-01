@@ -67,9 +67,10 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 
 ## Features
 ### [AUTOMATIC1111](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
-Now you can use my automatic1111 webui template on runpod
+Now you can use container template made by me!
 ### [KohyaSS](https://github.com/bmaltais/kohya_ss)
 ### [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
+Now you can use container template made by me!(I've tested it several times and it works fine.)
 ### [InvokeAI](https://github.com/invoke-ai/InvokeAI)
 ### [Fooocus](https://github.com/lllyasviel/Fooocus)
 ### ~~[Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge)~~
