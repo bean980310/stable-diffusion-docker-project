@@ -28,7 +28,7 @@ RUN pip install tensorflow tensorboard tensorboardx
 RUN pip install -r requirements.txt
 RUN pip cache purge
 
-ENV LD_PRELOAD="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
+# ENV LD_PRELOAD="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "python", "main.py"," --listen", "0.0.0.0", "--port", "8188" ]

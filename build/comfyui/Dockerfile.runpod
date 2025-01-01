@@ -49,7 +49,7 @@ RUN chmod +x /entrypoint.sh
 
 COPY --from=resources downloader.py /downloader.py
 
-ENV LD_PRELOAD="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
+# ENV LD_PRELOAD="$(ldconfig -p | grep -Po "libtcmalloc.so.\d" | head -n 1)"
 
 SHELL ["/bin/bash", "--login", "-c"]
 ENTRYPOINT [ "/entrypoint.sh" ]
