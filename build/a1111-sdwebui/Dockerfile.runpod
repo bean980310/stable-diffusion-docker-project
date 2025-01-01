@@ -38,10 +38,13 @@ RUN pip install -r requirements.txt
 RUN pip cache purge
 
 WORKDIR /app/stable-diffusion-webui
-COPY --from=workspace/stable-diffusion-webui/ webui-user.sh /app/stable-diffusion-webui/
-COPY --from=workspace/stable-diffusion-webui/ config.json /app/stable-diffusion-webui/
+COPY --from=workspace webui-user.sh /app/stable-diffusion-webui/webui-user.sh
+COPY --from=workspace config.json /app/stable-diffusion-webui/config.json
 
-COPY --from=build/a1111-sdwebui entrypoint.sh /
+COPY --from=resources a1111-sdwebui.runpod /etc/nginx/sites-available/a1111-sdwebui.runpod
+RUN ln -s /etc/nginx/sites-available/a1111-sdwebui.runpod /etc/nginx/sites-enabled/a1111-sdwebui.runpod
+
+COPY --from=resources entrypoint.sh /entrypoint.sh
 
 SHELL ["/bin/bash", "--login", "-c"]
 ENTRYPOINT [ "/entrypoint.sh" ]

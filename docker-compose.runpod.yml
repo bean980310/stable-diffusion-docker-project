@@ -68,6 +68,9 @@ services:
     build:
       context: ./build/a1111-sdwebui
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - &resources resources=./resources
+        - workspace=./workspace/stable-diffusion-webui
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.10.1
         BASE_IMAGE: *BASE_IMAGE
@@ -97,6 +100,9 @@ services:
     build:
       context: ./build/kohya_ss
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
+        - workspace=./workspace/kohya_ss
       args:
         KOHYA_VERSION: v24.1.7
         BASE_IMAGE: *BASE_IMAGE
@@ -141,6 +147,9 @@ services:
     build:
       context: ./build/comfyui
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
+        - workspace=./workspace/ComfyUI
       args:
         COMFYUI_VERSION: &COMFYUI_VERSION v0.3.10
         WEBUI_VERSION: *WEBUI_VERSION
@@ -167,6 +176,9 @@ services:
     build:
       context: ./build/invokeai
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
+        - workspace=./workspace/InvokeAI
       args:
         INVOKEAI_VERSION: v5.5.0
         BASE_IMAGE: *BASE_IMAGE
@@ -187,6 +199,8 @@ services:
     build:
       context: ./build/open-webui
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
       args:
         OLLAMA_BASE_URL: '/ollama'
         OPEN_WEBUI_VERSION: v0.5.2
@@ -235,6 +249,9 @@ services:
     build:
       context: ./build/fooocus
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
+        - workspace=./workspace/Fooocus
       args:
         FOOOCUS_VERSION: v2.5.5
         BASE_IMAGE: *BASE_IMAGE
@@ -358,6 +375,9 @@ services:
     build:
       context: ./build/vladmandic-sdnext
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
+        - workspace=./workspace/SD.Next
       args:
         SDNEXT_COMMIT: master
         BASE_IMAGE: *BASE_IMAGE
@@ -409,6 +429,8 @@ services:
     build:
       context: ./build/swarmui
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
       args:
         SWARMUI_VERSION: 0.9.4-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
@@ -433,6 +455,8 @@ services:
     build:
       context: ./build/facefusion
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
       args:
         FACEFUSION_VERSION: 3.1.0
         BASE_IMAGE: *BASE_IMAGE
@@ -502,6 +526,8 @@ services:
     build:
       context: ./build/audiocraft_plus
       dockerfile: Dockerfile.runpod
+      additional_contexts:
+        - *resources
       args:
         BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
