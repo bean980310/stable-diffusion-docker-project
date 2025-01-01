@@ -81,3 +81,5 @@ export_env_vars
 
 cd /app/stable-diffusion-webui
 bash webui.sh -f
+
+sleep infinity
