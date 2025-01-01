@@ -1905,14 +1905,14 @@ git_download(repo_id="TencentARC/GFPGAN", filename="GFPGANv1.4.pth", tag='v1.3.4
 
 
 # Download Code Former Model
-git_download(repo_id="TencentARC/GFPGAN", filename="CodeFormer.pth", tag='v1.3.4', local_dir="./models/facerestore_models/Codeformer")
+git_download(repo_id="TencentARC/GFPGAN", filename="CodeFormer.pth", tag='v1.3.4', local_dir="./models/facerestore_models/CodeFormer")
 
 
 # In[ ]:
 
 
 # Download Restore Former Model
-git_download(repo_id='TencentARC/GFPGAN', filename='RestoreFormer.pth', tag='v1,3,4', local_dir='./models/facerestore_models/Codeformer')
+git_download(repo_id='TencentARC/GFPGAN', filename='RestoreFormer.pth', tag='v1,3,4', local_dir='./models/facerestore_models/CodeFormer')
 
 
 # ### Download UltraLytics Model
