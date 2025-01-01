@@ -42,6 +42,8 @@ COPY --from=workspace config.json /app/stable-diffusion-webui/config.json
 
 RUN mv /app/stable-diffusion-webui /stable-diffusion-webui
 
+WORKDIR /
+
 COPY --from=resources relauncher.py /stable-diffusion-webui/relauncher.py
 COPY --from=resources cache-sd-model.py /stable-diffusion-webui/cache-sd-model.py
 
