@@ -48,4 +48,4 @@ COPY --from=resources entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 SHELL ["/bin/bash", "--login", "-c"]
-ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "/entrypoint.sh" ]
