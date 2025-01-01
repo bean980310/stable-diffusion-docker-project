@@ -45,6 +45,7 @@ COPY --from=resources a1111-sdwebui.conf /etc/nginx/sites-available/a1111-sdwebu
 RUN ln -s /etc/nginx/sites-available/a1111-sdwebui.conf /etc/nginx/sites-enabled/a1111-sdwebui.conf
 
 COPY --from=resources entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 SHELL ["/bin/bash", "--login", "-c"]
 ENTRYPOINT [ "/entrypoint.sh" ]
