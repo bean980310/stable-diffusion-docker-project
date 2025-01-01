@@ -17,8 +17,6 @@ ENV PATH=/opt/miniconda3/envs/a1111-sdwebui/bin:$PATH
 RUN conda init && echo "conda activate a1111-sdwebui" >> ~/.bashrc
 RUN conda init bash && . ~/.bashrc
 
-RUN conda install -y jupyter jupyterlab jupyterlab_widgets ipykernel ipywidgets -c conda-forge
-
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 WORKDIR /app/stable-diffusion-webui
 RUN git checkout tags/${WEBUI_VERSION}
@@ -30,6 +28,8 @@ RUN pip install -U pip
 
 RUN pip install -r requirements.txt
 RUN python -c "from launch import prepare_environment; prepare_environment()" --skip-torch-cuda-test
+
+RUN conda install -y jupyter jupyterlab jupyterlab_widgets ipykernel ipywidgets -c conda-forge
 
 RUN git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet
 WORKDIR /app/stable-diffusion-webui/extensions/sd-webui-controlnet
