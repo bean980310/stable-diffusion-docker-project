@@ -77,7 +77,7 @@ start_jupyter() {
 
 start_nginx
 
-rsync --remove-source-files -rlptDu --ignore-existing /stable-diffusion-webui/ /app/stable-diffusion-webui/
+rsync --remove-source-files -rlptDu --ignore-existing /kohya_ss/ /app/kohya_ss/
 
 nohup python kohya_gui.py --listen 0.0.0.0 --server_port 7860 --headless
 
