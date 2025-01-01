@@ -89,3 +89,8 @@ export_env_vars
 echo "Now downloading stable diffusion models, please wait..."
 python downloader.py
 echo "Models download complate."
+
+echo "Now you are ready to use ComfyUI."
+echo "Enjoy!"
+
+sleep infinity
