@@ -77,7 +77,10 @@ start_jupyter() {
 
 start_nginx
 
-rsync --remove-source-files -rlptDu --ignore-existing /ComfyUI/ /app/ComfyUIi/
+rsync --remove-source-files -rlptDu --ignore-existing /ComfyUI/ /app/ComfyUI/
+
+cd /app/ComfyUI
+nohup python main.py --listen --port 8188 &
 
 setup_ssh
 start_jupyter
@@ -86,5 +89,3 @@ export_env_vars
 echo "Now downloading stable diffusion models, please wait..."
 python downloader.py
 echo "Models download complate."
-cd /app/ComfyUI
-python main.py --listen --port 8188 &

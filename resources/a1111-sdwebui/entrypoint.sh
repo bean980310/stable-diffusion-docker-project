@@ -79,6 +79,8 @@ start_nginx
 
 rsync --remove-source-files -rlptDu --ignore-existing /stable-diffusion-webui/ /app/stable-diffusion-webui/
 
+nohup bash /app/stable-diffusion-webui/webui.sh -f &
+
 setup_ssh
 start_jupyter
 export_env_vars
@@ -86,4 +88,3 @@ export_env_vars
 echo "Now downloading stable diffusion models, please wait..."
 python downloader.py
 echo "Models download complate."
-bash /app/stable-diffusion-webui/webui.sh -f &
