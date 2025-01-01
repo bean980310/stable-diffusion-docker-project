@@ -29,7 +29,24 @@ RUN pip install -U ninja pip setuptools wheel
 
 RUN pip install -r requirements_linux_docker.txt
 RUN pip install -r requirements.txt
+
+RUN conda install -y jupyter jupyterlab jupyterlab_widgets ipykernel ipywidgets -c conda-forge
+
 RUN pip cache purge
 
+RUN mkdir .cache/huggingface/accelerate
+COPY --from=workspace accelerate.yaml /app/kohya_ss/.cache/huggingface/accelerate/default_config.yaml
+COPY --from=workspace config.toml /app/kohya_ss/config.toml
+
+RUN mv /app/kohya_ss /kohya_ss
+
+WORKDIR /
+
+COPY --from=resources kohya_ss.conf /etc/nginx/sites-available/kohya_ss.conf
+RUN ln -s /etc/nginx/sites-available/kohya_ss.conf /etc/nginx/sites-enabled/kohya_ss.conf
+
+COPY --from=resources entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "python", "kohya_gui.py", "--listen", "0.0.0.0", "--server_port", "7860", "--headless" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
