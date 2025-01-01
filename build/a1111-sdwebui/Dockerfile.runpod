@@ -51,5 +51,7 @@ RUN ln -s /etc/nginx/sites-available/a1111-sdwebui.conf /etc/nginx/sites-enabled
 COPY --from=resources entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+COPY --from=resources downloader.py /downloader.py
+
 SHELL ["/bin/bash", "--login", "-c"]
-CMD [ "/entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]

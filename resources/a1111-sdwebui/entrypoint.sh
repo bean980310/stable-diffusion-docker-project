@@ -83,7 +83,5 @@ setup_ssh
 start_jupyter
 export_env_vars
 
-cd /app/stable-diffusion-webui
-bash webui.sh -f &
-
-sleep infinity
+python downloader.py
+bash /app/stable-diffusion-webui/webui.sh -f &
