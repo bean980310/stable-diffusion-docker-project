@@ -82,6 +82,8 @@ rsync --remove-source-files -rlptDu --ignore-existing /ComfyUI/ /app/ComfyUI/
 cd /app/ComfyUI
 nohup python main.py --listen --port 8188 &
 
+cd /
+
 setup_ssh
 start_jupyter
 export_env_vars
