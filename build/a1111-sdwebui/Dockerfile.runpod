@@ -47,5 +47,5 @@ RUN ln -s /etc/nginx/sites-available/a1111-sdwebui.runpod /etc/nginx/sites-enabl
 COPY --from=resources entrypoint.sh /entrypoint.sh
 
 SHELL ["/bin/bash", "--login", "-c"]
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "/runpod_entrypoint.sh" ]
 CMD [ "bash", "webui.sh", "-f" ]
