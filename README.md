@@ -70,7 +70,9 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 Now you can use container template made by me!
 ### [KohyaSS](https://github.com/bmaltais/kohya_ss)
 ### [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
-Now you can use container template made by me!(I've tested it several times and it works fine.)
+Now you can use container template made by me!
+[Template link](https://www.runpod.io/console/explore/didditd7mr)
+(I've tested it several times and it works fine.)
 ### [InvokeAI](https://github.com/invoke-ai/InvokeAI)
 ### [Fooocus](https://github.com/lllyasviel/Fooocus)
 ### ~~[Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge)~~
