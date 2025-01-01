@@ -83,5 +83,7 @@ setup_ssh
 start_jupyter
 export_env_vars
 
+echo "Now downloading stable diffusion models, please wait..."
 python downloader.py
+echo "Models download complate."
 bash /app/stable-diffusion-webui/webui.sh -f &

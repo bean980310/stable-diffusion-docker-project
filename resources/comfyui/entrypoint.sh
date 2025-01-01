@@ -83,6 +83,8 @@ setup_ssh
 start_jupyter
 export_env_vars
 
+echo "Now downloading stable diffusion models, please wait..."
 python downloader.py
+echo "Models download complate."
 cd /app/ComfyUI
 python main.py --listen --port 8188 &
