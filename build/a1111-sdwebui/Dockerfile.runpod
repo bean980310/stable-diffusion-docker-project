@@ -37,9 +37,13 @@ RUN pip install -r requirements.txt
 
 RUN pip cache purge
 
-WORKDIR /app/stable-diffusion-webui
 COPY --from=workspace webui-user.sh /app/stable-diffusion-webui/webui-user.sh
 COPY --from=workspace config.json /app/stable-diffusion-webui/config.json
+
+RUN mv /app/stable-diffusion-webui /stable-diffusion-webui
+
+COPY --from=resources relauncher.py /stable-diffusion-webui/relauncher.py
+COPY --from=resources cache-sd-model.py /stable-diffusion-webui/cache-sd-model.py
 
 COPY --from=resources a1111-sdwebui.conf /etc/nginx/sites-available/a1111-sdwebui.conf
 RUN ln -s /etc/nginx/sites-available/a1111-sdwebui.conf /etc/nginx/sites-enabled/a1111-sdwebui.conf

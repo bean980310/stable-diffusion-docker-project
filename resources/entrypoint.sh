@@ -75,11 +75,13 @@ start_jupyter() {
 
 start_nginx
 
+rsync --remove-source-files -rlptDu --ignore-existing /stable-diffusion-webui/ /app/stable-diffusion-webui/
+
 setup_ssh
 start_jupyter
 export_env_vars
 
 cd /app/stable-diffusion-webui
-bash webui.sh -f
+bash webui.sh -f &
 
 sleep infinity
