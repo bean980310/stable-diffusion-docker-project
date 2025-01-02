@@ -45,19 +45,6 @@ RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 RUN echo "ko_KR.UTF-8 UTF-8" > /etc/locale.gen
 
-# Install Torch and xformers
-ARG INDEX_URL
-ARG TORCH_VERSION
-ARG REQUIRED_CUDA_VERSION
-ARG XFORMERS_VERSION
-
-RUN conda install -y pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${REQUIRED_CUDA_VERSION} -c pytorch -c nvidia
-RUN conda install -y jupyter jupyterlab jupyterlab_widgets ipykernel ipywidgets -c conda-forge
-RUN conda install -y huggingface_hub transformers safetensors tokenizers datasets -c huggingface
-RUN conda install -y diffusers accelerate sentence-transformers -c conda-forge 
-RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION}
-RUN pip install tensorflow tensorboard tensorboardx
-
 RUN wget https://dot.net/v1/dotnet-install.sh
 RUN chmod +x dotnet-install.sh
 RUN ./dotnet-install.sh --channel 8.0 --runtime aspnetcore
