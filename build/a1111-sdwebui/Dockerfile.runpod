@@ -1,18 +1,26 @@
-FROM bean980310/stable-diffusion-webui:1.10.1 AS base
+FROM bean980310/stable-diffusion-webui:1.10.1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+WORKDIR /
 
 RUN apt-get update && apt-get install -y openssh-server nginx rsync && apt-get clean
 
 RUN conda install -y jupyter jupyterlab jupyterlab_widgets ipykernel ipywidgets -c conda-forge && \
     conda install -y huggingface_hub -c huggingface && \
-    conda clean -all && \
     pip install civitai-model-downloader && pip cache purge
 
-WORKDIR /
+WORKDIR /app/stable-diffusion-webui
+
+RUN git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet && \
+    cd extensions/sd-webui-controlnet && \
+    pip install -r requirements.txt && \
+    pip cache purge
 
 COPY --from=workspace webui-user.sh /app/stable-diffusion-webui/webui-user.sh
 COPY --from=workspace config.json /app/stable-diffusion-webui/config.json
+
+WORKDIR /
 
 RUN mv /app/stable-diffusion-webui /stable-diffusion-webui
 
