@@ -1,5 +1,10 @@
-FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04 AS base
+FROM bean980310/conda:cu124 AS base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ARG TORCH_VERSION=2.5.1
+ARG CUDA_VERSION=12.4
+ARG INDEX_URL="https://download.pytorch.org/whl/cu124"
+ARG XFORMERS_VERSION="0.0.28.post3"
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Seoul \
@@ -31,24 +36,16 @@ RUN apt-get update && \
     rm -rf /var/lib/lists/* && \
     echo "ko_KR.UTF-8 UTF-8" > /etc/locale.gen
 
-ADD https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh /tmp/miniconda.sh
-
-ENV CONDA_DIR /opt/miniconda3
-
-RUN /bin/bash /tmp/miniconda.sh -b -p ${CONDA_DIR}
-ENV PATH /root/.local/bin:$CONDA_DIR/bin:$PATH
-
-RUN conda init && echo "conda activate base" >> ~/.bashrc && \
-    conda init bash && . ~/.bashrc
-
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && apt-get clean && \
-    npm install -g npm@latest
-
-ADD https://dot.net/v1/dotnet-install.sh /dotnet-install.sh
-RUN chmod +x dotnet-install.sh && \
-    /dotnet-install.sh --channel 8.0 --runtime aspnetcore && \
-    /dotnet-install.sh --channel 8.0
+RUN conda install -y pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia && \
+    conda install -y jupyter jupyterlab jupyterlab_widgets ipykernel ipywidgets -c conda-forge && \
+    conda install -y huggingface_hub transformers safetensors tokenizers datasets -c huggingface && \
+    conda install -y diffusers accelerate -c conda-forge && \
+    conda clean -all
+    
+RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL} && \
+    pip install tensorflow tensorboard tensorboardx && \
+    pip install peft gradio && \
+    pip cache purge
 
 # Start the container
 CMD ["bin/bash"]

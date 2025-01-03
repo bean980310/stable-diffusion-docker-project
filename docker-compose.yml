@@ -9,14 +9,32 @@ x-base_service: &base_service
   restart: unless-stopped
 
 services:
+  conda:
+    <<: *base_service
+    image: bean980310/conda:cu124
+    build:
+      context: ./build/base
+      dockerfile: Dockerfile.conda
+  nodejs:
+    <<: *base_service
+    image: bean980310/node:20
+    build:
+      context: ./build/base
+      dockerfile: Dockerfile.nodejs
+  dotnet:
+    <<: *base_service
+    image: bean980310/dotnet:8.0
+    build:
+      context: ./build/base
+      dockerfile: Dockerfile.dotnet
   base:
     <<: *base_service
-    image: &BASE_IMAGE bean980310/ubuntu-docker-conda:cu124
+    image: bean980310/base:test
     build:
       context: ./build/base
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
+        BASE_IMAGE: &BASE_IMAGE bean980310/conda:cu124
         TORCH_VERSION: &TORCH_VERSION 2.5.1
         REQUIRED_CUDA_VERSION: &CUDA_VERSION 12.4
         INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
@@ -73,8 +91,6 @@ services:
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
-    environment:
-      - HF_HOME=/app/stable-diffusion-webui/.cache/huggingface
   kohya_ss:
     <<: *base_service
     image: bean980310/kohya-ss:latest
@@ -102,8 +118,6 @@ services:
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
-    environment:
-      - HF_HOME=/app/kohya_ss/.cache/huggingface
   comfyui:
     <<: *base_service
     image: bean980310/comfyui:latest
@@ -147,8 +161,6 @@ services:
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
-    environment:
-      - HF_HOME=/app/ComfyUI/.cache/huggingface
   invokeai:
     <<: *base_service
     image: bean980310/invokeai:latest
@@ -172,8 +184,6 @@ services:
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: https://download.pytorch.org/whl/cu124
         XFORMERS_VERSION: 0.0.28.post1
-    environment:
-      - HF_HOME=/app/InvokeAI/.cache/huggingface
   open-webui:
     <<: *base_service
     image: bean980310/open-webui:latest
@@ -196,7 +206,6 @@ services:
     environment:
       - OLLAMA_BASE_URL=http://ollama:11434
       - WEBUI_SECRET_KEY=
-      - HF_HOME=/app/open-webui/backend/data/cache/embedding/models
     extra_hosts:
       - host.docker.internal:host-gateway
     depends_on:
@@ -240,8 +249,7 @@ services:
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
-    environment:
-      - HF_HOME=/app/Fooocus/.cache/huggingface
+    # environment:
     #   - PRESET=anime
     #   - PRESET=realistic
   # stable-diffusion-webui-forge:
@@ -289,8 +297,6 @@ services:
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
   #       XFORMERS_VERSION: *XFORMERS_VERSION
-  #   environment:
-  #     - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
   # stable-diffusion-webui-reforge:
   #   <<: *base_service
   #   image: bean980310/stable-diffusion-webui-reforge:latest
@@ -335,8 +341,6 @@ services:
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
   #       XFORMERS_VERSION: *XFORMERS_VERSION
-  #   environment:
-  #     - HF_HOME=/app/stable-diffusion-webui-forge/.cache/huggingface
   sdnext:
     <<: *base_service
     image: bean980310/sdnext:latest
@@ -363,8 +367,6 @@ services:
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
-    environment:
-      - HF_HOME=/app/automatic/.cache/huggingface
   # easy-diffusion:
   #   <<: *base_service
   #   image: bean980310/easy-diffusion:latest
@@ -389,8 +391,6 @@ services:
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
   #       XFORMERS_VERSION: *XFORMERS_VERSION
-  #   environment:
-  #     - HF_HOME=/app/easy-diffusion/.cache/huggingface
   swarmui:
     <<: *base_service
     image: bean980310/swarmui:latest
@@ -416,7 +416,6 @@ services:
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
-      - HF_HOME=/app/SwarmUI/.cache/huggingface
       - SWARM_NO_VENV='true'
   facefusion:
     <<: *base_service
@@ -439,7 +438,6 @@ services:
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
-      - HF_HOME=/app/facefusion/.cache/huggingface
       - GRADIO_SERVER_NAME=0.0.0.0
       - GRADIO_SERVER_PORT=7860
   # omost:
@@ -461,8 +459,6 @@ services:
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
   #       XFORMERS_VERSION: *XFORMERS_VERSION
-  #   environment:
-  #     - HF_HOME=/app/Omost/.cache/huggingface
   # stable-audio-tools:
   #   <<: *base_service
   #   image: bean980310/stable-audio-tools:latest
@@ -484,7 +480,6 @@ services:
   #       INDEX_URL: *INDEX_URL
   #       XFORMERS_VERSION: *XFORMERS_VERSION
   #   environment:
-  #     - HF_HOME=/app/stable-audio-models/.cache/huggingface
   #     - GRADIO_SERVER_NAME=0.0.0.0
   #     - GRADIO_SERVER_PORT=7860
   audiocraft_plus:
@@ -506,8 +501,6 @@ services:
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
-    environment:
-      - HF_HOME=/app/audiocraft_plus/.cache/huggingface
 
 volumes:
   ollama:

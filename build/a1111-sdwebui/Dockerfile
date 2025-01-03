@@ -1,15 +1,14 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE} AS base
+FROM bean980310/conda:cu124 AS base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /app
 
-ARG WEBUI_VERSION
-ARG TORCH_VERSION
-ARG CUDA_VERSION
-ARG INDEX_URL
-ARG XFORMERS_VERSION
+ARG WEBUI_VERSION=1.10.1
+ARG TORCH_VERSION=2.5.1
+ARG CUDA_VERSION=12.4
+ARG INDEX_URL="https://download.pytorch.org/whl/cu124"
+ARG XFORMERS_VERSION="0.0.28.post3"
 
 RUN conda create -y --name a1111-sdwebui python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
 ENV PATH=/opt/miniconda3/envs/a1111-sdwebui/bin:$PATH
