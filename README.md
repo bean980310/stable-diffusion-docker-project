@@ -25,16 +25,12 @@ docker compose -f docker-compose.pull.yml up -d <service_name>
 | stable-diffusion-webui        | 3010:7860              | 
 | kohya_ss                      | 3020:7860              |
 | comfyui                       | 3030:8188              |
+| open-webui                    | 3000:8080              |
 | invokeai                      | 9090:9090              |
 | fooocus                       | 3040:7860              |
-| ~~stable-diffusion-webui-forge~~  | ~~3050:7860~~ Temporary suspend             |
-| ~~stable-diffusion-webui-reforge~~| coming soon            |
 | sdnext                        | 3060:7860              |
-| open-webui                    | 3000:8080              |
-| ~~easy-diffusion~~                | ~~9000:9000~~ Temporary suspend             |
 | swarmui                       | 7801:7801              |
 | facefusion                    | 3070:7860              |
-| ~~omost~~                         | ~~3080:8080~~ Temporary suspend             |
 | ~~stable-audio-tools~~            | ~~3090:7860~~ Temporary suspend             |
 | audiocraft_plus               | 7877:7877              |
 | ~~svd-webui(under construction)~~ | coming soon            |
@@ -75,18 +71,10 @@ Now you can use container template made by me!
 (I've tested it several times and it works fine.)
 ### [InvokeAI](https://github.com/invoke-ai/InvokeAI)
 ### [Fooocus](https://github.com/lllyasviel/Fooocus)
-### ~~[Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge)~~
-Temporary suspend
-### ~~[Reforge](https://github.com/Panchovix/stable-diffusion-webui-reForge)~~
-Coming soon
 ### [SD.Next](https://github.com/vladmandic/automatic)
 ### [Open-WebUI](https://github.com/open-webui/open-webui)
-### ~~[EasyDiffusion](https://github.com/easydiffusion/easydiffusion)~~
-Temporary suspend
 ### [SwarmUI](https://github.com/mcmonkeyprojects/SwarmUI)
 ### [FaceFusion](https://github.com/facefusion/facefusion)
-### ~~[Omost](https://github.com/lllyasviel/Omost)~~
-Temporary suspend
 ### ~~[stable-audio-tools](https://github.com/Stability-AI/stable-audio-tools)~~
 Temporary suspend
 ### ~~svd-webui(My Original)~~
