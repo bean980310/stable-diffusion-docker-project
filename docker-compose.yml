@@ -35,7 +35,7 @@ services:
       dockerfile: Dockerfile
       args:
         TORCH_VERSION: &TORCH_VERSION 2.5.1
-        REQUIRED_CUDA_VERSION: &CUDA_VERSION 12.4
+        TORCH_CUDA_VERSION: &TORCH_CUDA_VERSION 12.4
         INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
         XFORMERS_VERSION: &XFORMERS_VERSION 0.0.28.post3
   ollama:
@@ -86,7 +86,7 @@ services:
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.10.1
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
   stable-diffusion-webui-runpod:
@@ -118,7 +118,7 @@ services:
       args:
         KOHYA_VERSION: v24.1.7
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
   comfyui:
@@ -160,7 +160,7 @@ services:
         COMFYUI_VERSION: &COMFYUI_VERSION v0.3.10
         WEBUI_VERSION: *WEBUI_VERSION
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
   invokeai:
@@ -182,7 +182,7 @@ services:
       args:
         INVOKEAI_VERSION: v5.5.0
         TORCH_VERSION: 2.4.1
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: https://download.pytorch.org/whl/cu124
         XFORMERS_VERSION: 0.0.28.post1
   open-webui:
@@ -200,7 +200,7 @@ services:
         OLLAMA_BASE_URL: '/ollama'
         OPEN_WEBUI_VERSION: v0.5.2
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
@@ -245,99 +245,9 @@ services:
       args:
         FOOOCUS_VERSION: v2.5.5
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
-    # environment:
-    #   - PRESET=anime
-    #   - PRESET=realistic
-  # stable-diffusion-webui-forge:
-  #   <<: *base_service
-  #   image: bean980310/stable-diffusion-webui-forge:latest
-  #   container_name: stable-diffusion-webui-forge
-  #   volumes:
-  #     - stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge
-  #     - ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui-forge/models/Stable-diffusion
-  #     - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui-forge/models/clip-interrogator
-  #     - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui-forge/configs
-  #     - ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui-forge/models/ControlNet
-  #     - ./stable-diffusion-models/models/deepbooru:/app/stable-diffusion-webui-forge/models/deepbooru
-  #     - ./stable-diffusion-models/models/embeddings:/app/stable-diffusion-webui-forge/embeddings
-  #     - ./stable-diffusion-models/models/facerestore_models/Codeformer:/app/stable-diffusion-webui-forge/models/Codeformer
-  #     - ./stable-diffusion-models/models/facerestore_models/GFPGAN:/app/stable-diffusion-webui-forge/models/GFPGAN
-  #     - ./stable-diffusion-models/models/hypernetworks:/app/stable-diffusion-webui-forge/models/hypernetworks
-  #     - ./stable-diffusion-models/models/karlo:/app/stable-diffusion-webui-forge/models/karlo
-  #     - ./stable-diffusion-models/models/loras:/app/stable-diffusion-webui-forge/models/Lora
-  #     - ./stable-diffusion-models/models/sams:/app/stable-diffusion-webui-forge/models/sam
-  #     - ./stable-diffusion-models/models/ultralytics:/app/stable-diffusion-webui-forge/models/adetailer
-  #     - ./stable-diffusion-models/models/upscale_models/ESRGAN:/app/stable-diffusion-webui-forge/models/ESRGAN
-  #     - ./stable-diffusion-models/models/upscale_models/RealESRGAN:/app/stable-diffusion-webui-forge/models/RealESRGAN
-  #     - ./stable-diffusion-models/models/upscale_models/SwinIR:/app/stable-diffusion-webui-forge/models/SwinIR
-  #     - ./stable-diffusion-models/models/upscale_models/LDSR:/app/stable-diffusion-webui-forge/models/LDSR
-  #     - ./stable-diffusion-models/models/vae:/app/stable-diffusion-webui-forge/models/VAE
-  #     - ./stable-diffusion-models/models/vae_approx:/app/stable-diffusion-webui-forge/models/VAE-approx
-  #     - ./stable-video-diffusion-models/models:/app/stable-diffusion-webui-forge/models/svd
-  #     - ./stable-zero123-models/models/:/app/stable-diffusion-webui-forge/models/z123
-  #     - ./workspace/stable-diffusion-webui-forge/.cache/huggingface:/app/stable-diffusion-webui-forge/.cache/huggingface
-  #     - ./workspace/stable-diffusion-webui-forge/extensions:/app/stable-diffusion-webui-forge/extensions
-  #     - ./workspace/stable-diffusion-webui-forge/webui-user.sh:/app/stable-diffusion-webui-forge/webui-user.sh
-  #     - ./workspace/stable-diffusion-webui-forge/config.json:/app/stable-diffusion-webui-forge/config.json
-  #     - ./workspace/stable-diffusion-webui-forge/ui-config.json:/app/stable-diffusion-webui-forge/ui-config.json
-  #     - ./outputs/stable-diffusion-webui-forge:/app/stable-diffusion-webui-forge/outputs
-  #   ports:
-  #     - "3050:7860"
-  #   build:
-  #     context: ./build/sdwebui-forge
-  #     dockerfile: Dockerfile
-  #     args:
-  #       FORGE_VERSION: main
-  #       TORCH_VERSION: *TORCH_VERSION
-  #       CUDA_VERSION: *CUDA_VERSION
-  #       INDEX_URL: *INDEX_URL
-  #       XFORMERS_VERSION: *XFORMERS_VERSION
-  # stable-diffusion-webui-reforge:
-  #   <<: *base_service
-  #   image: bean980310/stable-diffusion-webui-reforge:latest
-  #   container_name: stable-diffusion-webui-reforge
-  #   volumes:
-  #     - ./stable-diffusion-models/models/checkpoints:/app/stable-diffusion-webui-reorge/models/Stable-diffusion
-  #     - ./stable-diffusion-models/models/clip_vision:/app/stable-diffusion-webui-reforge/models/clip-interrogator
-  #     - ./stable-diffusion-models/models/configs:/app/stable-diffusion-webui-reforge/configs
-  #     - ./stable-diffusion-models/models/controlnet:/app/stable-diffusion-webui-reforge/models/ControlNet
-  #     - ./stable-diffusion-models/models/deepbooru:/app/stable-diffusion-webui-reforge/models/deepbooru
-  #     - ./stable-diffusion-models/models/embeddings:/app/stable-diffusion-webui-reforge/embeddings
-  #     - ./stable-diffusion-models/models/facerestore_models/Codeformer:/app/stable-diffusion-webui-reforge/models/Codeformer
-  #     - ./stable-diffusion-models/models/facerestore_models/GFPGAN:/app/stable-diffusion-webui-reforge/models/GFPGAN
-  #     - ./stable-diffusion-models/models/hypernetworks:/app/stable-diffusion-webui-reforge/models/hypernetworks
-  #     - ./stable-diffusion-models/models/karlo:/app/stable-diffusion-webui-reforge/models/karlo
-  #     - ./stable-diffusion-models/models/loras:/app/stable-diffusion-webui-reforge/models/Lora
-  #     - ./stable-diffusion-models/models/sams:/app/stable-diffusion-webui-reforge/models/sam
-  #     - ./stable-diffusion-models/models/ultralytics:/app/stable-diffusion-webui-reforge/models/adetailer
-  #     - ./stable-diffusion-models/models/upscale_models/ESRGAN:/app/stable-diffusion-webui-reforge/models/ESRGAN
-  #     - ./stable-diffusion-models/models/upscale_models/RealESRGAN:/app/stable-diffusion-webui-reforge/models/RealESRGAN
-  #     - ./stable-diffusion-models/models/upscale_models/SwinIR:/app/stable-diffusion-webui-reforge/models/SwinIR
-  #     - ./stable-diffusion-models/models/upscale_models/LDSR:/app/stable-diffusion-webui-reforge/models/LDSR
-  #     - ./stable-diffusion-models/models/vae:/app/stable-diffusion-webui-reforge/models/VAE
-  #     - ./stable-diffusion-models/models/vae_approx:/app/stable-diffusion-webui-reforge/models/VAE-approx
-  #     - ./stable-video-diffusion-models/models:/app/stable-diffusion-webui-reforge/models/svd
-  #     - ./stable-zero123-models/models/:/app/stable-diffusion-webui-reforge/models/z123
-  #     - ./workspace/stable-diffusion-webui-reforge/.cache/huggingface:/app/stable-diffusion-webui-forge/.cache/huggingface
-  #     - ./workspace/stable-diffusion-webui-reforge/extensions:/app/stable-diffusion-webui-reforge/extensions
-  #     - ./workspace/stable-diffusion-webui-reforge/webui-user.sh:/app/stable-diffusion-webui-reforge/webui-user.sh
-  #     - ./workspace/stable-diffusion-webui-reforge/config.json:/app/stable-diffusion-webui-reforge/config.json
-  #     - ./workspace/stable-diffusion-webui-reforge/ui-config.json:/app/stable-diffusion-webui-reforge/ui-config.json
-  #     - ./outputs/stable-diffusion-webui-reforge:/app/stable-diffusion-webui-reforge/outputs
-  #   ports:
-  #     - "3051:7860"
-  #   build:
-  #     context: ./build/sdwebui-reforge
-  #     dockerfile: Dockerfile
-  #     args:
-  #       REFORGE_VERSION: main
-  #       TORCH_VERSION: *TORCH_VERSION
-  #       CUDA_VERSION: *CUDA_VERSION
-  #       INDEX_URL: *INDEX_URL
-  #       XFORMERS_VERSION: *XFORMERS_VERSION
   sdnext:
     <<: *base_service
     image: bean980310/sdnext:latest
@@ -360,32 +270,9 @@ services:
       args:
         SDNEXT_COMMIT: master
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
-  # easy-diffusion:
-  #   <<: *base_service
-  #   image: bean980310/easy-diffusion:latest
-  #   container_name: easy-diffusion
-  #   volumes:
-  #     - easy-diffusion:/app/easy-diffusion
-  #     - ./stable-diffusion-models/models:/app/easy-diffusion/models
-  #     - ./stable-diffusion-models/models/ckeckpoints:/app/easy-diffusion/models/stable-diffusion
-  #     - ./stable-diffusion-models/models/loras:/app/easy-diffusion/models/lora
-  #     - ./workspace/easy-diffusion/.cache/huggingface:/app/easy-diffusion/.cache/huggingface
-  #     - ./workspace/easy-diffusion/config.yaml:/app/easy-diffusion/scripts/config.yaml
-  #     - ./outputs/easy-diffusion:/app/easy-diffusion/outputs
-  #   ports:
-  #     - "9000:9000"
-  #   build:
-  #     context: ./build/easy-diffusion
-  #     dockerfile: Dockerfile
-  #     args:
-  #       EASYDIFF_VERSION: v3.0.9
-  #       TORCH_VERSION: *TORCH_VERSION
-  #       CUDA_VERSION: *CUDA_VERSION
-  #       INDEX_URL: *INDEX_URL
-  #       XFORMERS_VERSION: *XFORMERS_VERSION
   swarmui:
     <<: *base_service
     image: bean980310/swarmui:latest
@@ -406,7 +293,7 @@ services:
         SWARMUI_VERSION: 0.9.4-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
@@ -427,30 +314,12 @@ services:
       args:
         FACEFUSION_VERSION: 3.1.0
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
     environment:
       - GRADIO_SERVER_NAME=0.0.0.0
       - GRADIO_SERVER_PORT=7860
-  # omost:
-  #   <<: *base_service
-  #   image: bean980310/omost:latest
-  #   container_name: omost
-  #   volumes:
-  #     - omost:/app/Omost
-  #     - ./workspace/Omost/.cache/huggingface/hub:/app/Omost/.cache/huggingface
-  #   ports:
-  #     - "3080:8080"
-  #   build:
-  #     context: ./build/omost
-  #     dockerfile: Dockerfile
-  #     args:
-  #       OMOST_COMMIT: main
-  #       TORCH_VERSION: *TORCH_VERSION
-  #       CUDA_VERSION: *CUDA_VERSION
-  #       INDEX_URL: *INDEX_URL
-  #       XFORMERS_VERSION: *XFORMERS_VERSION
   # stable-audio-tools:
   #   <<: *base_service
   #   image: bean980310/stable-audio-tools:latest
@@ -467,7 +336,7 @@ services:
   #     args:
   #       STABLE_AUDIO_TOOLS_COMMIT: main
   #       TORCH_VERSION: *TORCH_VERSION
-  #       CUDA_VERSION: *CUDA_VERSION
+  #       TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
   #       XFORMERS_VERSION: *XFORMERS_VERSION
   #   environment:
@@ -488,7 +357,7 @@ services:
       dockerfile: Dockerfile
       args:
         TORCH_VERSION: *TORCH_VERSION
-        CUDA_VERSION: *CUDA_VERSION
+        TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
 
@@ -500,14 +369,10 @@ volumes:
   kohya_ss:
   invokeai:
   fooocus-data:
-  stable-diffusion-webui-forge:
-  stable-diffusion-webui-reforge:
   sdnext:
-  easy-diffusion:
   swarmui:
   swarmdata:
   swarmbackend:
   facefusion:
-  omost:
   stable-audio-tools:
   audiocraft_plus:

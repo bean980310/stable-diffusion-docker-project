@@ -1,10 +1,10 @@
 FROM bean980310/conda:cu124 AS base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-ARG TORCH_VERSION=2.5.1
-ARG CUDA_VERSION=12.4
-ARG INDEX_URL="https://download.pytorch.org/whl/cu124"
-ARG XFORMERS_VERSION="0.0.28.post3"
+ARG TORCH_VERSION
+ARG TORCH_CUDA_VERSION
+ARG INDEX_URL
+ARG XFORMERS_VERSION
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Seoul \
