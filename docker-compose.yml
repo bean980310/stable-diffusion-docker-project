@@ -34,7 +34,6 @@ services:
       context: ./build/base
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: &BASE_IMAGE bean980310/conda:cu124
         TORCH_VERSION: &TORCH_VERSION 2.5.1
         REQUIRED_CUDA_VERSION: &CUDA_VERSION 12.4
         INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
@@ -86,7 +85,6 @@ services:
       dockerfile: Dockerfile
       args:
         WEBUI_VERSION: &WEBUI_VERSION v1.10.1
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
@@ -113,7 +111,6 @@ services:
       dockerfile: Dockerfile
       args:
         KOHYA_VERSION: v24.1.7
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
@@ -156,7 +153,6 @@ services:
       args:
         COMFYUI_VERSION: &COMFYUI_VERSION v0.3.10
         WEBUI_VERSION: *WEBUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
@@ -179,7 +175,6 @@ services:
       dockerfile: Dockerfile
       args:
         INVOKEAI_VERSION: v5.5.0
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: 2.4.1
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: https://download.pytorch.org/whl/cu124
@@ -198,7 +193,6 @@ services:
       args:
         OLLAMA_BASE_URL: '/ollama'
         OPEN_WEBUI_VERSION: v0.5.2
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
@@ -244,7 +238,6 @@ services:
       dockerfile: Dockerfile
       args:
         FOOOCUS_VERSION: v2.5.5
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
@@ -292,7 +285,6 @@ services:
   #     dockerfile: Dockerfile
   #     args:
   #       FORGE_VERSION: main
-  #       BASE_IMAGE: *BASE_IMAGE
   #       TORCH_VERSION: *TORCH_VERSION
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
@@ -336,7 +328,6 @@ services:
   #     dockerfile: Dockerfile
   #     args:
   #       REFORGE_VERSION: main
-  #       BASE_IMAGE: *BASE_IMAGE
   #       TORCH_VERSION: *TORCH_VERSION
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
@@ -362,7 +353,6 @@ services:
       dockerfile: Dockerfile
       args:
         SDNEXT_COMMIT: master
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
@@ -386,7 +376,6 @@ services:
   #     dockerfile: Dockerfile
   #     args:
   #       EASYDIFF_VERSION: v3.0.9
-  #       BASE_IMAGE: *BASE_IMAGE
   #       TORCH_VERSION: *TORCH_VERSION
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
@@ -410,7 +399,6 @@ services:
       args:
         SWARMUI_VERSION: 0.9.4-Beta
         COMFYUI_VERSION: *COMFYUI_VERSION
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
@@ -432,7 +420,6 @@ services:
       dockerfile: Dockerfile
       args:
         FACEFUSION_VERSION: 3.1.0
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
@@ -454,7 +441,6 @@ services:
   #     dockerfile: Dockerfile
   #     args:
   #       OMOST_COMMIT: main
-  #       BASE_IMAGE: *BASE_IMAGE
   #       TORCH_VERSION: *TORCH_VERSION
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
@@ -474,7 +460,6 @@ services:
   #     dockerfile: Dockerfile
   #     args:
   #       STABLE_AUDIO_TOOLS_COMMIT: main
-  #       BASE_IMAGE: *BASE_IMAGE
   #       TORCH_VERSION: *TORCH_VERSION
   #       CUDA_VERSION: *CUDA_VERSION
   #       INDEX_URL: *INDEX_URL
@@ -496,7 +481,6 @@ services:
       context: ./build/audiocraft_plus
       dockerfile: Dockerfile
       args:
-        BASE_IMAGE: *BASE_IMAGE
         TORCH_VERSION: *TORCH_VERSION
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
