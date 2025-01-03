@@ -46,7 +46,7 @@ services:
       - ollama:/root/.ollama
     pull_policy: if_not_present
     tty: true
-  stable-diffusion-webui:
+  stable-diffusion-webui: &stable-diffusion-webui
     <<: *base_service
     image: bean980310/stable-diffusion-webui:latest
     container_name: stable-diffusion-webui
@@ -89,6 +89,12 @@ services:
         CUDA_VERSION: *CUDA_VERSION
         INDEX_URL: *INDEX_URL
         XFORMERS_VERSION: *XFORMERS_VERSION
+  stable-diffusion-webui-runpod:
+    <<: *stable-diffusion-webui
+    image: bean980310/stable-diffusion-webui:runpod
+    build:
+      context: ./build/a1111-sdwebui
+      dockerfile: Dockerfile.runpod
   kohya_ss:
     <<: *base_service
     image: bean980310/kohya-ss:latest
