@@ -1,17 +1,10 @@
-FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04 AS base
+FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Seoul \
     PYTHONUNBUFFERED=1 \
     SHELL=/bin/bash
-
-ENV HF_HOME="/app/.cache/huggingface/"
-ENV HF_DATASETS_CACHE="/app/.cache/huggingface/datasets/"
-ENV DEFAULT_HF_METRICS_CACHE="/app/.cache/huggingface/metrics/"
-ENV DEFAULT_HF_MODULES_CACHE="/app/.cache/huggingface/modules/"
-ENV HUGGINGFACE_HUB_CACHE="/app/.cache/huggingface/hub/"
-ENV HUGGINGFACE_ASSETS_CACHE="/app/.cache/huggingface/assets/"
 
 RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
 
@@ -30,25 +23,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/lists/* && \
     echo "ko_KR.UTF-8 UTF-8" > /etc/locale.gen
-
-ADD https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh /tmp/miniconda.sh
-
-ENV CONDA_DIR /opt/miniconda3
-
-RUN /bin/bash /tmp/miniconda.sh -b -p ${CONDA_DIR}
-ENV PATH /root/.local/bin:$CONDA_DIR/bin:$PATH
-
-RUN conda init && echo "conda activate base" >> ~/.bashrc && \
-    conda init bash && . ~/.bashrc
-
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && apt-get clean && \
-    npm install -g npm@latest
-
-ADD https://dot.net/v1/dotnet-install.sh /dotnet-install.sh
-RUN chmod +x dotnet-install.sh && \
-    /dotnet-install.sh --channel 8.0 --runtime aspnetcore && \
-    /dotnet-install.sh --channel 8.0
 
 # Start the container
 CMD ["bin/bash"]

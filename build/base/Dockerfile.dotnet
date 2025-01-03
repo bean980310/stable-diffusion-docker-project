@@ -1,0 +1,12 @@
+FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+WORKDIR /
+
+ADD https://dot.net/v1/dotnet-install.sh /dotnet-install.sh
+RUN chmod +x dotnet-install.sh && \
+    /dotnet-install.sh --channel 8.0 --runtime aspnetcore && \
+    /dotnet-install.sh --channel 8.0
+
+# Start the container
+CMD ["bin/bash"]

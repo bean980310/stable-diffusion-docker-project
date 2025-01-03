@@ -1,0 +1,11 @@
+FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+WORKDIR /
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && apt-get clean && \
+    npm install -g npm@latest
+
+# Start the container
+CMD ["bin/bash"]
