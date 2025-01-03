@@ -52,8 +52,7 @@ COPY --from=resources cache-sd-model.py /stable-diffusion-webui/cache-sd-model.p
 COPY --from=resources a1111-sdwebui.conf /etc/nginx/sites-available/a1111-sdwebui.conf
 RUN ln -s /etc/nginx/sites-available/a1111-sdwebui.conf /etc/nginx/sites-enabled/a1111-sdwebui.conf
 
-COPY --from=resources entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY --chmod=777 --from=resources entrypoint.sh /entrypoint.sh
 
 COPY --from=resources downloader.py /downloader.py
 
