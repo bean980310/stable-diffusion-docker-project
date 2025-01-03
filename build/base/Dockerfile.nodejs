@@ -3,6 +3,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends bash curl && apt-get clean
+
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && apt-get clean && \
     npm install -g npm@latest
