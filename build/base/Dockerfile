@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends git git-lfs wget curl build-essential pandoc gcc g++ netcat-openbsd jq && \
     apt-get install -y --no-install-recommends python3-dev python3-launchpadlib python3-pip python3-tk && \
     apt-get install -y --no-install-recommends ffmpeg libsm6 libxext6 && \
-    apt-get install -y --no-install-recommends libgl1 libglib2.0-0 libxrender1 libnvrtc11.2 libgoogle-perftools4 libtcmalloc-minimal4 libcairo2 libgl1-mesa-glx && \
+    apt-get install -y --no-install-recommends libgl1 libglib2.0-0 libxrender1 libnvrtc11.2 libgoogle-perftools4 libtcmalloc-minimal4 libcairo2 libcairo2-dev libgl1-mesa-glx && \
     update-ca-certificates && \
     apt-get autoremove -y && \
     apt-get clean && \
