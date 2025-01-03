@@ -21,3 +21,9 @@ services:
     build:
       context: ./build/base
       dockerfile: Dockerfile.nodejs
+  dotnet:
+    <<: *base_service
+    image: bean980310/dotnet:8.0
+    build:
+      context: ./build/base
+      dockerfile: Dockerfile.dotnet
