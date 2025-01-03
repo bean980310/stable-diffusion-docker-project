@@ -1,10 +1,7 @@
-FROM bean980310/conda:cu124 AS base
+FROM bean980310/base:main AS base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends bash curl && apt-get clean
 
 ADD https://dot.net/v1/dotnet-install.sh /dotnet-install.sh
 RUN chmod +x dotnet-install.sh && \

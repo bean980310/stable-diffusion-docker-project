@@ -2,6 +2,13 @@ FROM bean980310/stable-diffusion-webui:1.10.1 AS base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+RUN apt-get update && apt-get install -y openssh-server nginx rsync && apt-get clean
+
+RUN conda install -y jupyter jupyterlab jupyterlab_widgets ipykernel ipywidgets -c conda-forge && \
+    conda install -y huggingface_hub -c huggingface && \
+    conda clean -all && \
+    pip install civitai-model-downloader && pip cache purge
+
 WORKDIR /
 
 COPY --from=workspace webui-user.sh /app/stable-diffusion-webui/webui-user.sh

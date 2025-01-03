@@ -1,5 +1,4 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE} AS base
+FROM bean980310/node:20 AS build
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -11,16 +10,7 @@ ARG GID=0
 
 WORKDIR /app
 
-ARG TORCH_VERSION
-ARG CUDA_VERSION
-ARG INDEX_URL
-ARG XFORMERS_VERSION
-
-RUN conda create -y --name open-webui python=3.11 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
-ENV PATH /opt/miniconda3/envs/open-webui/bin:$PATH
-
-RUN echo "conda activate open-webui" >> ~/.bashrc
-RUN conda init bash && . ~/.bashrc
+RUN apt-get update && apt-get install -y --no-install-recommends git && apt-get clean
 
 ARG OPEN_WEBUI_VERSION
 
@@ -32,6 +22,13 @@ RUN git checkout tags/${OPEN_WEBUI_VERSION} && \
     cp -RPp .env.example .env && \
     npm install && \
     npm run build
+
+FROM bean980310/base:main AS base
+
+ARG TORCH_VERSION
+ARG TORCH_CUDA_VERSION
+ARG INDEX_URL
+ARG XFORMERS_VERSION
 
 # Use args
 ARG USE_EMBEDDING_MODEL
@@ -73,18 +70,26 @@ ENV TIKTOKEN_ENCODING_NAME="cl100k_base" \
 ## Hugging Face download cache ##
 ENV HF_HOME="/app/open-webui/backend/data/cache/embedding/models"
 
+WORKDIR /app
+
+RUN conda create -y --name open-webui python=3.11 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${TORCH_CUDA_VERSION} -c pytorch -c nvidia
+ENV PATH /opt/miniconda3/envs/open-webui/bin:$PATH
+
+RUN echo "conda activate open-webui" >> ~/.bashrc && \
+    conda init bash && . ~/.bashrc
+
+COPY --from=build /app/open-webui /app/open-webui
+
 WORKDIR /app/open-webui/backend
 
-RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL}
-RUN pip install tensorflow tensorboard tensorboardx
-
-RUN curl -fsSL https://ollama.com/install.sh | sh && \
+RUN pip install --no-cache-dir xformers==${XFORMERS_VERSION} --index-url ${INDEX_URL} && \
+    pip install tensorflow && pip install tf_keras && \
+    curl -fsSL https://ollama.com/install.sh | sh && \
     pip install -r requirements.txt -U && \
-    pip install tf_keras && \
     python -c "import os; from sentence_transformers import SentenceTransformer; SentenceTransformer(os.environ['RAG_EMBEDDING_MODEL'], device='cpu')" && \
-    python -c "import os; from faster_whisper import WhisperModel; WhisperModel(os.environ['WHISPER_MODEL'], device='cpu', compute_type='int8', download_root=os.environ['WHISPER_MODEL_DIR'])"
-
-RUN pip cache purge
+    python -c "import os; from faster_whisper import WhisperModel; WhisperModel(os.environ['WHISPER_MODEL'], device='cpu', compute_type='int8', download_root=os.environ['WHISPER_MODEL_DIR'])" && \
+    python -c "import os; import tiktoken; tiktoken.get_encoding(os.environ['TIKTOKEN_ENCODING_NAME'])" && \
+    pip cache purge
 
 SHELL ["/bin/bash", "--login", "-c"]
 CMD [ "bash", "start.sh" ]

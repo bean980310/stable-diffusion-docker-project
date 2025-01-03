@@ -29,7 +29,7 @@ services:
       dockerfile: Dockerfile.dotnet
   base:
     <<: *base_service
-    image: bean980310/base:test
+    image: bean980310/base:main
     build:
       context: ./build/base
       dockerfile: Dockerfile

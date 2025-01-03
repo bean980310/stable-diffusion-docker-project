@@ -1,16 +1,15 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE} AS base
+FROM bean980310/base:main AS base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /app
 ARG STABLE_AUDIO_TOOLS_COMMIT
 ARG TORCH_VERSION
-ARG CUDA_VERSION
+ARG TORCH_CUDA_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
-RUN conda create -y --name stable-audio-tools python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${CUDA_VERSION} -c pytorch -c nvidia
+RUN conda create -y --name stable-audio-tools python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${TORCH_CUDA_VERSION} -c pytorch -c nvidia
 ENV PATH /opt/miniconda3/envs/stable-audio-tools/bin:$PATH
 
 RUN echo "conda activate stable-audio-tools" >> ~/.bashrc
