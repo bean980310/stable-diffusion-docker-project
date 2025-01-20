@@ -34,7 +34,7 @@ services:
       context: ./build/base
       dockerfile: Dockerfile
       args:
-        TORCH_VERSION: &TORCH_VERSION 2.5.1
+        TORCH_VERSION: &TORCH_VERSION 2.5.1+cu124
         TORCH_CUDA_VERSION: &TORCH_CUDA_VERSION 12.4
         INDEX_URL: &INDEX_URL https://download.pytorch.org/whl/cu124
         XFORMERS_VERSION: &XFORMERS_VERSION 0.0.28.post3
@@ -217,7 +217,7 @@ services:
       dockerfile: Dockerfile
       args:
         INVOKEAI_VERSION: v5.5.0
-        TORCH_VERSION: 2.4.1
+        TORCH_VERSION: 2.4.1+cu124
         TORCH_CUDA_VERSION: *TORCH_CUDA_VERSION
         INDEX_URL: https://download.pytorch.org/whl/cu124
         XFORMERS_VERSION: 0.0.28.post1

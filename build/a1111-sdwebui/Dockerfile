@@ -10,7 +10,7 @@ ARG TORCH_CUDA_VERSION
 ARG INDEX_URL
 ARG XFORMERS_VERSION
 
-RUN conda create -y --name a1111-sdwebui python=3.10 pytorch==${TORCH_VERSION} torchvision torchaudio pytorch-cuda=${TORCH_CUDA_VERSION} -c pytorch -c nvidia
+RUN conda create -y --name a1111-sdwebui python=3.10
 ENV PATH=/opt/miniconda3/envs/a1111-sdwebui/bin:$PATH
 
 RUN conda init bash && echo "conda activate a1111-sdwebui" >> ~/.bashrc && \
