@@ -10,6 +10,7 @@
 
 import os
 import shutil
+from IPython import get_ipython
 
 def makedirs(path):
     if not os.path.exists(path):
